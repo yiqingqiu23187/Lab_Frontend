@@ -34,7 +34,6 @@
 </template>
 
 <script>
-import {Message} from 'element-ui'
 export default {
   name: 'Login',
   data () {
@@ -52,20 +51,21 @@ export default {
   },
   methods: {
     login () {
-      this.axios.post('/api/login', {
+      this.$axios.post('/login', {
         username: this.loginForm.username,
         password: this.loginForm.password
       })
         .then(resp => {
-          if (resp.data.code === 200) {
+          if (resp.status === 200 && resp.data.hasOwnProperty("token")) {
             this.$store.commit('login', resp.data)
             this.$router.replace({path: '/'})
           } else{
-            Message({message: 'login error', type: 'error'})
+            alert('login error')
           }
         })
         .catch(error => {
           console.log(error)
+          alert('login error')
         })
     }
   }
