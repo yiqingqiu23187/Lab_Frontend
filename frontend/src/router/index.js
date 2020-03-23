@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import store from '../store'
+import meeting from '@/components/meeting'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export const router = new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/meeting',
+      name: 'meeting',
+      component: meeting
     }
   ]
 })
