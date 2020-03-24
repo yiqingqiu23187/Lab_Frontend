@@ -22,10 +22,12 @@
       <el-form-item style="width: 100%">
         <el-button type="primary"
                    style="width: 40%;background: #afb4db;border: none"
-                   v-on:click="login">login</el-button>
+                   v-on:click="login">login
+        </el-button>
         <router-link to="register">
           <el-button type="primary"
-                     style="width: 40%;background: #afb4db;border: none">register</el-button>
+                     style="width: 40%;background: #afb4db;border: none">register
+          </el-button>
         </router-link>
       </el-form-item>
     </el-form>
@@ -34,46 +36,49 @@
 </template>
 
 <script>
-export default {
-  name: 'Login',
-  data () {
-    return {
-      loginForm: {
-        username: '',
-        password: ''
-      },
-      rules: {
-        username: [{required: true, message: '', trigger: 'blur'}],
-        password: [{required: true, message: '', trigger: 'blur'}]
-      },
-      loading: false
-    }
-  },
-  methods: {
-    login () {
-      this.$axios.post('/login', {
-        username: this.loginForm.username,
-        password: this.loginForm.password
-      })
-        .then(resp => {
-          if (resp.status === 200 && resp.data.hasOwnProperty("token")) {
-            this.$store.commit('login', resp.data)
-            this.$router.replace({path: '/'})
-          } else{
+  export default {
+    name: 'Login',
+    data() {
+      return {
+        loginForm: {
+          username: '',
+          password: ''
+        },
+        rules: {
+          username: [{required: true, message: '', trigger: 'blur'}],
+          password: [{required: true, message: '', trigger: 'blur'}]
+        },
+        loading: false
+      }
+    },
+    methods: {
+      login() {
+        this.$axios.post('/login', {
+          username: this.loginForm.username,
+          password: this.loginForm.password
+        })
+          .then(resp => {
+            if (resp.status === 200 && resp.data.hasOwnProperty("token")) {
+              this.$store.commit('login', resp.data)
+              this.$router.replace({path: '/meeting'})
+              alert('login successfully')
+            } else {
+              alert('login error')
+            }
+          })
+          .catch(error => {
+            console.log(error)
             alert('login error')
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          alert('login error')
-        })
+          })
+      }
     }
   }
-}
 </script>
+<scripy>
 
+</scripy>
 <style scoped>
-  #base_login{
+  #base_login {
     background: url("../assets/background/checkerboard-cross.png") repeat;
     background-position: center;
     height: 100%;
@@ -81,11 +86,13 @@ export default {
     background-size: cover;
     position: fixed;
   }
-  body{
+
+  body {
     margin: 0px;
     padding: 0px;
   }
-  .login_container{
+
+  .login_container {
     border-radius: 15px;
     background-clip: padding-box;
     margin: 90px auto;
@@ -95,6 +102,7 @@ export default {
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
   }
+
   .login_title {
     margin: 0px auto 40px auto;
     text-align: center;

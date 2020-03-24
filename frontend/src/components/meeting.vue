@@ -13,7 +13,7 @@
       </el-form-item>
       <el-form-item prop="time"  >
         <el-input  id ="3" type="text" v-model="registerForm.time"
-                  auto-complete="off" placeholder="会议开设时间"></el-input>
+                   auto-complete="off" placeholder="会议开设时间"></el-input>
       </el-form-item>
       <el-form-item prop="place" >
         <el-input id ="4" type="text" v-model="registerForm.place"
@@ -58,7 +58,7 @@
           date2: '',
         },
         rules: {
-         abbr:[ {required: true, message: '请输入会议简称', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
+          abbr:[ {required: true, message: '请输入会议简称', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
           fullname:[{required: true, message: '请输入会议全称', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
           time: [{required: true, message: '请输入会议时间', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
           place: [{required: true, message: '请输入会议地点', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
@@ -72,17 +72,17 @@
       submitForm(){
         if(document.getElementById("1").value==''||document.getElementById("1").value==undefined||document.getElementById("1").value==null||
           document.getElementById("2").value==''||document.getElementById("2").value==undefined||document.getElementById("2").value==null||
-        document.getElementById("3").value==''||document.getElementById("3").value==undefined||document.getElementById("3").value==null||
-        document.getElementById("4").value==''||document.getElementById("4").value==undefined||document.getElementById("4").value==null||
-        document.getElementById("5").value==''||document.getElementById("5").value==undefined||document.getElementById("5").value==null||
-        document.getElementById("6").value==''||document.getElementById("6").value==undefined||document.getElementById("6").value==null
+          document.getElementById("3").value==''||document.getElementById("3").value==undefined||document.getElementById("3").value==null||
+          document.getElementById("4").value==''||document.getElementById("4").value==undefined||document.getElementById("4").value==null||
+          document.getElementById("5").value==''||document.getElementById("5").value==undefined||document.getElementById("5").value==null||
+          document.getElementById("6").value==''||document.getElementById("6").value==undefined||document.getElementById("6").value==null
 
-      )
+        )
           alert("请输入完整的信息")
         else{
           alert("会议申请成功！等待管理员审批中")
         }
-    }},
+      }},
 
   }
 
