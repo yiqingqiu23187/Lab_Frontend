@@ -5,34 +5,84 @@ import Login from '@/components/Login'
 import Register from '@/components/Register'
 import store from '../store'
 import meeting from '@/components/meeting'
+import Home from '@/components/Home'
+import Information from '@/components/Information'
+import News from '@/components/News'
+import Conference from '@/components/Conference'
 
 Vue.use(Router)
 
 export const router = new Router({
+  linkActiveClass:'is-active',
+  mode:'history',//改为history模式
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
-      meta: {
-        requireAuth: true // 需要登录权限
+      redirect:'/home',
+      meta:{
+        keepalive:true
       }
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta:{
+        keepalive:false
+      }
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: Register,
+      meta:{
+        keepalive:false
+      }
+    },
+    {
+      path: '/home',
+      name: 'Home',
+      component:Home,
+      meta:{
+        keepalive:true
+      }
     },
     {
       path: '/meeting',
       name: 'meeting',
-      component: meeting
-    }
+      component: meeting,
+      meta:{
+        requireAuth: true,
+        keepalive:true
+      }
+    },
+    {
+      path: '/conference',
+      name: 'Conference',
+      component: Conference,
+      meta:{
+        requireAuth: true,
+        keepalive:true
+      }
+    },
+    {
+      path: '/news',
+      name: 'News',
+      component: News,
+      meta:{
+        requireAuth: true,
+        keepalive:true
+      }
+    },
+    {
+      path: '/information',
+      name: 'Information',
+      component: Information,
+      meta:{
+        requireAuth: true,
+        keepalive:true
+      }
+    },
   ]
 })
 

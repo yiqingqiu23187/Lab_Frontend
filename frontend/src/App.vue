@@ -1,13 +1,26 @@
 <template>
   <div id="app">
+    <!-- 导航区域 -->
+    <!--<LuffyHeader v-if="$route.meta.keepalive"></LuffyHeader>-->
+
+    <LuffyHeader/>
+    <!--<router-view v-if="!$route.meta.keepalive"></router-view>-->
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'App'
-}
+  import LuffyHeader from '@/components/LuffyHeader'
+  import ElContainer from "element-ui/packages/container/src/main";
+  import ElHeader from "element-ui/packages/header/src/main";
+  export default {
+    name: 'App',
+    components:{
+      ElHeader,
+      ElContainer,
+      LuffyHeader
+    }
+  }
 </script>
 
 <style>

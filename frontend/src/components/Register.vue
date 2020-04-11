@@ -28,13 +28,13 @@
         <el-input type="text" v-model="registerForm.job"
                   auto-complete="off" placeholder="job" required></el-input>
       </el-form-item>
-      <el-form-item prop="usertype">
-        <el-radio-group v-model="registerForm.usertype" @change="userTypeChange">
-          <el-radio label="Admin" border>Admin</el-radio>
-          <el-radio label="Contributor" border>Contributor</el-radio>
-          <el-radio label="Reviewer" border>Reviewer</el-radio>
-        </el-radio-group>
-      </el-form-item>
+      <!--<el-form-item prop="usertype">-->
+        <!--<el-radio-group v-model="registerForm.usertype" @change="userTypeChange">-->
+          <!--<el-radio label="Admin" border>Admin</el-radio>-->
+          <!--<el-radio label="Contributor" border>Contributor</el-radio>-->
+          <!--<el-radio label="Reviewer" border>Reviewer</el-radio>-->
+        <!--</el-radio-group>-->
+      <!--</el-form-item>-->
       <el-form-item style="width: 100%">
         <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="register(registerForm)">register</el-button>
       </el-form-item>
@@ -104,7 +104,7 @@
           username: '',
           password: '',
           fullname: '',
-          usertype: '',
+          // usertype: '',
           area:'',
           job:''
         },
@@ -114,7 +114,7 @@
           password: [{required: true, message: '', trigger: 'blur'}, {validator: checkpassword, trigger: 'blur'}],
           email: [{required: true, message: '', trigger: 'blur'}, {validator: checkemail, trigger: 'blur'}],
           fullname: [{required: true, message: '', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
-          usertype: [{required: true, message: '', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
+          // usertype: [{required: true, message: '', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
           area: [{required: true, message: '', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
           job: [{required: true, message: '', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}]
         },
@@ -131,7 +131,10 @@
                 username: this.registerForm.username,
                 password: this.registerForm.password,
                 fullname: this.registerForm.fullname,
-                authorities: [this.registerForm.usertype]
+                // authorities: [this.registerForm.usertype],
+                email:this.registerForm.email,
+                area:this.registerForm.area,
+                job:this.registerForm.job
               }
             )
               .then(resp => {

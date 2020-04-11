@@ -58,17 +58,21 @@
           password: this.loginForm.password
         })
           .then(resp => {
+            console.log(resp);
+            console.log(resp.data)
             if (resp.status === 200 && resp.data.hasOwnProperty("token")) {
               this.$store.commit('login', resp.data)
-              this.$router.replace({path: '/meeting'})
+
+              this.$router.replace({path: '/home'})
               alert('login successfully')
             } else {
-              alert('login error')
+              alert('login error1')
             }
           })
           .catch(error => {
             console.log(error)
-            alert('login error')
+            console.log(error.message)
+            alert('login error2')
           })
       }
     }
