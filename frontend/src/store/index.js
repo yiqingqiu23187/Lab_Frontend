@@ -8,12 +8,11 @@ export default new Vuex.Store({
     userDetail: JSON.parse(localStorage.getItem('userDetail') )|| null,
     // conferenceDetails:localStorage.getItem('myConference') || null,
     authorConference:JSON.parse(localStorage.getItem('myauthorConference')),
-    pcConference:JSON.parse(localStorage.getItem('mypcConference')),
-    chairConference:JSON.parse(localStorage.getItem('mychairConference')),
+    PCConference:JSON.parse(localStorage.getItem('mypcConference')),
+    ChairConference:JSON.parse(localStorage.getItem('mychairConference')),
     // newsDetails:localStorage.getItem('myNews') || null
 
     myApplication:JSON.parse(localStorage.getItem('myApplication')),
-    myContribution:JSON.parse(localStorage.getItem('mycontribution')),
     receivedInvitation:JSON.parse(localStorage.getItem(' receivedInvitation'))
   },
 
@@ -32,19 +31,17 @@ export default new Vuex.Store({
     myConference(state,data){
       localStorage.setItem('myauthorConference',JSON.stringify(data.authorConference))
       localStorage.setItem('mypcConference',JSON.stringify(data.PCConference))
-      localStorage.setItem('mychairConference',JSON.stringify(data.chairConference))
-      state.conferenceDetails=data.authorConference
-      state.pcConference=data.PCConference
-      state.chairConference=data.chairConference
+      localStorage.setItem('mychairConference',JSON.stringify(data.ChairConference))
+      state.authorConference=data.authorConference
+      state.PCConference=data.PCConference
+      state.ChairConference=data.ChairConference
     },
 
     myNews(state,data){
-      localStorage.setItem('myApplication',JSON.stringify(data.myApplication))
-      state.myApplication=data.data.myApplication
-      localStorage.setItem('myContribution',JSON.stringify(data.myContribution))
-      state.myContribution=data.myContribution
-      localStorage.setItem('receivedInvitation',JSON.stringify(receivedInvitation))
-      state.receivedInvitation=data.receivedInvitation
+      localStorage.setItem('myApplication',JSON.stringify(data.application))
+      state.myApplication=data.application
+      localStorage.setItem('receivedInvitation',JSON.stringify(data.invitation))
+      state.receivedInvitation=data.invitation
     },
 
     logout(state) {

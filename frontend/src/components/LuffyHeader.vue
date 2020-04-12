@@ -51,7 +51,9 @@
           {id: '1',name:'Home',title:'首页'},
           {id: '2',name:'Information',title:'用户信息'},
           {id: '3',name:'Conference',title:'会议'},
-          {id: '4',name:'News',title:'我的消息'}
+          {id: '4',name:'News',title:'我的消息'},
+          {id: '5',name:'applyConference',title:'申请会议'},
+          {id: '6',name:'allConference',title:'所有会议'}
         ],
       isShow:false,
       }

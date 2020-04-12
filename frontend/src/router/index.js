@@ -9,6 +9,8 @@ import Home from '@/components/Home'
 import Information from '@/components/Information'
 import News from '@/components/News'
 import Conference from '@/components/Conference'
+import allConference from '@/components/allConference'
+import applyConference from '@/components/applyConference'
 
 Vue.use(Router)
 
@@ -51,6 +53,24 @@ export const router = new Router({
       path: '/meeting',
       name: 'meeting',
       component: meeting,
+      meta:{
+        requireAuth: true,
+        keepalive:true
+      }
+    },
+    {
+      path: '/allConference',
+      name: 'allConference',
+      component: allConference,
+      meta:{
+        requireAuth: true,
+        keepalive:true
+      }
+    },
+    {
+      path: '/applyConference',
+      name: 'applyConference',
+      component: applyConference,
       meta:{
         requireAuth: true,
         keepalive:true
