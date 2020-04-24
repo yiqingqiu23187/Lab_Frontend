@@ -1,5 +1,9 @@
 <template>
   <div id="base_register">
+    <el-carousel indicator-position="none" >
+      <el-carousel-item v-for="item in 6" :key="item" style="height:100%">
+      </el-carousel-item>
+    </el-carousel>
     <el-form :model="registerForm" :rules="rules" class="register_container" label-position="left"
              label-width="0px" v-loading="loading" :ref="registerForm">
       <h3 class="register_title">Register</h3>
@@ -28,23 +32,35 @@
         <el-input type="text" v-model="registerForm.job"
                   auto-complete="off" placeholder="job" required></el-input>
       </el-form-item>
-      <!--<el-form-item prop="usertype">-->
-        <!--<el-radio-group v-model="registerForm.usertype" @change="userTypeChange">-->
-          <!--<el-radio label="Admin" border>Admin</el-radio>-->
-          <!--<el-radio label="Contributor" border>Contributor</el-radio>-->
-          <!--<el-radio label="Reviewer" border>Reviewer</el-radio>-->
-        <!--</el-radio-group>-->
-      <!--</el-form-item>-->
       <el-form-item style="width: 100%">
-        <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="register(registerForm)">register</el-button>
+        <!--<el-form-item style="width: 100%">-->
+        <!--<el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="register(registerForm)">register</el-button>-->
+        <!--</el-form-item>-->
+        <!--<el-form-item style="width: 100%">-->
+        <!--<router-link to="login"><el-button type="primary" style="width: 40%;background: #afb4db;border: none" >return login</el-button></router-link>-->
+        <!--</el-form-item>-->
+
+        <el-button type="primary"
+                   style="width: 40%;background: #afb4db;border: none"
+                   v-on:click="register(registerForm)">register
+        </el-button>
+        <router-link to="login">
+          <el-button type="primary"
+                     style="width: 40%;background: #afb4db;border: none">return login
+          </el-button>
+        </router-link>
       </el-form-item>
+
     </el-form>
   </div>
 </template>
 
 
 <script>
+  import ElFormItem from "element-ui/packages/form/src/form-item";
+
   export default {
+    components: {ElFormItem},
     name: 'Register',
     data () {
       const dataValid = (rule, value, callback) => {
@@ -165,7 +181,6 @@
 
 <style scoped>
   #base_register{
-    background: url("../assets/background/checkerboard-cross.png") repeat;
     background-position: center;
     height: 100%;
     width: 100%;
@@ -181,6 +196,10 @@
     background: #fff;
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
+    position: absolute;
+    z-index: 10;
+    top:0px;
+    right:100px;
   }
 
   .register_title{
@@ -188,4 +207,47 @@
     text-align: center;
     color: #505458;
   }
+
+  .el-carousel__item:nth-child(6n) {
+    background: url("../assets/背景轮换/1.jpg");
+
+    background-size: cover;
+    background-position:center;
+  }
+
+  .el-carousel__item:nth-child(6n+1) {
+    background: url("../assets/背景轮换/2.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+2) {
+    background: url("../assets/背景轮换/3.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+3) {
+    background: url("../assets/背景轮换/4.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+4) {
+    background: url("../assets/背景轮换/5.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+5) {
+    background: url("../assets/背景轮换/6.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+
+  .el-carousel--horizontal >>>.el-carousel__container{
+    height:700px;
+  }
+
 </style>

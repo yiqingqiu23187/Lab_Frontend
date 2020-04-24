@@ -1,13 +1,36 @@
 <template>
-  <div id="userinformation">
-
-    <ul>
-      <li v-for="(value,index) in object" :key="index">
-        {{value.name}}:{{value.detail}}
-      </li>
-    </ul>
-    <!--{{token}}-->
+  <div  class="text item">
+    <el-tabs type="border-card">
+      <el-tab-pane label="个人信息">
+        <div  class="text item">
+          <el-table :data="tableData" style="width: 100%">
+            <el-table-column label="个人信息" width="180">
+              <el-table-column label="名称" width="180">
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="信息" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.data }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作">
+                <template slot-scope="scope">
+                  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                  <!--<el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
+                </template>
+              </el-table-column>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="信息修改">功能尚未解锁</el-tab-pane>
+      <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
+    </el-tabs>
   </div>
+
 </template>
 
 <script>
@@ -15,30 +38,34 @@
     name: "information",
     data(){
       return{
-        // token:localStorage.getItem('token'),
-        // userDetails:JSON.parse(localStorage.getItem('userDetails')),
-        // username:localStorage.getItem('userDetails').username,
-        object:[
-          {name:"Username",detail:this.$store.state.userDetail.username},
-          {name:"Fullname",detail:this.$store.state.userDetail.fullname},
-          {name:"Email",detail:this.$store.state.userDetail.email},
-          {name:"Area",detail:this.$store.state.userDetail.area},
-          {name:"Job",detail:this.$store.state.userDetail.job}
-        ]
-      }
-    }
-  }
+        user:'',
+        email:'',
+        location:'',
+        unit:'',
+        fullname:'',
 
-  // var vm = new Vue({
-  //   el:'#userinformation',
-  //   data:{
-  //     username:localStorage.getItem('userDetails').username,
-  //     fullname:localStorage.getItem('userDetails').fullname,
-  //     email:localStorage.getItem('userDetails').email,
-  //     area:localStorage.getItem('userDetails').area,
-  //     job:localStorage.getItem('userDetails').job
-  //   }
-  // })
+        tableData:[
+          {name:'用户名 ：',data:this.$store.state.userDetail.username},
+          {name:'真实姓名 ：',data:this.$store.state.userDetail.fullname},
+          {name:'邮箱 ：',data:this.$store.state.userDetail.email},
+          {name:'地址 ：',data:this.$store.state.userDetail.area},
+          {name:'工作 ：',data:this.$store.state.userDetail.job},
+        ],
+      }
+    },
+
+    created:
+      function () {
+        this.user=JSON.parse(localStorage.getItem('userDetail')).username
+        this.email=JSON.parse(localStorage.getItem('userDetail')).email
+        this.location=JSON.parse(localStorage.getItem('userDetail')).area
+        this.unit=JSON.parse(localStorage.getItem('userDetail')).job
+        this.fullname=JSON.parse(localStorage.getItem('userDetail')).fullname
+      }
+
+
+
+  }
 </script>
 
 <style scoped>

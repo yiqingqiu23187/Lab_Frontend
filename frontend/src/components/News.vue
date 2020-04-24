@@ -1,77 +1,166 @@
-<template><div>
-  <div id="myApplication">
-    <!--我是消息</div>-->
-    <h1>我发出的邀请：</h1>
-    <ul>
-      <li v-for="application in myApplication" :key="application.fullname">
-        {{application.fullname}}:
-        state:{{application.state}},
-      </li>
-    </ul>
+<template>
+  <div>
+
+    <el-tabs type="border-card">
+      <el-tab-pane label="会议申请">
+        <div  class="text item">
+          <el-table :data="myapplication" style="width: 100%">
+            <el-table-column label="我的会议申请" width="180">
+              <el-table-column label="会议名称" width="180">
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">{{ scope.row.fullName }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="缩写" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.abbr }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="举办日期" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.holdDate }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="举办地点" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.holdPlace }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="会议结束" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row.releaseDate }}</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="返回结果" width="180">
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.state}}</span>
+              </template>
+            </el-table-column>
+              <el-table-column label="注释" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">0:待审核；1：审核通过；2：申请失败</span>
+                </template>
+              </el-table-column>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="会议邀请">
+        <div  class="text item">
+          <div  class="text item">
+            <el-table :data="receivedInvitation" style="width: 100%">
+              <el-table-column label="我收到的邀请" width="180">
+                <el-table-column label="会议名称" width="180">
+                  <template slot-scope="scope">
+                    <i class="el-icon-time"></i>
+                    <span style="margin-left: 10px">{{ scope.row.fullName }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="缩写" width="180">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.abbr }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="举办日期" width="180">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.holdDate }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="举办地点" width="180">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.holdPlace }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="会议结束" width="180">
+                  <template slot-scope="scope">
+                    <span style="margin-left: 10px">{{ scope.row.releaseDate }}</span>
+                  </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                  <template slot-scope="scope">
+                    <el-button size="mini" @click="attitude(!ifagree,scope.row.fullName,this.$store.state.userDetail.username)">接受</el-button>
+                    <el-button size="mini" @click="attitude(ifagree,scope.row.fullName,this.$store.state.userDetail.username)">拒绝</el-button>
+                  </template>
+                </el-table-column>
+              </el-table-column>
+            </el-table>
+          </div>
+        </div>
+      </el-tab-pane>
+      <el-tab-pane label="更多功能">敬请期待。。。</el-tab-pane>
+    </el-tabs>
+
   </div>
 
-  <div id="received">
-    <h1>我收到的邀请：</h1>
-    <ul>
-      <li v-for="received in receivedInvitation" :key="received.fullname">
-        {{received.fullname}}:
-        <!--state:{{contribution.state}}, 这个地方应该是button-->
-        <el-form-item style="width: 100%">
-          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="attitude(!ifagree)">Agree</el-button>
-        </el-form-item>
-        <el-form-item style="width: 100%">
-          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="attitude(ifagree)">Reject</el-button>
-        </el-form-item>
-
-      </li>
-    </ul>
-  </div>
-</div>
 </template>
 
 <script>
-    export default {
-        name: "news",
-      data(){
-        return{
+  export default {
+    name: "news",
+    data(){
+      return{
+       activeName:'1',
+        ifagree:false,
+        myapplication:[{
+          chair: '',
+          PCMembers: [],
+          abbr: '',
+          fullName: '',
+          holdDate: '',
+          holdPlace: '',
+          submissionDeadline: '',
+          releaseDate: '',
+          authors:[],
+          state:'',
+        }],
+        receivedInvitation:[{
+          chair: '',
+          PCMembers: [],
+          abbr: '',
+          fullName: '',
+          holdDate: '',
+          holdPlace: '',
+          submissionDeadline: '',
+          releaseDate: '',
+          authors:[],
+          state:'',
+        }],
+      }
+    },
+    created:
+      function () {
 
-          ifagree:false,
-          // myApplication:this.$store.state.myApplication,
-          // // myContribution:this.$store.state.myContribution,
-          // receivedInvitation:this.$store.state.receivedInvitation
-         }
-      },
-      computed:{
-        myApplication:function(){
-          return this.$store.state.myApplication},
-        receivedInvitation:function () {
-          return this.$store.state.receivedInvitation
-        }
-      },
-      created:function () {
-          this.$axios.post('/message',{
-            username:this.$store.state.userDetail.username
+      this.$axios.post('/message',{
+        username:this.$store.state.userDetail.username
+      })
+        .then(resp=>{
+          this.myapplication=resp.data.application,
+            this.receivedInvitation=resp.data.invitation
+        })
+        .catch(error=>{
+          console.log(error)
+          alert('querynews error')
+        })
+    },
+    methods:{
+      attitude(ifagree,newfullname,newmyusername){
+        this.$axios.post('/handleInvitation',{
+          agreeOrNot:ifagree,
+          conferenceFullname:newfullname,
+          username:newmyusername
+        })
+          .then(resp=>{
+            alert("已回复")
+            this.$router.replace({path:'/news'})
           })
-            .then(resp=>{
-              this.$store.commit('myNews', resp.data)
-            })
-            .catch(error=>{
-              console.log(error)
-              alert('querynews error')
-            })
-      },
-      methods:{
-          attitude(ifagree){
-            this.$axios.post('attitude',{
-              state:ifagree
-            })
-              .catch(error => {
-                console.log(error)
-                alert('register error')
-              })
-          }
+          .catch(error => {
+            console.log(error)
+            alert('register error')
+          })
       }
     }
+  }
 </script>
 
 <style scoped>

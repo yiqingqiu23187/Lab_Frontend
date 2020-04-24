@@ -1,5 +1,10 @@
 <template>
-  <div id="base_login">
+  <div id="base_login" >
+  <el-carousel indicator-position="none" >
+    <el-carousel-item v-for="item in 6" :key="item" style="height:100%">
+    </el-carousel-item>
+  </el-carousel>
+
     <el-form :model="loginForm"
              :rules="rules"
              class="login_container"
@@ -31,6 +36,7 @@
         </router-link>
       </el-form-item>
     </el-form>
+
   </div>
 
 </template>
@@ -40,6 +46,7 @@
     name: 'Login',
     data() {
       return {
+
         loginForm: {
           username: '',
           password: ''
@@ -51,19 +58,26 @@
         loading: false
       }
     },
+
+
     methods: {
+
+
       login() {
         this.$axios.post('/login', {
           username: this.loginForm.username,
           password: this.loginForm.password
         })
           .then(resp => {
-            console.log(resp);
-            console.log(resp.data)
             if (resp.status === 200 && resp.data.hasOwnProperty("token")) {
               this.$store.commit('login', resp.data)
 
-              this.$router.replace({path: '/home'})
+              if(resp.data.userDetail.username !== "admin"){
+                this.$router.replace({path: '/home'})
+              }else{
+                this.$router.replace({path:'/admin'})
+              }
+
               alert('login successfully')
             } else {
               alert('login error1')
@@ -75,7 +89,15 @@
             alert('login error2')
           })
       }
-    }
+    },
+
+    created:
+    function () {
+      if(this.$store.state.userDetail.username!==null){
+        this.$router.replace({path:'/home'})
+      }
+    },
+
   }
 </script>
 <scripy>
@@ -83,7 +105,6 @@
 </scripy>
 <style scoped>
   #base_login {
-    background: url("../assets/background/checkerboard-cross.png") repeat;
     background-position: center;
     height: 100%;
     width: 100%;
@@ -105,6 +126,10 @@
     background: #fff;
     border: 1px solid #eaeaea;
     box-shadow: 0 0 25px #cac6c6;
+    position: absolute;
+    z-index: 10;
+    top:50px;
+    right:100px;
   }
 
   .login_title {
@@ -112,4 +137,48 @@
     text-align: center;
     color: #494e8f;
   }
+
+  .el-carousel__item:nth-child(6n) {
+    background: url("../assets/背景轮换/1.jpg");
+
+    background-size: cover;
+    background-position:center;
+  }
+
+  .el-carousel__item:nth-child(6n+1) {
+    background: url("../assets/背景轮换/2.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+2) {
+    background: url("../assets/背景轮换/3.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+3) {
+    background: url("../assets/背景轮换/4.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+4) {
+    background: url("../assets/背景轮换/5.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+  .el-carousel__item:nth-child(6n+5) {
+    background: url("../assets/背景轮换/6.jpg");
+    background-position:center;
+
+    background-size: cover;
+  }
+
+  .el-carousel--horizontal >>>.el-carousel__container{
+    height:700px;
+  }
+
+
 </style>

@@ -1,16 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Login from '@/components/Login'
 import Register from '@/components/Register'
 import store from '../store'
-import meeting from '@/components/meeting'
 import Home from '@/components/Home'
 import Information from '@/components/Information'
 import News from '@/components/News'
 import Conference from '@/components/Conference'
 import allConference from '@/components/allConference'
 import applyConference from '@/components/applyConference'
+import Admin from '@/components/admin'
+import search from '@/components/search'
+import results from '@/components/results'
+import handInWriting from '@/components/handInWriting'
+import logout from '@/components/logout'
+import choserole from '@/components/choserole'
+import conferenceDetail from '@/components/conferenceDetail'
+import searchCon from '@/components/searchCon'
+import secondResults from '@/components/secondResults'
 
 Vue.use(Router)
 
@@ -20,17 +27,20 @@ export const router = new Router({
   routes: [
     {
       path: '/',
-      redirect:'/home',
+      redirect:'/login',
       meta:{
-        keepalive:true
+        keepalive:true,
+        keepinitial:true,
       }
     },
+
+
     {
       path: '/login',
       name: 'Login',
       component: Login,
       meta:{
-        keepalive:false
+        keepalive:true,
       }
     },
     {
@@ -38,7 +48,7 @@ export const router = new Router({
       name: 'Register',
       component: Register,
       meta:{
-        keepalive:false
+        keepalive:true,
       }
     },
     {
@@ -46,16 +56,9 @@ export const router = new Router({
       name: 'Home',
       component:Home,
       meta:{
-        keepalive:true
-      }
-    },
-    {
-      path: '/meeting',
-      name: 'meeting',
-      component: meeting,
-      meta:{
-        requireAuth: true,
-        keepalive:true
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,//container侧边栏布局，初始页面隐藏
       }
     },
     {
@@ -64,7 +67,20 @@ export const router = new Router({
       component: allConference,
       meta:{
         requireAuth: true,
-        keepalive:true
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component:logout,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
       }
     },
     {
@@ -73,7 +89,9 @@ export const router = new Router({
       component: applyConference,
       meta:{
         requireAuth: true,
-        keepalive:true
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
       }
     },
     {
@@ -82,7 +100,9 @@ export const router = new Router({
       component: Conference,
       meta:{
         requireAuth: true,
-        keepalive:true
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
       }
     },
     {
@@ -91,7 +111,9 @@ export const router = new Router({
       component: News,
       meta:{
         requireAuth: true,
-        keepalive:true
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
       }
     },
     {
@@ -100,9 +122,104 @@ export const router = new Router({
       component: Information,
       meta:{
         requireAuth: true,
-        keepalive:true
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
       }
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: Admin,
+      meta:{
+        requireAuth: true,
+        keepadmin:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/handInWriting',
+      name: 'handInWriting',
+      component: handInWriting,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+
+    {
+      path: '/results',
+      name: 'results',
+      component: results,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: search,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/choserole',
+      name: 'choserole',
+      component: choserole,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/conferenceDetail',
+      name: 'conferenceDetail',
+      component: conferenceDetail,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/searchCon',
+      name: 'searchCon',
+      component: searchCon,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepadmin:false,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/secondResults',
+      name: 'secondResults',
+      component: secondResults,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepadmin:false,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+
+
+
   ]
 })
 
