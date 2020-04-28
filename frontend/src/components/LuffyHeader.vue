@@ -6,8 +6,8 @@
       <el-menu-item index="1"><router-link to="Home">首页</router-link></el-menu-item>
 
 
-    <input type="text" name="" id="" class="search1" placeholder="会议名称" v-model="search" style="height:25px"/>
-    <el-button class="search2" icon="el-icon-search" size="mini" style="padding-left: 8px;padding-right: 8px;height: 30px">搜索</el-button>
+    <!--<input type="text" name="" id="" class="search1" placeholder="会议名称" v-model="search" style="height:25px"/>-->
+    <!--<el-button class="search2" icon="el-icon-search" size="mini" style="padding-left: 8px;padding-right: 8px;height: 30px">搜索</el-button>-->
 
       <el-submenu index="2" class="userhead" v-if="this.$store.state.token !== null">
         <template slot="title">
@@ -67,19 +67,19 @@
   padding-right: 150px;
 }
 
-  .search1{
-    position: absolute;
-    z-index: 10;
-    top:13px;
-    left:150px;
-  }
+  /*.search1{*/
+    /*position: absolute;*/
+    /*z-index: 10;*/
+    /*top:13px;*/
+    /*left:150px;*/
+  /*}*/
 
-.search2{
-  position: absolute;
-  z-index: 10;
-  top:13px;
-  left:320px;
-}
+/*.search2{*/
+  /*position: absolute;*/
+  /*z-index: 10;*/
+  /*top:13px;*/
+  /*left:320px;*/
+/*}*/
 
   .userhead{
     float: right;

@@ -1,23 +1,29 @@
 <template>
-  <el-collapse  id="pane" v-model="activeName" >
-    <el-collapse-item  name="1">
-      <span class="main-font"  slot="title" >搜索结果显示 (conference list)</span>
-      <div v-for="(item,index) in users2" :key="index">
-        <div class="childpane">
-          <el-form class="container" label-position="left" label-width="0px">
-            <h3 class="title"> 他的真实姓名{{item.fullname}}</h3>
-            <div class="title">他的邮箱：{{item.email}}</div>
-            <div class="title">他的地址：{{item.area}}</div>
-            <el-button type="primary" style="width: 50%;background: #afb4db;border: none"
-                       v-on:click="users3.push(item.username)">加入邀请名单(invite him)</el-button>
-          </el-form>
+  <el-tabs type="border-card">
+    <el-tab-pane label="搜索结果">
+      <el-collapse  id="pane" v-model="activeName" >
+      <el-collapse-item  name="1">
+        <span class="main-font"  slot="title" >搜索结果：</span>
+        <div v-for="(item,index) in users2" :key="index">
+          <div class="childpane">
+            <el-form class="container" label-position="left" label-width="0px">
+              <h3 class="title"> 他的真实姓名{{item.fullname}}</h3>
+              <div class="title">他的邮箱：{{item.email}}</div>
+              <div class="title">他的地址：{{item.area}}</div>
+              <el-button
+                         v-on:click="confirm(item.username)">加入邀请名单</el-button>
+            </el-form>
+          </div>
         </div>
-      </div>
-      <el-button type="primary" style="width: 50%;background: #afb4db;border: none"
-                 v-on:click="send">邀请他们(invite them)</el-button>
-    </el-collapse-item>
+        <el-button type="primary" style="width: 50%;background: #afb4db;border: none"
+                   v-on:click="send">发出邀请</el-button>
+      </el-collapse-item>
 
-  </el-collapse>
+    </el-collapse>
+    </el-tab-pane>
+    <el-tab-pane label="更多功能">敬请期待</el-tab-pane>
+  </el-tabs>
+
 </template>
 
 <script>
@@ -38,43 +44,57 @@
               conferenceFullname:[],
             }
           ],
-          users2: [
-            {
-              username: '',
-              password:'',
-              fullname:'',
-              email:'',
-              area:'',
-              unit:'',
-              conferenceFullname:[],
-            }
-          ],
+          users2: [],
           users3: []
         }
       },
       created() {
-      this.searchname=this.$store.state.searchname,
-        this.$axios.get('/getAllUser')
-          .then(resp => {
-            if (resp.status === 200) {
-               this.users = resp.data.users;
-                var a =this.searchname;
-                var b =this.users2;
-               this.users.forEach(function (value, key, arr) {
-                if (value.fullname.trim() == a.trim()){
-                 b.push(value)
+        this.searchname=this.$store.state.searchname,
+          this.$axios.get('/getAllUser')
+            .then(resp => {
+                if (resp.status === 200) {
+                  this.users = resp.data.users;
+                  var a =this.searchname;
+                  var b =this.users2;
+                  this.users.forEach(function (value, key, arr) {
+                    if (value.fullname.trim() == a.trim()){
+                      b.push(value)
+                    }
+                  })
+                  this.users2=b;
                 }
-              })
-              this.users2=b;
-            }
-            else
-              alert('show error')
-          }
-              )
-          .catch(error => {
-            console.log(error);
-          })},
+                else
+                  alert('show error')
+              }
+            )
+            .catch(error => {
+              console.log(error);
+            })},
       methods: {
+          confirm(username){
+            var a =this.users3;
+            alert("方法被调用！")
+            alert(a);
+            if(a.length ==0){
+              a.push(username);
+              alert("添加成功");
+              this.users3=a;
+            }else{
+              a.forEach(function (value, key, arr) {
+                alert("循环被调用！")
+                if (value.trim() == username.trim()){
+                  alert("用户已在添加名单当中!");
+                }else{
+                  a.push(username);
+                  alert("添加成功");
+                }
+                this.users3=a;
+              })
+            }
+
+
+          },
+
         send(){
          alert(this.users3.length);
           this.$axios.post('/invite',{

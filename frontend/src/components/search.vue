@@ -1,25 +1,30 @@
 <template>
-  <el-form :model="loginForm"
-           :rules="rules"
-           class="login_container"
-           label-position="left"
-           label-width="0px"
-           v-loading="loading">
-    <h3 class="login_title">邀请用户</h3>
-    <el-form-item prop="username">
-      <el-input type="text"
-                v-model="loginForm.username"
-                auto-complete="off"
-                placeholder="请输入fullname" required></el-input>
-    </el-form-item>
-    <el-form-item style="width: 100%">
+  <el-tabs type="border-card">
+    <el-tab-pane label="成员搜索">
+      <el-form :model="loginForm"
+               :rules="rules"
+               class="login_container"
+               label-position="left"
+               label-width="0px"
+               v-loading="loading">
+        <h3 class="login_title">邀请用户</h3>
+        <el-form-item prop="username">
+          <el-input type="text"
+                    v-model="loginForm.username"
+                    auto-complete="off"
+                    placeholder="请输入fullname" required></el-input>
+        </el-form-item>
+        <el-form-item style="width: 100%">
 
-      <el-button type="primary"
-                 style="width: 40%;background: #afb4db;border: none"
-                 v-on:click="jump2()">查找
-      </el-button>
-    </el-form-item>
-  </el-form>
+          <el-button type="primary"
+                     style="width: 40%;background: #afb4db;border: none"
+                     v-on:click="jump2()">查找
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-tab-pane>
+    <el-tab-pane label="更多功能">敬请期待</el-tab-pane>
+  </el-tabs>
 </template>
 
 <script>
@@ -27,6 +32,7 @@
         name: "search",
       data() {
         return {
+          users2: [],
           loginForm: {
             username: '',
           },
@@ -39,7 +45,31 @@
       methods: {
        jump2() {
          this.$store.commit('searchname', this.loginForm.username);
-         this.$router.replace({path: '/results'})
+         this.$axios.get('/getAllUser')
+           .then(resp => {
+               if (resp.status === 200) {
+                 this.users = resp.data.users;
+                 var a =this.loginForm.username;
+                 var b =this.users2;
+                 this.users.forEach(function (value, key, arr) {
+                   if (value.fullname.trim() == a.trim()){
+                     b.push(value)
+                   }
+                 })
+                 this.users2=b;
+                 if(b.length == 0){
+                   alert("用户不存在！");
+                 }else{
+                   this.$router.replace({path: '/results'});
+                 }
+               }
+               else
+                 alert('show error')
+             }
+           )
+           .catch(error => {
+             console.log(error);
+           })
         }
       }
 

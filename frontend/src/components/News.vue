@@ -18,10 +18,10 @@
                 </template>
               </el-table-column>
               <el-table-column label="举办日期" width="180">
-                <template slot-scope="scope">
-                  <span style="margin-left: 10px">{{ scope.row.holdDate }}</span>
-                </template>
-              </el-table-column>
+              <template slot-scope="scope">
+                <span style="margin-left: 10px">{{ scope.row.holdDate }}</span>
+              </template>
+            </el-table-column>
               <el-table-column label="举办地点" width="180">
                 <template slot-scope="scope">
                   <span style="margin-left: 10px">{{ scope.row.holdPlace }}</span>
@@ -79,8 +79,7 @@
                 </el-table-column>
                 <el-table-column label="操作">
                   <template slot-scope="scope">
-                    <el-button size="mini" @click="attitude(!ifagree,scope.row.fullName,this.$store.state.userDetail.username)">接受</el-button>
-                    <el-button size="mini" @click="attitude(ifagree,scope.row.fullName,this.$store.state.userDetail.username)">拒绝</el-button>
+                    <el-button size="mini" @click="dealwith()">处理会议</el-button>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -96,12 +95,14 @@
 </template>
 
 <script>
+  import ElButton from "element-ui/packages/button/src/button";
+
   export default {
+    components: {ElButton},
     name: "news",
     data(){
       return{
        activeName:'1',
-        ifagree:false,
         myapplication:[{
           chair: '',
           PCMembers: [],
@@ -144,21 +145,10 @@
         })
     },
     methods:{
-      attitude(ifagree,newfullname,newmyusername){
-        this.$axios.post('/handleInvitation',{
-          agreeOrNot:ifagree,
-          conferenceFullname:newfullname,
-          username:newmyusername
-        })
-          .then(resp=>{
-            alert("已回复")
-            this.$router.replace({path:'/news'})
-          })
-          .catch(error => {
-            console.log(error)
-            alert('register error')
-          })
-      }
+      dealwith(){
+        this.$router.replace({path:'/chosetopic'})
+      },
+
     }
   }
 </script>

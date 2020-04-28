@@ -19,7 +19,7 @@
         </div>
       </el-collapse-item>
       <el-collapse-item  name="1">
-        <span class="main-font"  slot="title" >已过审会议</span>
+        <span class="main-font2"  slot="title" >已过审会议</span>
         <div v-for="(item,index) in agConference" :key="index">
           <div class="childpane">
             <el-form class="container" label-position="left" label-width="0px">
@@ -35,7 +35,7 @@
         </div>
       </el-collapse-item>
       <el-collapse-item  name="1">
-        <span class="main-font"  slot="title" >已拒绝会议</span>
+        <span class="main-font2"  slot="title" >已拒绝会议</span>
         <div v-for="(item,index) in reConference" :key="index">
           <div class="childpane">
             <el-form class="container" label-position="left" label-width="0px">

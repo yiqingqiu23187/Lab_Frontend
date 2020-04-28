@@ -18,6 +18,8 @@ import choserole from '@/components/choserole'
 import conferenceDetail from '@/components/conferenceDetail'
 import searchCon from '@/components/searchCon'
 import secondResults from '@/components/secondResults'
+import chosetopic from '@/components/chosetopic'
+import myWriting from '@/components/myWriting'
 
 Vue.use(Router)
 
@@ -212,13 +214,33 @@ export const router = new Router({
       meta:{
         requireAuth: true,
         keepalive:true,
-        keepadmin:false,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/chosetopic',
+      name: 'chosetopic',
+      component: chosetopic,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
         keepaside:true,
         keepinitial:true,
       }
     },
 
-
+    {
+      path: '/myWriting',
+      name: 'myWriting',
+      component: myWriting,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
 
   ]
 })

@@ -77,7 +77,7 @@
               submissionDeadline: '',
               releaseDate: '',
               authors:[],
-
+              topics:[],
             },
           ],
           nowconference:
@@ -91,6 +91,7 @@
               holdPlace: '',
               submissionDeadline: '',
               releaseDate: '',
+              topics:[],
             },
           role:{
             chair:'',
@@ -123,6 +124,7 @@
       methods: {
         chose:function () {
 
+          var mm = this.role;
 
           this.username=this.$store.state.userDetail.username;
           var f =this.username;
@@ -133,16 +135,17 @@
           this.b=[this.nowconference.PCMembers];//成员集合
           this.b.forEach(function (value, key, arr) {
             if(value==f) {
-                 this.role.member=f;
+                 mm.member=f;
             }
           });
-
+          this.role=mm;
           this.a=[this.nowconference.authors];
           this.a.forEach(function (value, key, arr) {
             if(value==f) {
-              this.role.author=f;
+             mm.author=f;
             }
           });
+          this.role=mm;
           this.$store.commit('myrole',this.role);
           this.$store.commit('meetingDetail', this.nowconference);
           this.$router.replace({path:'/choserole'})

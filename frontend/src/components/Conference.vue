@@ -240,6 +240,8 @@
       methods: {
 
         jump: function (str) {
+          var role =this.role;
+
           var ev=this.nowconference;
           var f= this.$store.state.userDetail.username;
           this.$store.commit('meetingDetail', ev);
@@ -253,9 +255,10 @@
             this.a=[this.nowconference.authors];
             this.a.forEach(function (value, key, arr) {
               if(value==f) {
-                this.role.author=f;
+                role.author=f;
               }
             });
+            this.role=role;
             this.$store.commit('myrole',this.role);
             this.$router.replace({path:'/choserole'})
           }else{
@@ -263,9 +266,10 @@
             this.b=[this.nowconference.PCMembers];//成员集合
             this.b.forEach(function (value, key, arr) {
               if(value==f) {
-                this.role.member=f;
+                role.member=f;
               }
             });
+            this.role=role;
             this.$store.commit('myrole',this.role);
             this.$router.replace({path:'/choserole'})
           }
@@ -282,7 +286,7 @@
         },
         )
           .then(resp=>{
-           this.chairconference=resp.data.chairConference,
+            this.chairconference=resp.data.chairConference,
              this.pcconference=resp.data.pcconference,
              this.authorconference=resp.data.authorConference
 
