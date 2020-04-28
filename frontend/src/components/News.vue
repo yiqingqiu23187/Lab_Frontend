@@ -79,7 +79,7 @@
                 </el-table-column>
                 <el-table-column label="操作">
                   <template slot-scope="scope">
-                    <el-button size="mini" @click="dealwith()">处理会议</el-button>
+                    <el-button size="mini" @click="dealwith(scope.row)">处理会议</el-button>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -145,7 +145,8 @@
         })
     },
     methods:{
-      dealwith(){
+      dealwith(conference){
+        this.$store.state.nowconference=conference;
         this.$router.replace({path:'/chosetopic'})
       },
 

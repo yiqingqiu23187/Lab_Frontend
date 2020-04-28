@@ -73,23 +73,24 @@
       methods: {
           confirm(username){
             var a =this.users3;
-            alert("方法被调用！")
-            alert(a);
+
             if(a.length ==0){
               a.push(username);
               alert("添加成功");
               this.users3=a;
             }else{
+              var temp=false;
               a.forEach(function (value, key, arr) {
                 alert("循环被调用！")
                 if (value.trim() == username.trim()){
                   alert("用户已在添加名单当中!");
-                }else{
-                  a.push(username);
-                  alert("添加成功");
+                  temp=true;
                 }
-                this.users3=a;
               })
+              if(!temp){
+                a.push(username)
+              }
+              this.users3=a;
             }
 
 
@@ -99,7 +100,7 @@
          alert(this.users3.length);
           this.$axios.post('/invite',{
             usernames:this.users3,
-            conferenceFullname: this.$store.state.conferencefullName,
+            conferenceFullname: this.$store.state.nowconference.fullName,
             chair:this.$store.state.userDetail.username,
           })
             .then(resp => {

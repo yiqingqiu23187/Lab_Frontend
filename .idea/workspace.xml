@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="91041597-3af4-4253-aff3-5a1240575978" name="Default Changelist" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/frontend/src/components/chosetopic.vue" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/frontend/src/components/myWriting.vue" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Conference.vue" afterPath="$PROJECT_DIR$/frontend/src/components/Conference.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Information.vue" afterPath="$PROJECT_DIR$/frontend/src/components/Information.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/LuffyHeader.vue" afterPath="$PROJECT_DIR$/frontend/src/components/LuffyHeader.vue" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/News.vue" afterPath="$PROJECT_DIR$/frontend/src/components/News.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin.vue" afterPath="$PROJECT_DIR$/frontend/src/components/admin.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/allConference.vue" afterPath="$PROJECT_DIR$/frontend/src/components/allConference.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/applyConference.vue" afterPath="$PROJECT_DIR$/frontend/src/components/applyConference.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/conferenceDetail.vue" afterPath="$PROJECT_DIR$/frontend/src/components/conferenceDetail.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/handInWriting.vue" afterPath="$PROJECT_DIR$/frontend/src/components/handInWriting.vue" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/chosetopic.vue" afterPath="$PROJECT_DIR$/frontend/src/components/chosetopic.vue" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/results.vue" afterPath="$PROJECT_DIR$/frontend/src/components/results.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/search.vue" afterPath="$PROJECT_DIR$/frontend/src/components/search.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/secondResults.vue" afterPath="$PROJECT_DIR$/frontend/src/components/secondResults.vue" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/router/index.js" afterPath="$PROJECT_DIR$/frontend/src/router/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -89,66 +78,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="applyConference.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/components/applyConference.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
-              <folding>
-                <element signature="e#8688#8775#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="allConference.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/components/allConference.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="138" column="13" lean-forward="true" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
-              <folding>
-                <element signature="n#style#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#el-table-column#0;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#0;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#1;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#3;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#4;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#5;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#6;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/router/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Conference.vue" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/src/components/Conference.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="256" column="28" lean-forward="true" selection-start-line="256" selection-start-column="28" selection-end-line="256" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="conferenceDetail.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="conferenceDetail.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/conferenceDetail.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="77" column="51" lean-forward="true" selection-start-line="77" selection-start-column="51" selection-end-line="77" selection-end-column="51" />
-              <folding>
-                <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-              </folding>
+            <state relative-caret-position="69">
+              <caret line="3" column="28" lean-forward="false" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -156,8 +91,20 @@
       <file leaf-file-name="choserole.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/choserole.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="12" column="10" lean-forward="false" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
+            <state relative-caret-position="69">
+              <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
+              <folding>
+                <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="search.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/search.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -166,10 +113,10 @@
       <file leaf-file-name="News.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/News.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="621">
-              <caret line="148" column="47" lean-forward="false" selection-start-line="148" selection-start-column="46" selection-end-line="148" selection-end-column="47" />
+            <state relative-caret-position="368">
+              <caret line="81" column="76" lean-forward="false" selection-start-line="81" selection-start-column="76" selection-end-line="81" selection-end-column="76" />
               <folding>
-                <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+                <element signature="n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#3;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#div#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -179,11 +126,33 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/src/store/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1265">
+              <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="chosetopic.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/src/components/chosetopic.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1546">
-              <caret line="87" column="60" lean-forward="false" selection-start-line="87" selection-start-column="60" selection-end-line="87" selection-end-column="60" />
+            <state relative-caret-position="552">
+              <caret line="81" column="51" lean-forward="false" selection-start-line="81" selection-start-column="51" selection-end-line="81" selection-end-column="51" />
+              <folding>
+                <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Conference.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/src/components/Conference.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="136" column="80" lean-forward="false" selection-start-line="136" selection-start-column="80" selection-end-line="136" selection-end-column="80" />
               <folding />
             </state>
           </provider>
@@ -232,15 +201,15 @@
         <option value="$PROJECT_DIR$/frontend/src/components/searchCon.vue" />
         <option value="$PROJECT_DIR$/frontend/src/components/secondResults.vue" />
         <option value="$PROJECT_DIR$/frontend/src/components/LuffyHeader.vue" />
-        <option value="$PROJECT_DIR$/frontend/src/components/News.vue" />
         <option value="$PROJECT_DIR$/frontend/src/components/search.vue" />
-        <option value="$PROJECT_DIR$/frontend/src/components/results.vue" />
         <option value="$PROJECT_DIR$/frontend/src/components/applyConference.vue" />
-        <option value="$PROJECT_DIR$/frontend/src/components/chosetopic.vue" />
         <option value="$PROJECT_DIR$/frontend/src/router/index.js" />
-        <option value="$PROJECT_DIR$/frontend/src/components/Conference.vue" />
         <option value="$PROJECT_DIR$/frontend/src/components/allConference.vue" />
         <option value="$PROJECT_DIR$/frontend/src/components/conferenceDetail.vue" />
+        <option value="$PROJECT_DIR$/frontend/src/components/results.vue" />
+        <option value="$PROJECT_DIR$/frontend/src/components/News.vue" />
+        <option value="$PROJECT_DIR$/frontend/src/components/chosetopic.vue" />
+        <option value="$PROJECT_DIR$/frontend/src/components/Conference.vue" />
       </list>
     </option>
   </component>
@@ -270,7 +239,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="31" />
     <option name="y" value="100" />
     <option name="width" value="1450" />
@@ -458,15 +427,15 @@
       <workItem from="1587794228172" duration="16807000" />
       <workItem from="1587877477694" duration="7419000" />
       <workItem from="1587899581116" duration="5111000" />
-      <workItem from="1588075403366" duration="3524000" />
+      <workItem from="1588075403366" duration="6845000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="304139000" />
+    <option name="totallyTimeSpent" value="307460000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-9" y="-9" width="1938" height="1048" extended-state="7" />
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -640,6 +609,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1472">
           <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -661,71 +631,6 @@
           <folding>
             <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#0;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/store/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1265">
-          <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/search.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="93">
-          <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/results.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1771">
-          <caret line="77" column="29" lean-forward="false" selection-start-line="77" selection-start-column="29" selection-end-line="77" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#el-button#0;n#el-collapse-item#0;n#el-collapse#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/asideheader.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/applyConference.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
-          <folding>
-            <element signature="e#8688#8775#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/News.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="148" column="47" lean-forward="false" selection-start-line="148" selection-start-column="46" selection-end-line="148" selection-end-column="47" />
-          <folding>
-            <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#3;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#div#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#3;n#el-table-column#0;n#el-table#0;n#div#0;n#div#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/chosetopic.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1546">
-          <caret line="87" column="60" lean-forward="false" selection-start-line="87" selection-start-column="60" selection-end-line="87" selection-end-column="60" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -761,22 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/choserole.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="10" lean-forward="false" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/src/components/Conference.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="256" column="28" lean-forward="true" selection-start-line="256" selection-start-column="28" selection-end-line="256" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/allConference.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -795,13 +684,97 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/applyConference.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="177" column="31" lean-forward="false" selection-start-line="177" selection-start-column="31" selection-end-line="177" selection-end-column="31" />
+          <folding>
+            <element signature="e#8688#8775#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/asideheader.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="20" column="18" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/results.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="105" column="27" lean-forward="true" selection-start-line="105" selection-start-column="27" selection-end-line="105" selection-end-column="27" />
+          <folding>
+            <element signature="n#style#0;n#el-button#0;n#el-collapse-item#0;n#el-collapse#0;n#el-tab-pane#0;n#el-tabs#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/store/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1265">
+          <caret line="56" column="4" lean-forward="false" selection-start-line="56" selection-start-column="4" selection-end-line="56" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/search.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/src/components/conferenceDetail.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="77" column="51" lean-forward="true" selection-start-line="77" selection-start-column="51" selection-end-line="77" selection-end-column="51" />
+        <state relative-caret-position="69">
+          <caret line="3" column="28" lean-forward="false" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/choserole.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="69">
+          <caret line="3" column="31" lean-forward="false" selection-start-line="3" selection-start-column="31" selection-end-line="3" selection-end-column="31" />
           <folding>
             <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/News.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="81" column="76" lean-forward="false" selection-start-line="81" selection-start-column="76" selection-end-line="81" selection-end-column="76" />
+          <folding>
+            <element signature="n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#3;n#el-table-column#0;n#el-table#0;n#div#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#2;n#el-table-column#0;n#el-table#0;n#div#0;n#div#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#template#0;n#el-table-column#3;n#el-table-column#0;n#el-table#0;n#div#0;n#div#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/chosetopic.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="81" column="51" lean-forward="false" selection-start-line="81" selection-start-column="51" selection-end-line="81" selection-end-column="51" />
+          <folding>
+            <element signature="n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#template#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/src/components/Conference.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="136" column="80" lean-forward="false" selection-start-line="136" selection-start-column="80" selection-end-line="136" selection-end-column="80" />
+          <folding />
         </state>
       </provider>
     </entry>

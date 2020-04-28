@@ -94,7 +94,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button size="mini" @click="nowconference=pcconference,jump('member')">会议详情</el-button>
+                  <el-button size="mini" @click="nowconference=scope.row,jump('member')">会议详情</el-button>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -144,7 +144,7 @@
               </el-table-column>
               <el-table-column label="操作">
                 <template slot-scope="scope">
-                  <el-button size="mini" @click="nowconference=authorconference,jump('author')">会议详情</el-button>
+                  <el-button size="mini" @click="nowconference=scope.row,jump('author')">会议详情</el-button>
                 </template>
               </el-table-column>
             </el-table-column>
@@ -279,7 +279,7 @@
 
       },
 
-      mounted:
+      created:
         function () {
         this.$axios.post('/myConference',{
           username:this.$store.state.userDetail.username,
