@@ -198,7 +198,7 @@
         }
       },
       handIn(formname){
-        // alert(this.$store.state.userDetail.username);
+        alert('a');
         let formData = new FormData();
         formData.append('title', this.registerForm.username);
         formData.append('summary', this.registerForm.password);
