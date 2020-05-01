@@ -20,6 +20,9 @@ import searchCon from '@/components/searchCon'
 import secondResults from '@/components/secondResults'
 import chosetopic from '@/components/chosetopic'
 import myWriting from '@/components/myWriting'
+import submitReview from '@/components/submitReview'
+import assessmentResults from '@/components/assessmentResults'
+import assessmentDetail from '@/components/assessmentDetail'
 
 Vue.use(Router)
 
@@ -134,6 +137,7 @@ export const router = new Router({
       name: 'admin',
       component: Admin,
       meta:{
+        keepadAside:true,
         requireAuth: true,
         keepadmin:true,
         keepinitial:true,
@@ -234,6 +238,40 @@ export const router = new Router({
       path: '/myWriting',
       name: 'myWriting',
       component: myWriting,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+
+    {
+      path: '/submitReview',
+      name: 'submitReview',
+      component: submitReview,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/assessmentResults',
+      name: 'assessmentResults',
+      component: assessmentResults,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/assessmentDetail',
+      name: 'assessmentDetail',
+      component: assessmentDetail,
       meta:{
         requireAuth: true,
         keepalive:true,

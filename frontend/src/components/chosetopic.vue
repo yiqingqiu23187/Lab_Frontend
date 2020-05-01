@@ -28,10 +28,9 @@
       </el-tab-pane>
       <el-tab-pane label="主题选择">
         <el-checkbox-group v-model="checkboxGroup" >
-          <el-checkbox v-for="(topic,index) in topics" :label="'topic'+index" :key="topic.key" border></el-checkbox>
-          <el-checkbox label="备选项2" border></el-checkbox>
+          <el-checkbox v-for="(topic,index) in topics" :label="'topic'+index +':'+topic" :key="topic.key" border></el-checkbox>
         </el-checkbox-group>
-        <el-button @click="nihao();attitude(!ifagree,conferenceName,username)">接受</el-button>
+        <el-button @click="attitude(!ifagree,conferenceName,username)">接受</el-button>
         <el-button @click="attitude(ifagree,conferenceName,username)">拒绝</el-button>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
@@ -66,11 +65,8 @@
         },
 
       methods:{
-        nihao(){
-          alert("nihao");
-        },
+
         attitude(ifagree,newfullname,newmyusername){
-          alert("nihao");
           this.$axios.post('/handleInvitation',{
             agreeOrNot:ifagree,
             conferenceFullname:newfullname,

@@ -190,7 +190,8 @@
             holdPlace: '',
             submissionDeadline: '',
             releaseDate: '',
-            authors:[]
+            authors:[],
+            topics:[],
           }],
 
 
@@ -204,7 +205,8 @@
             holdPlace: '',
             submissionDeadline: '',
             releaseDate: '',
-            authors:[]
+            authors:[],
+            topics:[],
           }],
 
           authorconference:[{
@@ -216,7 +218,8 @@
             holdPlace: '',
             submissionDeadline: '',
             releaseDate: '',
-            authors:[]
+            authors:[],
+            topics:[],
           }],
 
 
@@ -231,7 +234,8 @@
               holdPlace: '',
               submissionDeadline: '',
               releaseDate: '',
-              authors:[]
+              authors:[],
+              topics:[],
             },
         }
       },

@@ -34,10 +34,22 @@
             <router-link to="News">消息中心</router-link>
           </el-menu-item>
           <el-menu-item index="8">
+            <i class="el-icon-message"></i>
+            <router-link to="submitReview">审批会议</router-link>
+          </el-menu-item>
+          <el-menu-item index="11">
+            <i class="el-icon-message"></i>
+            <router-link to="assessmentResults">评审结果</router-link>
+          </el-menu-item>
+          <el-menu-item index="12">
+            <i class="el-icon-message"></i>
+            <router-link to="assessmentDetail">评审详情</router-link>
+          </el-menu-item>
+          <el-menu-item index="9">
             <i class="el-icon-s-check"></i>
             <router-link to="logout">用户登出</router-link>
           </el-menu-item>
-          <el-menu-item index="9">
+          <el-menu-item index="10">
             <i class="el-icon-more"></i>
             <router-link to="News">更多功能</router-link>
           </el-menu-item>

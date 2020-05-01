@@ -48,8 +48,12 @@
               this.temprole.author='';
             }else if(val==='2'){
 
+              if(this.role.chair !== ''){
+                this.temprole.member='chairmember';
+              }else{
+                this.temprole.member='member';
+              }
               this.temprole.chair='';
-              this.temprole.member='member';
               this.temprole.author='';
             }else if(val==='3'){
 

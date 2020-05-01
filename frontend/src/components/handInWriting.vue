@@ -14,9 +14,22 @@
                        :rows="3" v-model="registerForm.password"
                        auto-complete="off" placeholder="文章摘要" required></el-input>
           </el-form-item>
+          <el-checkbox-group
+            :min="1"
+            :max="topics.length"
+            v-model="topic"
+            v-if="!topics===''"
+            @change="handleCheckChange">
+            <el-checkbox
+              v-for="(item,index) in topics"
+              :key="index"
+              :label="item"
+            >
+              {{item}}</el-checkbox>
+          </el-checkbox-group>
 
           <el-button type="text" @click="dialogTableVisible = true">添加作者信息</el-button>
-          <el-dialog title="点此添加作者信息" :visible.sync="dialogTableVisible">
+          <el-dialog title="作者信息" :visible.sync="dialogTableVisible">
             <el-table :data="writers" style="width: 100%">
               <el-table-column prop="name" label="姓名">
                 <template slot-scope="scope">
@@ -79,24 +92,29 @@
                     size="mini"
                     :disabled="scope.$index===(writers.length-1)"
                     @click="moveDown(scope.$index,scope.row)"><i class="el-icon-arrow-down"></i></el-button>
+                  <el-button v-model="handleAdd"
+                             size="mini"
+                             type="success"
+                             circle plain
+                             icon="el-icon-plus"
+                             @click="handleAdd(scope.$index, scope.row)">
+                  </el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-dialog>
+       <el-form-item prop="file" v-model="registerForm.file">
 
-
-
-          <el-form-item prop="file" v-model="registerForm.file">
-            <!--<input type="file"  accept="application/pdf" @change="getFile($event)">-->
-            <a href="javascript:" class="test">选择文件
-              <input type="file" accept="application/pdf">
+            <a href="javascript:" class="test" id="filename">点击此处上传文件
+              <input type="file"   accept="application/pdf" id="file" v-on:change="getFilename">
             </a>
+
           </el-form-item>
-          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="handIn(registerForm)">handin</el-button>
+          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handIn(registerForm)">handin</el-button>
         </el-form>
       </div>
     </el-tab-pane>
-    <el-tab-pane label="更功能">暂无</el-tab-pane>
+    <el-tab-pane label="更多功能">暂无</el-tab-pane>
   </el-tabs>
 </template>
 
@@ -133,33 +151,25 @@
         else
           return callback();
       };
+
       return {
         dialogTableVisible: false,
         writers:[
           {
-            email: '',
-            name: '',
-            job: '',
-            address: '',
-            showEdit: false
-          },
-          {
-            email: '',
-            name: '',
-            job: '',
-            address: '',
-            showEdit: false
-          },
-          {
-            email: '',
-            name: '',
-            job: '',
-            address: '',
+            email: '?',
+            name: '?',
+            job: '?',
+            address: '?',
             showEdit: false
           }],
+        writerEmail:[],
+        writerName:[],
+        writerJob:[],
+        writerAddress:[],
         userName: "",
         userId: "",
-
+        topic:[],
+        topics:[],
         registerForm: {
           username: '',
           password: '',
@@ -175,6 +185,13 @@
       }
     },
     methods: {
+      handleCheckChange(val) {
+        console.log(val)
+      },
+      getFilename(){
+          let f=document.getElementById("file").value;
+          document.getElementById("filename").innerHTML=f; //将截取后的文件名填充到span中
+      },
       handleEdit(index, row) {
         console.log(index, row);
         row.showEdit = !row.showEdit;
@@ -183,6 +200,19 @@
           console.log(row);
         }
       },
+      handleAdd() {
+        let row = {
+          email: '',
+          name: '',
+          job: '',
+          address: '',
+        };
+        this.writers.push(row)
+      },
+
+
+
+
       userTypeChange() {
       },
       moveUp(index,row){
@@ -211,6 +241,7 @@
           that.writers.splice(index,0, downDate);
         }
       },
+
       handIn(formname){
         // alert(this.$store.state.userDetail.username);
         let formData = new FormData();
@@ -219,7 +250,11 @@
         formData.append('file', document.querySelector('input[type=file]').files[0]);
         formData.append('username',this.$store.state.userDetail.username);
         formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
-        formData.append('writers',this.writers);
+        formData.append('writerEmail',this.writerEmail);
+        formData.append('writerJob',this.writerJob);
+        formData.append('writerName',this.writerName);
+        formData.append('writerAdress',this.writerAddress);
+        formData.append('topics',this.topic);
         this.$refs[formname].validate(valid => {
         if(valid){
           this.$axios({
@@ -230,19 +265,36 @@
               'Content-Type': 'multipart/form-data',
             }
           }).then((resp) => {
-            alert(this.$store.state.userDetail.username);
             if (resp.status === 200) {
-              alert('提交成功')
-            }
+              alert('提交成功');
+              this.$router.replace({path:'/myWriting'});}
             else
               alert('提交失败')
           }) // 发送请求
 
 
-    }})}
-
-
+    }})},
+       turn(writers){
+         let a = this.writerEmail;
+         let b1 = this.writerName;
+         let c = this.writerJob;
+         let d = this.writerAddress;
+         for(let b in writers){
+           b1.push(b.name);
+           a.push(b.email);
+           c.push(b.job);
+           d.push(b.address);
+         }
+         this.writerEmail=a;
+         this.writerName=b1;
+         this.writerJob=c;
+         this.writerAddress=d;
+       }
+  },
+    created(){
+      this.topics=this.$store.state.nowconference.topics;
   }}
+
 </script>
 
 <style scoped>
@@ -255,19 +307,6 @@
   }
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
   }
   #base_register{
     height: 100%;

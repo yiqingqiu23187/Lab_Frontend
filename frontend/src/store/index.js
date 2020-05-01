@@ -9,6 +9,7 @@ export default new Vuex.Store({
     nowconference:JSON.parse(localStorage.getItem('nowconference'))||null,
     myrole:JSON.parse(localStorage.getItem('myrole'))||null,
     searchFullname:localStorage.getItem('searchFullname') || null,
+    nowpaper:JSON.parse(localStorage.getItem('nowpaper'))||null,
   },
 
 
@@ -52,6 +53,10 @@ export default new Vuex.Store({
     searchFullname(state,data){
       localStorage.setItem('searchFullname',data);
       state.searchFullname=data;
+    },
+    nowpaper(state,data){
+      localStorage.setItem('nowpaper',JSON.stringify(data));
+      state.nowpaper=data;
     },
     //end
   },

@@ -32,8 +32,6 @@
             </el-date-picker>
           </el-form-item>
 
-
-
           <el-form-item prop="releaseDate" >
             <el-date-picker
               id="6"
@@ -44,30 +42,22 @@
             </el-date-picker>
           </el-form-item>
 
-          <!--增加动态topic选项-->
-          <el-form :model="meetingForm" ref="meetingForm" label-width="70px" class="demo-dynamic">
+          <div :model="meetingForm" ref="meetingForm" label-width="100px" class="demo-dynamic">
             <el-form-item prop="topic" label="主题" :rules="[ { required: true, message: '请输入会议主题', trigger: 'blur' },
-            { type: 'text', message: '请输入正确的主题', trigger: ['blur', 'change'] } ]">
+            { type: '', message: '请输入正确的主题', trigger: ['blur', 'change'] } ]">
               <el-input v-model="meetingForm.topic"></el-input>
             </el-form-item>
-            <!--<el-form-item prop="topic" label="主题" :rules="[ { required: true, message: '请输入会议主题', trigger: 'blur' },-->
-            <!--{ type: 'text', message: '请输入正确的主题', trigger: ['blur', 'change'] } ]">-->
-              <!--<el-input v-model="meetingForm.topic"></el-input>-->
-            <!--</el-form-item>-->
+
             <el-form-item v-for="(domain, index) in meetingForm.topics" :label="'主题' + (index+2)" :key="domain.key"
                           :prop="'topics.' + index + '.value'" :rules="{ required: true, message: '主题不能为空', trigger: 'blur'}">
               <el-input v-model="domain.value"></el-input>
               <el-button @click.prevent="removeDomain(domain)">删除</el-button>
             </el-form-item>
-            <!--<el-form-item v-for="(domain, index) in meetingForm.topics" :label="'主题' + (index+2)" :key="index"-->
-                          <!--:prop="'domain' + index " :rules="{ required: true, message: '主题不能为空', trigger: 'blur'}">-->
-              <!--<el-input v-model="domain"></el-input><el-button @click.prevent="removeDomain(domain)">删除</el-button>-->
-            <!--</el-form-item>-->
             <el-form-item>
               <el-button @click="addDomain">新增主题</el-button>
-              <el-button @click="resetForm('meetingForm')">重置主题</el-button>
+              <el-button @click="resetForm('meetingForm')">重置</el-button>
             </el-form-item>
-          </el-form>
+          </div>
 
           <el-form-item style="width: 100%">
             <el-button type="primary" icon="el-icon-thumb" v-on:click="submit(meetingForm)">apply</el-button>
@@ -108,8 +98,7 @@
           topics: [{
             value: ''
           }],
-          // topic:'',
-          // topics: [],
+
         },
         value1:'',
         pickerOptionsStart: {
@@ -152,11 +141,21 @@
       }
     },
     methods: {
+      nihao(){
+        alert("nihao");
+        alert(this.meetingForm.topics);
+      },
+
       submit(formName){
+        alert("mihaoaoaoa");
+        alert(this.meetingForm.fullName);
+        console.log(this.meetingForm.topics)
         this.meetingForm.topics.push({
           value: this.meetingForm.topic,
           key: Date.now()
         });
+
+        // alert(this.meetingForm.topics);
         if(document.getElementById("1").value==''||document.getElementById("1").value==undefined||document.getElementById("1").value==null||
            document.getElementById("2").value==''||document.getElementById("2").value==undefined||document.getElementById("2").value==null||
            document.getElementById("3").value==''||document.getElementById("3").value==undefined||document.getElementById("3").value==null||
@@ -167,6 +166,7 @@
           alert("请输入完整的信息");
         this.$refs[formName].validate(valid => {
           if(valid){
+            // alert("mihaoaoaoa");
             this.$axios.post('/applyConference',{
                 username:this.username,
                 abbr: this.meetingForm.abbr,
@@ -191,7 +191,7 @@
               })
               .catch(error => {
                 console.log(error);
-                alert('submit error')
+                alert('submit error111')
               })
           } else {
             alert('请输入完整的信息')
@@ -214,9 +214,6 @@
           key: Date.now()
         });
       },
-      // addDomain() {
-      //   this.meetingForm.topics.push('');
-      // },
 
       },
 

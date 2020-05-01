@@ -92,6 +92,7 @@
               submissionDeadline: '',
               releaseDate: '',
               topics:[],
+              // openOrNot:'',
             },
           role:{
             chair:'',
