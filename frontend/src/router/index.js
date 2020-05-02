@@ -23,6 +23,7 @@ import myWriting from '@/components/myWriting'
 import submitReview from '@/components/submitReview'
 import assessmentResults from '@/components/assessmentResults'
 import assessmentDetail from '@/components/assessmentDetail'
+import checkPaper from '@/components/checkPaper'
 
 Vue.use(Router)
 
@@ -238,6 +239,18 @@ export const router = new Router({
       path: '/myWriting',
       name: 'myWriting',
       component: myWriting,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+
+    {
+      path: '/checkPaper',
+      name: 'checkPaper',
+      component: checkPaper,
       meta:{
         requireAuth: true,
         keepalive:true,

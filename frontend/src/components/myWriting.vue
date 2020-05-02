@@ -21,7 +21,6 @@
               :min="1"
               :max="topics.length"
               v-model="topic"
-              v-if="!topics===''"
               @change="handleCheckChange">
               <el-checkbox
                 v-for="(item,index) in topics"
@@ -30,14 +29,12 @@
               >
                 {{item}}</el-checkbox>
             </el-checkbox-group>
-
-
-
             <el-button type="text" @click="dialogTableVisible = true">修改作者信息</el-button>
 
             <el-dialog title="作者信息" :visible.sync="dialogTableVisible">
-              <el-table :data="writers" style="width: 100%">
 
+
+              <el-table :data="writers" style="width: 100%">
                 <el-table-column prop="name" label="姓名">
                   <template slot-scope="scope">
                     <el-input
@@ -49,8 +46,6 @@
                     <span v-show="!scope.row.showEdit">{{scope.row.name}}</span>
                   </template>
                 </el-table-column>
-
-
                 <el-table-column prop="job" label="单位">
                   <template slot-scope="scope">
                     <el-input
@@ -74,6 +69,13 @@
                   </template>
                 </el-table-column>
                 <el-table-column prop="email" label="邮箱">
+
+
+
+
+
+
+
                   <template slot-scope="scope">
                     <el-input
                       size="small"
@@ -158,13 +160,14 @@
             name: '',
             job: '',
             address: '',
+            showEdit: false,
           }],
+
         papers:[{
           username:'',
           conferenceFullname:'',
           title:'',
           summary:'',
-          file:'',
           writerEmail:[],
           writerName:[],
           writerJob:[],
@@ -174,7 +177,11 @@
         dialogTableVisible: false,
         userName: "",
         userId: "",
-
+        registerForm: {
+          username: '',
+          password: '',
+          file:'',
+        },
 
         rules: {
           // blur 失去鼠标焦点时触发验证
@@ -198,7 +205,6 @@
         }
       },
       handIn(formname){
-        alert('a');
         let formData = new FormData();
         formData.append('title', this.registerForm.username);
         formData.append('summary', this.registerForm.password);
@@ -277,7 +283,7 @@
 
     },
     created(){
-      this.topics=this.$store.state.nowconference.topics;
+        this.topics=this.$store.state.nowconference.topics;
         this.$axios.post('/myPaper',{
         username:this.$store.state.userDetail.username,
         conferenceFullname:this.$store.state.nowconference.fullName,
@@ -285,10 +291,20 @@
         .then(resp => {
             if (resp.status === 200) {
               this.papers=resp.data.papers;
+              alert(this.papers[6].writerName[0]);
+              alert(this.papers[6].writerEmail[0]);
+
               let a= this.writers;
-              for(let b=0;b<this.papers.writerName.length;b++){
-                a.push(this.papers.writerEmail[b],this.papers.writerName[b],
-                  this.papers.writerJob[b],this.papers.writerAddress[b])
+              for(let b=0;b<this.papers[6].writerName.length;b++){
+                let c={
+                  email:this.papers[6].writerEmail[b],
+                  name: this.papers[6].writerName[b],
+                  job: this.papers[6].writerJob[b],
+                  address: this.papers[6].writerAddress[b],
+                  showEdit: false,
+                }
+                a.push(c);
+                alert(a.length);
               }
               this.writers=a;
             }

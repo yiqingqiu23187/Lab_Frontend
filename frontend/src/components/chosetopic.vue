@@ -65,7 +65,6 @@
         },
 
       methods:{
-
         attitude(ifagree,newfullname,newmyusername){
           this.$axios.post('/handleInvitation',{
             agreeOrNot:ifagree,
@@ -86,7 +85,7 @@
 
       created:
         function () {
-        this.username=this.$store.state.userDetail.username;
+          this.username=this.$store.state.userDetail.username;
           this.nowconference=this.$store.state.nowconference;
           this.topics=this.$store.state.nowconference.topics;
           this.conferenceName=this.$store.state.nowconference.fullName;

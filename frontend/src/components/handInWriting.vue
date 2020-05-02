@@ -18,7 +18,6 @@
             :min="1"
             :max="topics.length"
             v-model="topic"
-            v-if="!topics===''"
             @change="handleCheckChange">
             <el-checkbox
               v-for="(item,index) in topics"
@@ -103,14 +102,14 @@
               </el-table-column>
             </el-table>
           </el-dialog>
-       <el-form-item prop="file" v-model="registerForm.file">
+       <el-form-item prop="file" v-model="registerForm.file"></el-form-item>
 
-            <a href="javascript:" class="test" id="filename">点击此处上传文件
-              <input type="file"   accept="application/pdf" id="file" v-on:change="getFilename">
-            </a>
+          <!--<a href="javascript:" class="test" id="filename">点击此处上传文件-->
+          <input type="file"   accept="application/pdf" id="file" >
+          <!--</a>-->
 
-          </el-form-item>
-          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handIn(registerForm)">handin</el-button>
+
+          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(registerForm),handIn()">handin</el-button>
         </el-form>
       </div>
     </el-tab-pane>
@@ -188,10 +187,10 @@
       handleCheckChange(val) {
         console.log(val)
       },
-      getFilename(){
-          let f=document.getElementById("file").value;
-          document.getElementById("filename").innerHTML=f; //将截取后的文件名填充到span中
-      },
+      // getFilename(){
+      //     let f=document.getElementById("file").value;
+      //     document.getElementById("filename").innerHTML=f; //将截取后的文件名填充到span中
+      // },
       handleEdit(index, row) {
         console.log(index, row);
         row.showEdit = !row.showEdit;
@@ -209,10 +208,6 @@
         };
         this.writers.push(row)
       },
-
-
-
-
       userTypeChange() {
       },
       moveUp(index,row){
@@ -227,8 +222,6 @@
           alert('已经是第一条，不可上移');
         }
       },
-
-      //下移
       moveDown(index,row){
         var that = this;
         console.log('下移',index,row);
@@ -242,49 +235,95 @@
         }
       },
 
-      handIn(formname){
+      handIn(){
         // alert(this.$store.state.userDetail.username);
-        let formData = new FormData();
-        formData.append('title', this.registerForm.username);
-        formData.append('summary', this.registerForm.password);
-        formData.append('file', document.querySelector('input[type=file]').files[0]);
-        formData.append('username',this.$store.state.userDetail.username);
-        formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
-        formData.append('writerEmail',this.writerEmail);
-        formData.append('writerJob',this.writerJob);
-        formData.append('writerName',this.writerName);
-        formData.append('writerAdress',this.writerAddress);
-        formData.append('topics',this.topic);
-        this.$refs[formname].validate(valid => {
-        if(valid){
-          this.$axios({
-            url: '/sendPaper',   //****: 你的ip地址
-            data: formData,
-            method: 'post',
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            }
-          }).then((resp) => {
+        this.$axios.post('/sendPaper',{
+         title:this.registerForm.username,
+         summary:this.registerForm.password,
+         username:this.$store.state.userDetail.username,
+         conferenceFullname:this.$store.state.nowconference.fullName,
+         writerEmail:this.writerEmail,
+         writerJob:this.writerJob,
+         writerName:this.writerName,
+         writerAddress:this.writerAddress,
+         topics:this.topic,
+          },
+        )
+          .then(resp=>{
             if (resp.status === 200) {
-              alert('提交成功');
               this.$router.replace({path:'/myWriting'});}
             else
               alert('提交失败')
-          }) // 发送请求
+          })
+          .catch(error=>{
+            console.log(error);
+          })},
+    //     let formData = new FormData();
+    //     formData.append('title', this.registerForm.username);
+    //     formData.append('summary', this.registerForm.password);
+    //     formData.append('username',this.$store.state.userDetail.username);
+    //     formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
+    //     formData.append('writerEmail',this.writerEmail);
+    //     formData.append('writerJob',this.writerJob);
+    //     formData.append('writerName',this.writerName);
+    //     formData.append('writerAddress',this.writerAddress);
+    //     formData.append('topics',this.topic);
+    //     this.$refs[formname].validate(valid => {
+    //     if(valid){
+    //       this.$axios({
+    //         url: '/sendPaper',   //****: 你的ip地址
+    //         data: formData,
+    //         method: 'post',
+    //         // headers: {
+    //         //   'Content-Type': 'application/json',
+    //         // }
+    //       }).then((resp) => {
+    //         if (resp.status === 200) {
+    //           alert('提交成功');
+    //           this.$router.replace({path:'/myWriting'});}
+    //         else
+    //           alert('提交失败')
+    //       }) // 发送请求
+    //
+    //
+    // }})},
+      handInFile(formname){
+        let formData = new FormData();
+        formData.append('file', document.querySelector('input[type=file]').files[0]);
+        formData.append('username',this.$store.state.userDetail.username);
+        this.$refs[formname].validate(valid => {
+          if(valid){
+            this.$axios({
+              url: '/sendFile',   //****: 你的ip地址
+              data: formData,
+              method: 'post',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              }
+            }).then((resp) => {
+              if (resp.status === 200) {
+                // alert('提交文件成功');
+                }
+              else
+                alert('提交文件失败');
+            }) // 发送请求
 
 
-    }})},
+          }})},
+
+
+
        turn(writers){
          let a = this.writerEmail;
          let b1 = this.writerName;
          let c = this.writerJob;
          let d = this.writerAddress;
-         for(let b in writers){
-           b1.push(b.name);
-           a.push(b.email);
-           c.push(b.job);
-           d.push(b.address);
-         }
+          writers.forEach(function (value, key, arr) {
+          b1.push(value.name);
+           a.push(value.email);
+           c.push(value.job);
+           d.push(value.address);
+         });
          this.writerEmail=a;
          this.writerName=b1;
          this.writerJob=c;
@@ -293,6 +332,7 @@
   },
     created(){
       this.topics=this.$store.state.nowconference.topics;
+      alert(this.topics);
   }}
 
 </script>

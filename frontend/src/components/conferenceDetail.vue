@@ -159,7 +159,6 @@
         this.role.member=this.$store.state.myrole.member;
         this.role.author=this.$store.state.myrole.author;
         this.role.tourist=this.$store.state.myrole.tourist;
-
         this.nowconference=this.$store.state.nowconference
       }
     }
