@@ -1,6 +1,6 @@
 <template>
        <el-tabs type="border-card">
-       <el-tab-pane  v-for="(item,index) in papers"  :key="index"  :label="'稿件' + (index+1)">
+       <el-tab-pane  v-for="(item,index) in papers"  :key="index"  :label="'稿件' + (index+1)" >
         <div id="base_register">
           <el-form :model="registerForm" :rules="rules" class="register_container" label-position="left"
                    label-width="0px" v-loading="loading" :ref="registerForm">
@@ -19,21 +19,21 @@
 
             <el-checkbox-group
               :min="1"
-              :max="topics.length"
+              :max="item.topics.length"
               v-model="topic"
-              @change="handleCheckChange">
+              @change="handleCheckChange"
+             >
               <el-checkbox
-                v-for="(item,index) in topics"
-                :key="index"
-                :label="item"
+                v-for="(item1,index1) in item.topics"
+                :key="index1"
+                :label="item1"
+                checked="true"
               >
-                {{item}}</el-checkbox>
+                {{item1}}</el-checkbox>
             </el-checkbox-group>
-            <el-button type="text" @click="dialogTableVisible = true">修改作者信息</el-button>
 
+            <el-button type="text" @click="findWriters(index),dialogTableVisible = true">修改作者信息</el-button>
             <el-dialog title="作者信息" :visible.sync="dialogTableVisible">
-
-
               <el-table :data="writers" style="width: 100%">
                 <el-table-column prop="name" label="姓名">
                   <template slot-scope="scope">
@@ -106,11 +106,10 @@
               </el-table>
             </el-dialog>
             <el-form-item prop="file" v-model="item.file">
-              <a href="javascript:" class="test">修改上传文件
                 <input type="file" accept="application/pdf">
-              </a>
             </el-form-item>
-            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handIn(registerForm)">handin</el-button>
+
+            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(registerForm),handIn()">handin</el-button>
           </el-form>
         </div>
       </el-tab-pane>
@@ -153,7 +152,6 @@
         writerJob:[],
         writerAddress:[],
         topic:[],
-        topics:[],
         writers:[
           {
             email: '',
@@ -204,39 +202,68 @@
           console.log(row);
         }
       },
-      handIn(formname){
+      handIn(){
+        // alert(this.$store.state.userDetail.username);
+        this.$axios.post('/sendPaper',{
+            title:this.registerForm.username,
+            summary:this.registerForm.password,
+            username:this.$store.state.userDetail.username,
+            conferenceFullname:this.$store.state.nowconference.fullName,
+            writerEmail:this.writerEmail,
+            writerJob:this.writerJob,
+            writerName:this.writerName,
+            writerAddress:this.writerAddress,
+            topics:this.topic,
+          },
+        )
+          .then(resp=>{
+            if (resp.status === 200) {
+              this.$router.replace({path:'/myWriting'});}
+            else
+              alert('提交失败')
+          })
+          .catch(error=>{
+            console.log(error);
+          })},
+      handInFile(formname){
         let formData = new FormData();
-        formData.append('title', this.registerForm.username);
-        formData.append('summary', this.registerForm.password);
         formData.append('file', document.querySelector('input[type=file]').files[0]);
         formData.append('username',this.$store.state.userDetail.username);
-        formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
-        formData.append('writerEmail',this.writerEmail);
-        formData.append('writerJob',this.writerJob);
-        formData.append('writerName',this.writerName);
-        formData.append('writerAdress',this.writerAddress);
-        formData.append('topics',this.topic);
         this.$refs[formname].validate(valid => {
           if(valid){
             this.$axios({
-              url: '/updatePaper',   //****: 你的ip地址
+              url: '/sendFile',   //****: 你的ip地址
               data: formData,
               method: 'post',
               headers: {
                 'Content-Type': 'multipart/form-data',
               }
             }).then((resp) => {
-              alert(this.$store.state.userDetail.username);
               if (resp.status === 200) {
-                alert('提交成功')
               }
               else
-                alert('提交失败')
+                alert('提交文件失败');
             }) // 发送请求
 
 
-          }})} ,
+          }})},
       userTypeChange() {
+      },
+      findWriters(index) {
+        this.writers=[];
+        let a = this.writers;
+        let b = this.papers;
+        for (let c = 0; c < b[index].writerName.length; c++) {
+          let d = {
+            email: b[index].writerEmail[c],
+            name: b[index].writerName[c],
+            job: b[index].writerJob[c],
+            address:b[index].writerAddress[c],
+            showEdit: false,
+          };
+          a.push(d);
+        }
+         this.writers=a;
       },
       moveUp(index,row){
         var that = this;
@@ -278,12 +305,8 @@
         this.writerJob=c;
         this.writerAddress=d;
       }
-
-
-
     },
     created(){
-        this.topics=this.$store.state.nowconference.topics;
         this.$axios.post('/myPaper',{
         username:this.$store.state.userDetail.username,
         conferenceFullname:this.$store.state.nowconference.fullName,
@@ -291,22 +314,6 @@
         .then(resp => {
             if (resp.status === 200) {
               this.papers=resp.data.papers;
-              alert(this.papers[6].writerName[0]);
-              alert(this.papers[6].writerEmail[0]);
-
-              let a= this.writers;
-              for(let b=0;b<this.papers[6].writerName.length;b++){
-                let c={
-                  email:this.papers[6].writerEmail[b],
-                  name: this.papers[6].writerName[b],
-                  job: this.papers[6].writerJob[b],
-                  address: this.papers[6].writerAddress[b],
-                  showEdit: false,
-                }
-                a.push(c);
-                alert(a.length);
-              }
-              this.writers=a;
             }
             else
               alert('show error')

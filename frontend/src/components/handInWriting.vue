@@ -155,10 +155,10 @@
         dialogTableVisible: false,
         writers:[
           {
-            email: '?',
-            name: '?',
-            job: '?',
-            address: '?',
+            email: this.$store.state.userDetail.email,
+            name: this.$store.state.userDetail.username,
+            job: this.$store.state.userDetail.job,
+            address: this.$store.state.userDetail.area,
             showEdit: false
           }],
         writerEmail:[],
@@ -205,6 +205,7 @@
           name: '',
           job: '',
           address: '',
+          showEdit: false,
         };
         this.writers.push(row)
       },
@@ -258,35 +259,6 @@
           .catch(error=>{
             console.log(error);
           })},
-    //     let formData = new FormData();
-    //     formData.append('title', this.registerForm.username);
-    //     formData.append('summary', this.registerForm.password);
-    //     formData.append('username',this.$store.state.userDetail.username);
-    //     formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
-    //     formData.append('writerEmail',this.writerEmail);
-    //     formData.append('writerJob',this.writerJob);
-    //     formData.append('writerName',this.writerName);
-    //     formData.append('writerAddress',this.writerAddress);
-    //     formData.append('topics',this.topic);
-    //     this.$refs[formname].validate(valid => {
-    //     if(valid){
-    //       this.$axios({
-    //         url: '/sendPaper',   //****: 你的ip地址
-    //         data: formData,
-    //         method: 'post',
-    //         // headers: {
-    //         //   'Content-Type': 'application/json',
-    //         // }
-    //       }).then((resp) => {
-    //         if (resp.status === 200) {
-    //           alert('提交成功');
-    //           this.$router.replace({path:'/myWriting'});}
-    //         else
-    //           alert('提交失败')
-    //       }) // 发送请求
-    //
-    //
-    // }})},
       handInFile(formname){
         let formData = new FormData();
         formData.append('file', document.querySelector('input[type=file]').files[0]);
@@ -310,10 +282,7 @@
 
 
           }})},
-
-
-
-       turn(writers){
+      turn(writers){
          let a = this.writerEmail;
          let b1 = this.writerName;
          let c = this.writerJob;
@@ -328,12 +297,10 @@
          this.writerName=b1;
          this.writerJob=c;
          this.writerAddress=d;
-       }
-  },
-    created(){
+       }},
+      created(){
       this.topics=this.$store.state.nowconference.topics;
-      alert(this.topics);
-  }}
+      alert(this.topics);}}
 
 </script>
 

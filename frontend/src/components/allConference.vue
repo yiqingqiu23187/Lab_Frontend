@@ -160,7 +160,4 @@
 </script>
 
 <style scoped>
-
-
-
 </style>
