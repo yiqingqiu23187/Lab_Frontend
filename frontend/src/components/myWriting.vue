@@ -2,16 +2,16 @@
        <el-tabs type="border-card">
        <el-tab-pane  v-for="(item,index) in papers"  :key="index"  :label="'稿件' + (index+1)" >
         <div id="base_register">
-          <el-form :model="registerForm" :rules="rules" class="register_container" label-position="left"
-                   label-width="0px" v-loading="loading" :ref="registerForm">
+          <el-form :model="item"  class="register_container" label-position="left"
+                   label-width="0px" v-loading="loading" :ref="item">
             <h3 class="register_title">my writing</h3>
 
-            <el-form-item prop="username">
+            <el-form-item prop="title">
               <el-input type="text" v-model="item.title"
                         auto-complete="off" placeholder="文章标题" required></el-input>
             </el-form-item>
 
-            <el-form-item prop="password">
+            <el-form-item prop="summary">
               <el-input  type="textarea"
                          :rows="3" v-model="item.summary"
                          auto-complete="off" placeholder="文章摘要" required></el-input>
@@ -27,7 +27,6 @@
                 v-for="(item1,index1) in item.topics"
                 :key="index1"
                 :label="item1"
-                checked="true"
               >
                 {{item1}}</el-checkbox>
             </el-checkbox-group>
@@ -109,7 +108,7 @@
                 <input type="file" accept="application/pdf">
             </el-form-item>
 
-            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(registerForm),handIn()">handin</el-button>
+            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(item),handIn(item)">handin</el-button>
           </el-form>
         </div>
       </el-tab-pane>
@@ -125,25 +124,6 @@
           return callback(new Error('Can\'t be empty'))
         }
         return callback()
-      };
-      const checkname = (rule,username,callback) =>{
-        if(!username || username ===''){
-          return callback(new Error('Can\'t be empty'))
-        }
-        else if(username.length >50){
-          return callback(new Error('50 characters in length'))
-        }
-        return callback();
-      };
-      const checkpassword=(rule,password,callback)=>{
-        if(!password || password ===''){
-          return callback(new Error('Can\'t be empty'))
-        }
-        else if(password.length>800){
-          return callback(new Error('800 characters in length'))
-        }
-        else
-          return callback();
       };
 
       return {
@@ -171,22 +151,16 @@
           writerJob:[],
           writerAddress:[],
           topics:[],
+           id:0,
         }],
         dialogTableVisible: false,
         userName: "",
         userId: "",
-        registerForm: {
+        registerForm: [{
           username: '',
           password: '',
           file:'',
-        },
-
-        rules: {
-          // blur 失去鼠标焦点时触发验证
-          username: [{required: true, message: '请输入文章标题', trigger: 'blur'}, {validator: checkname, trigger: 'blur'}],
-          password: [{required: true, message: '请填写文章摘要', trigger: 'blur'}, {validator: checkpassword, trigger: 'blur'}],
-          pdf: [{required: true, message: '请选择pdf文件', trigger: 'blur'}, {validator: dataValid, trigger: 'blur'}],
-        },
+        }],
         loading: false
       }
     },
@@ -202,11 +176,11 @@
           console.log(row);
         }
       },
-      handIn(){
-        // alert(this.$store.state.userDetail.username);
+      handIn(item){
         this.$axios.post('/sendPaper',{
-            title:this.registerForm.username,
-            summary:this.registerForm.password,
+            id:item.id,
+            title:item.title,
+            summary:item.summary,
             username:this.$store.state.userDetail.username,
             conferenceFullname:this.$store.state.nowconference.fullName,
             writerEmail:this.writerEmail,
@@ -225,12 +199,11 @@
           .catch(error=>{
             console.log(error);
           })},
-      handInFile(formname){
+      handInFile(item){
         let formData = new FormData();
+        formData.append('id',item.id);
         formData.append('file', document.querySelector('input[type=file]').files[0]);
         formData.append('username',this.$store.state.userDetail.username);
-        this.$refs[formname].validate(valid => {
-          if(valid){
             this.$axios({
               url: '/sendFile',   //****: 你的ip地址
               data: formData,
@@ -240,13 +213,12 @@
               }
             }).then((resp) => {
               if (resp.status === 200) {
+                alert('提交文件成功');
               }
               else
                 alert('提交文件失败');
             }) // 发送请求
-
-
-          }})},
+          },
       userTypeChange() {
       },
       findWriters(index) {
