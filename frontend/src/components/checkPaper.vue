@@ -89,8 +89,10 @@
         })
           .then(resp => {
               if (resp.status === 200) {
+                console.log(resp.data);
                 this.papers = resp.data.papers;
                 this.finishs=resp.data.finishs;
+
               }
               else
                 alert('show error')

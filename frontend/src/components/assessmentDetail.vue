@@ -4,16 +4,16 @@
       <!--//这里是列表-->
       <el-card class="box-card">
         <div class="text item">
-          <p>稿件名：  {{nowpaper.name }}</p>
-          <p>评分一：  {{nowpaper.score1 }}</p>
-          <p>评分二：  {{nowpaper.score2 }}</p>
-          <p>评分三：  {{nowpaper.score3 }}</p>
-          <p>confidence1：  {{nowpaper.confidence1 }}</p>
-          <p>confidence2：  {{nowpaper.confidence2 }}</p>
-          <p>confidence3：  {{nowpaper.confidence3 }}</p>
-          <p>评语一：  {{nowpaper.review1 }}</p>
-          <p>评语二：  {{nowpaper.review2 }}</p>
-          <p>评语三：  {{nowpaper.review3 }}</p>
+          <p>稿件名：  {{nowmark.markTitle }}</p>
+          <p>评分一：  {{nowmark.scores[0] }}</p>
+          <p>评分二：  {{nowmark.scores[1] }}</p>
+          <p>评分三：  {{nowmark.scores[2] }}</p>
+          <p>confidence1：  {{nowmark.confidences[0] }}</p>
+          <p>confidence2：  {{nowmark.confidences[1] }}</p>
+          <p>confidence3：  {{nowmark.confidences[2] }}</p>
+          <p>评语一：  {{nowmark.discribes[0] }}</p>
+          <p>评语二：  {{nowmark.discribes[1]}}</p>
+          <p>评语三：  {{nowmark.discribes[2] }}</p>
 
 
         </div>
@@ -29,23 +29,20 @@
         name: "assessment-detail",
       data(){
           return{
-            nowpaper:{
-              name:'',
-              score1:'',
-              score2:'',
-              score3:'',
-              confidence1:'',
-              confidence2:'',
-              confidence3:'',
-              review1:'',
-              review2:'',
-              review3:'',
+            nowmark:{
+              paperTitle:'',
+              conferenceFullname:'',
+              pcmembers:[],
+              finish:[],
+              scores:[],
+              confidences:[],
+              discribes:[],
             },
           }
       },
       created:
       function () {
-        // this.nowpaper=this.$store.state.nowpaper;
+        this.nowmark=this.$store.state.nowmark;
       }
     }
 

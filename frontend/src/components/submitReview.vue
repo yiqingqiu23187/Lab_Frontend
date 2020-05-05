@@ -76,13 +76,15 @@
         },
         methods: {
           submitForm(formName) {
+            console.log(this.$store.state.nowpaper.title);
+            console.log(this.$store.state.nowpaper.conferenceFullname);
+
             this.$refs[formName].validate((valid) => {
               if (valid) {
                 this.$axios.post('/submitReview',{
-                  conferenceFullname:this.$store.state.nowconference.fullName,
+                  conferenceFullname:this.$store.state.nowpaper.conferenceFullname,
                   username:this.$store.state.userDetail.username,
-                  paperTitle:this.$store.state.userDetail.username,
-                  //
+                  paperTitle:this.$store.state.nowpaper.title,
                   score:this.ruleForm.score,
                   confidence:this.ruleForm.confidence,
                   describe:this.ruleForm.desc,

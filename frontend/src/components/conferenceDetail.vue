@@ -37,6 +37,7 @@
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="openauthor">开启审稿</el-button>
+        <el-button v-if="this.nowconference.finish == true&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布评审结果</el-button>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
     </el-tabs>
@@ -65,6 +66,9 @@
                 releaseDate: '',
                 topics:[],
                 openOrNot:'',
+                finish:false,
+                released:false,
+
               },
             role:{
               chair:'',
@@ -90,6 +94,26 @@
 
 
       methods:{
+
+        fabu(){
+
+          this.$axios.post('/releaseMark', {
+            conferenceFullname:this.$store.state.nowconference.fullName,
+          })
+            .then(resp => {
+                if (resp.status === 200) {
+                  alert("发布成功");
+                  this.$store.state.nowconference.released = true;
+                  this.$router.replace({path:'/assessmentResults'});
+                }
+                else
+                  alert("发布失败")
+              }
+            )
+            .catch(error => {
+              console.log(error);
+            })
+        },
         nihao(){
           alert(this.nowconference.markable)
         },

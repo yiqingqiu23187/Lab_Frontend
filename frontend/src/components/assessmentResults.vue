@@ -9,42 +9,42 @@
                 <el-table-column label="稿件名称" width="180">
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.paperTitle }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="评分一" width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.score1 }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.scores[0] }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="评分二" width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.score2 }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.scores[1] }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="评分三" width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.score3 }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.scores[2] }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="confidence1" width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.confidence1 }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.confidences[0] }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="confidence2" width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.confidence2 }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.confidences[1] }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="confidence3" width="180">
                   <template slot-scope="scope">
-                    <span style="margin-left: 10px">{{ scope.row.confidence3 }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.confidences[2] }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column label="查看评审详情">
                   <template slot-scope="scope">
-                    <el-button size="mini" @click="nowpaper=scope.row,chose()" >评审详情</el-button>
+                    <el-button size="mini" @click="nowmark=scope.row,chose()" >评审详情</el-button>
                   </template>
                 </el-table-column>
               </el-table-column>
@@ -65,7 +65,7 @@
         name: "assessment-results",
       methods: {
           chose(){
-            this.$store.commit('nowpaper',this.nowpaper);
+            this.$store.commit('nowmark',this.nowmark);
             this.$router.replace({path:'/assessmentDetail'});
           }
       },
@@ -73,28 +73,22 @@
       data() {
         return {
           assessments:[{
-            name:'',
-            score1:'',
-            score2:'',
-            score3:'',
-            confidence1:'',
-            confidence2:'',
-            confidence3:'',
-            review1:'',
-            review2:'',
-            review3:'',
+            paperTitle:'',
+            conferenceFullname:'',
+            pcmembers:[],
+            finish:[],
+            scores:[],
+            confidences:[],
+            discribes:[],
           }],
-          nowpaper:{
-            name:'',
-            score1:'',
-            score2:'',
-            score3:'',
-            confidence1:'',
-            confidence2:'',
-            confidence3:'',
-            review1:'',
-            review2:'',
-            review3:'',
+          nowmark:{
+            paperTitle:'',
+            conferenceFullname:'',
+            pcmembers:[],
+            finish:[],
+            scores:[],
+            confidences:[],
+            discribes:[],
           },
         }
       },
@@ -103,10 +97,12 @@
       function () {
         // this.username='',
 
-          this.$axios.get('/allMark')
+          this.$axios.post('/myMark',{
+            username:this.$store.state.userDetail.username
+          })
             .then(resp => {
               if (resp.status === 200) {
-                this.assessments = resp.data.allAssessments;
+                this.assessments = resp.data.marks;
               } else {
                 alert('Get All Assessments error')
               }
