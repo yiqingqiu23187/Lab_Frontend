@@ -97,6 +97,24 @@
             review3:'',
           },
         }
+      },
+
+      created:
+      function () {
+        // this.username='',
+
+          this.$axios.get('/allMark')
+            .then(resp => {
+              if (resp.status === 200) {
+                this.assessments = resp.data.allAssessments;
+              } else {
+                alert('Get All Assessments error')
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              alert('Get All Assessments error2')
+            })
       }
     }
 </script>

@@ -42,8 +42,12 @@
             <router-link to="assessmentResults">评审结果</router-link>
           </el-menu-item>
           <el-menu-item index="12">
+          <i class="el-icon-message"></i>
+          <router-link to="assessmentDetail">评审详情</router-link>
+        </el-menu-item>
+          <el-menu-item index="13">
             <i class="el-icon-message"></i>
-            <router-link to="assessmentDetail">评审详情</router-link>
+            <router-link to="checkPaper">分配稿件</router-link>
           </el-menu-item>
           <el-menu-item index="9">
             <i class="el-icon-s-check"></i>

@@ -102,12 +102,10 @@
               </el-table-column>
             </el-table>
           </el-dialog>
-       <el-form-item prop="file" v-model="registerForm.file"></el-form-item>
 
-          <!--<a href="javascript:" class="test" id="filename">点击此处上传文件-->
-          <input type="file"   accept="application/pdf" id="file" >
-          <!--</a>-->
-
+          <el-form-item>
+            <input type="file" accept="application/pdf" :id="index">
+          </el-form-item>
 
           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(registerForm),handIn()">handin</el-button>
         </el-form>
@@ -172,7 +170,6 @@
         registerForm: {
           username: '',
           password: '',
-           file:'',
         },
         rules: {
           // blur 失去鼠标焦点时触发验证

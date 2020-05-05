@@ -104,11 +104,12 @@
                 </el-table-column>
               </el-table>
             </el-dialog>
-            <el-form-item prop="file" v-model="item.file">
-                <input type="file" accept="application/pdf">
+
+            <el-form-item>
+                <input type="file" accept="application/pdf" :id="index">
             </el-form-item>
 
-            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(item),handIn(item)">handin</el-button>
+            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(item,index),handIn(item)">handin</el-button>
           </el-form>
         </div>
       </el-tab-pane>
@@ -177,6 +178,7 @@
         }
       },
       handIn(item){
+        alert(item.id);
         this.$axios.post('/sendPaper',{
             id:item.id,
             title:item.title,
@@ -192,6 +194,7 @@
         )
           .then(resp=>{
             if (resp.status === 200) {
+              alert("dada");
               this.$router.replace({path:'/myWriting'});}
             else
               alert('提交失败')
@@ -199,10 +202,12 @@
           .catch(error=>{
             console.log(error);
           })},
-      handInFile(item){
+      handInFile(item,index){
         let formData = new FormData();
         formData.append('id',item.id);
-        formData.append('file', document.querySelector('input[type=file]').files[0]);
+       formData.append('file', document.getElementById(index).files[0]);
+       // formData.append('file',document.querySelector('input.'+index).files[0]);
+
         formData.append('username',this.$store.state.userDetail.username);
             this.$axios({
               url: '/sendFile',   //****: 你的ip地址
@@ -286,6 +291,7 @@
         .then(resp => {
             if (resp.status === 200) {
               this.papers=resp.data.papers;
+              alert(resp.data.papers[0].id);
             }
             else
               alert('show error')

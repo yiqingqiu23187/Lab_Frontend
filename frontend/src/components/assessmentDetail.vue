@@ -45,7 +45,7 @@
       },
       created:
       function () {
-        this.nowpaper=this.$store.state.nowpaper;
+        // this.nowpaper=this.$store.state.nowpaper;
       }
     }
 

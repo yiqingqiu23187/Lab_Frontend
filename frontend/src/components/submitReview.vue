@@ -2,6 +2,7 @@
   <el-tabs type="border-card">
     <el-tab-pane label="提交审批">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+        <el-form-item>稿件名称：{{nowpaper.name}}</el-form-item>
         <el-form-item label="稿件评分" prop="region">
           <el-select v-model="ruleForm.score" placeholder="请选择稿件评分">
             <el-option label="-2 ：reject" value="-2"></el-option>
@@ -35,20 +36,28 @@
 </template>
 
 <script>
+    import ElFormItem from "element-ui/packages/form/src/form-item";
+
     export default {
-        name: "submit-review",
+      components: {ElFormItem},
+      name: "submit-review",
         data() {
           return {
+            nowpaper:{
+              name:'',
+              score1:'',
+              score2:'',
+              score3:'',
+              confidence1:'',
+              confidence2:'',
+              confidence3:'',
+              review1:'',
+              review2:'',
+              review3:'',
+            },
             ruleForm: {
-              score:'',
-              confidence:'',
-              // name: '',
-              // region: '',
-              // date1: '',
-              // date2: '',
-              // delivery: false,
-              // type: [],
-              // resource: '',
+              score:0,
+              confidence:0,
               desc: ''
             },
             rules: {
@@ -70,9 +79,13 @@
             this.$refs[formName].validate((valid) => {
               if (valid) {
                 this.$axios.post('/submitReview',{
+                  conferenceFullname:this.$store.state.nowconference.fullName,
+                  username:this.$store.state.userDetail.username,
+                  paperTitle:this.$store.state.userDetail.username,
+                  //
                   score:this.ruleForm.score,
                   confidence:this.ruleForm.confidence,
-                  desc:this.ruleForm.desc,
+                  describe:this.ruleForm.desc,
                   }
                 )
                   .then(resp => {
@@ -97,7 +110,11 @@
           resetForm(formName) {
             this.$refs[formName].resetFields();
           }
-        }
+        },
+      created:
+      function () {
+        this.nowpaper=this.$store.state.nowpaper;
+      }
     }
 </script>
 

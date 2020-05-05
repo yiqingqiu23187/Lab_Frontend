@@ -30,12 +30,13 @@
         <el-button v-if="this.role.chair != ''" @click="openwriting">开启投稿</el-button>
         <el-button v-if="this.role.chair != ''" @click="jump">邀请成员</el-button>
         <el-button v-if="this.role.author != ''" @click="jumpwrite()">查看投稿</el-button>
-        <el-button v-if="this.role.chair == ''&& this.role.author == ''&&this.role.member!=='chairmember'" @click="beauthor">我要投稿</el-button>
+        <el-button v-if="this.role.chair == ''&& this.role.author == ''&&this.role.member!=='chairmember'&&this.$store.state.nowconference.markable == false" @click="beauthor">我要投稿</el-button>
         <!--&&this.nowconference.opemmark==false-->
-        <h3 v-if="this.nowconference.openOrNot == true ">审稿策略选择：</h3>
-        <el-button v-if="this.nowconference.openOrNot == true " @click="chosestra('1')">基于topic相关度</el-button>
-        <el-button v-if="this.nowconference.openOrNot == true " @click="chosestra('2')">基于审稿平均负担</el-button>
-        <el-button v-if="this.nowconference.openOrNot == true " @click="openauthor">开启审稿</el-button>
+        <el-button @click="nihao">测试</el-button>
+        <h3 v-if="(this.nowconference.openOrNot == true&& this.role.chair != '')">审稿策略选择：</h3>
+        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
+        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
+        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="openauthor">开启审稿</el-button>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
     </el-tabs>
@@ -54,7 +55,7 @@
             nowconference:
               {
                 chair: '',
-                PCMembers: [],
+                pcmembers: [],
                 authors:[],
                 abbr: '',
                 fullName: '',
@@ -89,6 +90,10 @@
 
 
       methods:{
+        nihao(){
+          alert(this.nowconference.markable)
+        },
+
         jumpwrite(){
           this.$router.replace({path:'/myWriting'})
         },
@@ -98,22 +103,29 @@
             this.stra='1'
           }else{
             alert("您采用了人均负担相关度策略！");
-            this.stra='2'
+            this.stra='0'
           }
         },
 
         openauthor(){
-          if(this.$store.state.nowconference.PCMembers.length < 3){
+          // alert("nihao");
+          // console.log(this.$store.state.nowconference);
+          // console.log(this.$store.state.nowconference.pcmembers);
+            alert(this.$store.state.nowconference.pcmembers.length);
+          if(this.$store.state.nowconference.pcmembers.length < 3){
             alert("会议成员不足三个，无法开启投稿！")
           }else{
-            this.$axios.post('/openauthor', {
+            this.$axios.post('/openMark', {
               conferenceFullname:this.$store.state.nowconference.fullName,
               strategy:this.stra,
+              markable:true,
             })
               .then(resp => {
                   if (resp.status === 200) {
-                    alert("开启审稿成功！");
-                    // this.$store.state.nowconference.openmark = true;
+                    alert("开启审稿成功，进入全部会议界面！");
+                    this.$store.state.nowconference.markable = true;
+                    //应该加一个判断审稿是否开启
+                    this.$router.replace({path:'/allConference'})
                   }
                   else
                     alert("开启审稿失败")
@@ -159,6 +171,7 @@
         this.role.member=this.$store.state.myrole.member;
         this.role.author=this.$store.state.myrole.author;
         this.role.tourist=this.$store.state.myrole.tourist;
+
         this.nowconference=this.$store.state.nowconference
       }
     }
