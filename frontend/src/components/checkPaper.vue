@@ -32,8 +32,10 @@
                   <el-button size="mini" >
                     在线预览</el-button>
 
-                  <el-button size="mini" >
-                    下载pdf</el-button>
+                  <el-button size="mini"
+                    v-on:click="downLoad(scope.$index)"
+                  > 下载pdf</el-button>
+
                   <el-button type="primary"
                              style="width: 40%;background: #afb4db;border: none"
                              v-if="!finishs[scope.$index]"
@@ -78,10 +80,23 @@
           nowPaper(paper){
             this.$store.commit('nowpaper',paper);
             this.$router.replace({path:'/submitReview'})
-          }
-
-
-      },
+          },
+          downLoad(index){
+            this.$axios.post('/download',{
+              username:this.$store.state.userDetail.username,
+              },
+            )
+              .then(res => res.blob())
+              .then(data => {
+                let blobUrl = window.URL.createObjectURL(data.files[index]);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.download = '稿件的pdf';
+                a.href = blobUrl;
+                a.click();
+                document.body.removeChild(a);
+              });
+          }},
 
       created(){
           this.$axios.post('/myDistribution',{
@@ -92,7 +107,6 @@
                 console.log(resp.data);
                 this.papers = resp.data.papers;
                 this.finishs=resp.data.finishs;
-
               }
               else
                 alert('show error')

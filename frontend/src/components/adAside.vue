@@ -5,7 +5,7 @@
       <div class="block"><el-avatar :size="80" :src="circleUrl"></el-avatar></div>
       <span>{{username}}</span>
       <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
-        <el-menu-item index="1">
+        <el-menu-item index="1" disabled>
           <i class="el-icon-s-home"></i>
           <router-link to="Home">首页</router-link>
         </el-menu-item>

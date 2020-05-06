@@ -111,8 +111,8 @@
         this.$axios.get('/admin')
           .then(resp=>{
             this.waitingConference=resp.data.waitingConference;
-            this.agConference=resp.data.agConference;
-            this.reConference=resp.data.reConference;
+            this.agreeConference=resp.data.agreeConference;
+            this.refuseConference=resp.data.refuseConference;
             this.$router.replace({path:'/admin'})
           })
           .catch(error=>{

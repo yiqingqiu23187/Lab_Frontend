@@ -116,7 +116,7 @@
           </div>
            </el-form-item>
 
-          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(registerForm),handIn()">handin</el-button>
+          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handIn(),handInFile(registerForm)">handin</el-button>
         </el-form>
       </div>
     </el-tab-pane>
@@ -263,7 +263,7 @@
         )
           .then(resp=>{
             if (resp.status === 200) {
-              this.$router.replace({path:'/myWriting'});}
+              }
             else
               alert('提交失败')
           })
@@ -274,6 +274,8 @@
         let formData = new FormData();
         formData.append('file', document.querySelector('input[type=file]').files[0]);
         formData.append('username',this.$store.state.userDetail.username);
+        formData.append('title',this.registerForm.username);
+        formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
         this.$refs[formname].validate(valid => {
           if(valid){
             this.$axios({
@@ -285,7 +287,7 @@
               }
             }).then((resp) => {
               if (resp.status === 200) {
-                // alert('提交文件成功');
+                this.$router.replace({path:'/myWriting'});
                 }
               else
                 alert('提交文件失败');

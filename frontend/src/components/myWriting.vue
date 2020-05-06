@@ -20,7 +20,7 @@
             <el-checkbox-group
               :min="1"
               :max="item.topics.length"
-              v-model="topic"
+              v-model="item.topics"
               @change="handleCheckChange"
              >
               <el-checkbox
@@ -119,7 +119,7 @@
                 <span id="name" style="color:skyblue;size:40px">请选择pdf文件</span>
               </div>
             </el-form-item>
-           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(),handInFile(item,index),handIn(item)">handin</el-button>
+           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="nowconference.openOrNot === true" v-on:click="turn(),handInFile(item,index),handIn(item)">handin</el-button>
           </el-form>
         </div>
       </el-tab-pane>
@@ -165,6 +165,22 @@
           topics:[],
            id:0,
         }],
+        nowconference:
+          {
+            chair: '',
+            pcmembers: [],
+            authors:[],
+            abbr: '',
+            fullName: '',
+            holdDate: '',
+            holdPlace: '',
+            submissionDeadline: '',
+            releaseDate: '',
+            topics:[],
+            openOrNot:'',
+            finish:false,
+            released:false,
+          },
         dialogTableVisible: false,
         userName: "",
         userId: "",
@@ -309,6 +325,7 @@
       }
     },
     created(){
+      this.nowconference=this.$store.state.nowconference;
         this.$axios.post('/myPaper',{
         username:this.$store.state.userDetail.username,
         conferenceFullname:this.$store.state.nowconference.fullName,
