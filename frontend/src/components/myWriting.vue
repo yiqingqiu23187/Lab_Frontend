@@ -1,6 +1,6 @@
 <template>
        <el-tabs type="border-card">
-       <el-tab-pane  v-for="(item,index) in papers"  :key="index"  :label="'稿件' + (index+1)" >
+       <el-tab-pane  v-for="(item,index) in papers"  :key="index"  :label="'稿件' + (index+1)">
         <div id="base_register">
           <el-form :model="item"  class="register_container" label-position="left"
                    label-width="0px" v-loading="loading" :ref="item">
@@ -69,12 +69,6 @@
                 </el-table-column>
                 <el-table-column prop="email" label="邮箱">
 
-
-
-
-
-
-
                   <template slot-scope="scope">
                     <el-input
                       size="small"
@@ -100,16 +94,32 @@
                       size="mini"
                       :disabled="scope.$index===(writers.length-1)"
                       @click="moveDown(scope.$index,scope.row)"><i class="el-icon-arrow-down"></i></el-button>
+                    <el-button v-model="handleAdd"
+                               size="mini"
+                               type="success"
+                               circle plain
+                               icon="el-icon-plus"
+                               @click="handleAdd(scope.$index, scope.row)">
+                    </el-button>
                   </template>
                 </el-table-column>
               </el-table>
             </el-dialog>
 
-            <el-form-item>
-                <input type="file" accept="application/pdf" :id="index">
-            </el-form-item>
+            <!--<el-form-item>-->
+                <!--<input type="file" accept="application/pdf" :id="index">-->
+            <!--</el-form-item>-->
 
-            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(item,index),handIn(item)">handin</el-button>
+            <el-form-item>
+              <div class="file-input">
+                <p class="input-container">
+                  修改pdf
+                  <input type="file" :id="index" accept="application/pdf"  @change="reName(index)">
+                </p>
+                <span id="name" style="color:skyblue;size:40px">请选择pdf文件</span>
+              </div>
+            </el-form-item>
+           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(),handInFile(item,index),handIn(item)">handin</el-button>
           </el-form>
         </div>
       </el-tab-pane>
@@ -128,6 +138,7 @@
       };
 
       return {
+        number:[],
         writerEmail:[],
         writerName:[],
         writerJob:[],
@@ -160,12 +171,16 @@
         registerForm: [{
           username: '',
           password: '',
-          file:'',
         }],
         loading: false
       }
     },
     methods:{
+      reName(index){
+        let upload=document.getElementById(index).value;
+        let nameContainer=document.getElementById('name');
+        nameContainer.innerHTML=upload;
+      },
       handleCheckChange(val) {
         console.log(val)
       },
@@ -194,7 +209,6 @@
         )
           .then(resp=>{
             if (resp.status === 200) {
-              alert("dada");
               this.$router.replace({path:'/myWriting'});}
             else
               alert('提交失败')
@@ -204,11 +218,9 @@
           })},
       handInFile(item,index){
         let formData = new FormData();
-        formData.append('id',item.id);
+       formData.append('id',item.id);
        formData.append('file', document.getElementById(index).files[0]);
-       // formData.append('file',document.querySelector('input.'+index).files[0]);
-
-        formData.append('username',this.$store.state.userDetail.username);
+       formData.append('username',this.$store.state.userDetail.username);
             this.$axios({
               url: '/sendFile',   //****: 你的ip地址
               data: formData,
@@ -226,7 +238,19 @@
           },
       userTypeChange() {
       },
+      handleAdd() {
+        let row = {
+          email: '',
+          name: '',
+          job: '',
+          address: '',
+          showEdit: false,
+        };
+        this.writers.push(row)
+      },
       findWriters(index) {
+        if(this.number[index]===0){
+        this.number[index]++;
         this.writers=[];
         let a = this.writers;
         let b = this.papers;
@@ -241,6 +265,7 @@
           a.push(d);
         }
          this.writers=a;
+      }
       },
       moveUp(index,row){
         var that = this;
@@ -266,17 +291,17 @@
           that.writers.splice(index,0, downDate);
         }
       },
-      turn(writers){
+      turn(){
         let a = this.writerEmail;
         let b1 = this.writerName;
         let c = this.writerJob;
         let d = this.writerAddress;
-        for(let b in writers){
-          b1.push(b.name);
-          a.push(b.email);
-          c.push(b.job);
-          d.push(b.address);
-        }
+        this.writers.forEach(function (value, key, arr) {
+          b1.push(value.name);
+          a.push(value.email);
+          c.push(value.job);
+          d.push(value.address);
+        });
         this.writerEmail=a;
         this.writerName=b1;
         this.writerJob=c;
@@ -291,8 +316,14 @@
         .then(resp => {
             if (resp.status === 200) {
               this.papers=resp.data.papers;
-              alert(resp.data.papers[0].id);
-            }
+              this.number.length=this.papers.length;
+              let b =this.papers.length;
+              let c =this.number;
+              for(let a = 0; a<b ; a++){
+                c[a]=0;
+              }
+              this.number =c;
+              }
             else
               alert('show error')
           }
@@ -305,6 +336,34 @@
 </script>
 
 <style scoped>
+  .file-input{
+    line-height:30px;
+    position:relative;
+    margin-top:10px;
+    margin-left:80px;
+  }
+  .file-input .input-container{
+    width:100px;
+    height:30px;
+    text-align:center;
+    background:lightskyblue;
+    color:#fff;
+    border-radius:3px;
+  }
+  .file-input input{
+    position:absolute;
+    left:0;
+    top:0;
+    opacity:0;
+  }
+  .file-input #name{
+    position:absolute;
+    left:100px;
+    top:0;
+    font-size:12px;
+    color:#666;
+  }
+
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

@@ -103,9 +103,18 @@
             </el-table>
           </el-dialog>
 
-          <el-form-item>
-            <input type="file" accept="application/pdf" :id="index">
-          </el-form-item>
+          <!--<el-form-item>-->
+            <!--<input type="file" accept="application/pdf" :id="index">-->
+          <!--</el-form-item>-->
+           <el-form-item>
+          <div class="file-input">
+            <p class="input-container">
+              选择pdf
+              <input type="file" id="upload" accept="application/pdf"  @change="reName">
+            </p>
+            <span id="name" style="color:skyblue;size:40px">请选择pdf文件</span>
+          </div>
+           </el-form-item>
 
           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="turn(writers),handInFile(registerForm),handIn()">handin</el-button>
         </el-form>
@@ -117,6 +126,7 @@
 
 
 <script>
+
   export default {
     name: 'handInWriting',
     data () {
@@ -181,13 +191,17 @@
       }
     },
     methods: {
+      reName(){
+        let upload=document.getElementById('upload').value;
+        let nameContainer=document.getElementById('name');
+        nameContainer.innerHTML=upload;
+      },
+
+
+
       handleCheckChange(val) {
         console.log(val)
       },
-      // getFilename(){
-      //     let f=document.getElementById("file").value;
-      //     document.getElementById("filename").innerHTML=f; //将截取后的文件名填充到span中
-      // },
       handleEdit(index, row) {
         console.log(index, row);
         row.showEdit = !row.showEdit;
@@ -302,6 +316,35 @@
 </script>
 
 <style scoped>
+  .file-input{
+    line-height:30px;
+    position:relative;
+    margin-top:10px;
+    margin-left:80px;
+  }
+  .file-input .input-container{
+    width:100px;
+    height:30px;
+    text-align:center;
+    background:lightskyblue;
+    color:#fff;
+    border-radius:3px;
+  }
+  .file-input input{
+    position:absolute;
+    left:0;
+    top:0;
+    opacity:0;
+  }
+  .file-input #name{
+    position:absolute;
+    left:100px;
+    top:0;
+    font-size:12px;
+    color:#666;
+  }
+
+
   .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;

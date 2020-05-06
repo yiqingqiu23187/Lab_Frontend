@@ -4,7 +4,7 @@
       <div class="header">
         <div class="nav-right" v-show="this.$store.state.token !== null">
           <el-button type="primary"
-                     style="width: 40%;background: #afb4db;border: none" v-on:click="logout">注销用户
+                     style="width: 40%;background: #afb4db;border: none" v-on:click="logout">退出管理
           </el-button>
         </div>
       </div>
@@ -25,9 +25,9 @@
     },
     methods:{
       logout() {
-        this.$store.commit('logout')
-        if(this.$route.path !== '/home') {
-          this.$router.replace('/home')
+        this.$store.commit('logout');
+        if(this.$route.path !== '/login') {
+          this.$router.replace('/login')
         }
       }
     },
