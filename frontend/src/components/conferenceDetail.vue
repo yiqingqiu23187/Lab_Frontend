@@ -30,7 +30,7 @@
         <el-button v-if="this.role.chair != ''" @click="openwriting">开启投稿</el-button>
         <el-button v-if="this.role.chair != ''" @click="jump">邀请成员</el-button>
         <el-button v-if="this.role.author != ''" @click="jumpwrite()">查看投稿</el-button>
-        <el-button v-if="this.role.chair == ''&& this.role.author == ''&&this.role.member!=='chairmember'&&this.$store.state.nowconference.markable == false" @click="beauthor">我要投稿</el-button>
+        <el-button v-if="this.role.chair == ''&& this.role.author == ''&&this.role.member!=='chairmember'&&this.$store.state.nowconference.markable == false&&this.$store.state.nowconference.openOrNot == true" @click="beauthor">我要投稿</el-button>
         <!--&&this.nowconference.opemmark==false-->
         <el-button @click="nihao">测试</el-button>
         <h3 v-if="(this.nowconference.openOrNot == true&& this.role.chair != '')">审稿策略选择：</h3>

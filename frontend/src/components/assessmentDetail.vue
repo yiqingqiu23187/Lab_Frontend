@@ -4,7 +4,7 @@
       <!--//这里是列表-->
       <el-card class="box-card">
         <div class="text item">
-          <p>稿件名：  {{nowmark.markTitle }}</p>
+          <p>稿件名：  {{nowmark.paperTitle }}</p>
           <p>评分一：  {{nowmark.scores[0] }}</p>
           <p>评分二：  {{nowmark.scores[1] }}</p>
           <p>评分三：  {{nowmark.scores[2] }}</p>
