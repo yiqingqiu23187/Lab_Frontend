@@ -248,53 +248,61 @@
       },
 
       handIn(){
-        // alert(this.$store.state.userDetail.username);
-        this.$axios.post('/sendPaper',{
-         title:this.registerForm.username,
-         summary:this.registerForm.password,
-         username:this.$store.state.userDetail.username,
-         conferenceFullname:this.$store.state.nowconference.fullName,
-         writerEmail:this.writerEmail,
-         writerJob:this.writerJob,
-         writerName:this.writerName,
-         writerAddress:this.writerAddress,
-         topics:this.topic,
-          },
-        )
-          .then(resp=>{
-            if (resp.status === 200) {
-              }
-            else
-              alert('提交失败')
-          })
-          .catch(error=>{
-            console.log(error);
-          })},
-      handInFile(formname){
-        let formData = new FormData();
-        formData.append('file', document.querySelector('input[type=file]').files[0]);
-        formData.append('username',this.$store.state.userDetail.username);
-        formData.append('title',this.registerForm.username);
-        formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
-        this.$refs[formname].validate(valid => {
-          if(valid){
-            this.$axios({
-              url: '/sendFile',   //****: 你的ip地址
-              data: formData,
-              method: 'post',
-              headers: {
-                'Content-Type': 'multipart/form-data',
-              }
-            }).then((resp) => {
+        if(this.topic.length>0&&this.writerName.length>0&&document.querySelector('input[type=file]').files[0]!=null) {
+          this.$axios.post('/sendPaper',{
+              title: this.registerForm.username,
+              summary: this.registerForm.password,
+              username: this.$store.state.userDetail.username,
+              conferenceFullname: this.$store.state.nowconference.fullName,
+              writerEmail: this.writerEmail,
+              writerJob: this.writerJob,
+              writerName: this.writerName,
+              writerAddress: this.writerAddress,
+              topics: this.topics,
+            },
+          )
+            .then(resp => {
               if (resp.status === 200) {
-                this.$router.replace({path:'/myWriting'});
-                }
+              }
               else
-                alert('提交文件失败');
-            }) // 发送请求
+                alert('提交失败')
+            })
+            .catch(error => {
+              console.log(error);
+            })
+        }
+        else{
+          alert("文章至少包含一个topic、一个作者");
+        }
 
 
-          }})},
+      },
+      handInFile(formname){
+        if(this.topic.length>0&&this.writerName.length>0&&document.querySelector('input[type=file]').files[0]!=null){
+          let formData = new FormData();
+          formData.append('file',document.querySelector('input[type=file]').files[0]);
+          formData.append('username',this.$store.state.userDetail.username);
+          formData.append('title',this.registerForm.username);
+          formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
+          this.$refs[formname].validate(valid => {
+            if(valid){
+              this.$axios({
+                url: '/sendFile',   //****: 你的ip地址
+                data: formData,
+                method: 'post',
+                headers: {
+                  'Content-Type': 'multipart/form-data',
+                }
+              }).then((resp) => {
+                if (resp.status === 200) {
+                  this.$router.replace({path:'/myWriting'});
+                }
+                else
+                  alert('提交文件失败');
+              }) // 发送请求
+        }})
+        }
+       },
       turn(writers){
          let a = this.writerEmail;
          let b1 = this.writerName;

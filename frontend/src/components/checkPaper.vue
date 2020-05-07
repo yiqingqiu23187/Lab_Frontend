@@ -29,8 +29,9 @@
               <el-table-column label="操作">
                 <template slot-scope="scope">
 
-                  <el-button size="mini" >
-                    在线预览</el-button>
+                  <el-button size="mini"
+                                      v-on:click="preview(scope.$index)">
+                                      在线预览</el-button>
 
                   <el-button size="mini"
                     v-on:click="downLoad(scope.$index)"
@@ -77,26 +78,59 @@
 
         },
       methods:{
+       preview(index){
+                this.$axios({
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  url: '/download',
+                  method: 'post',
+                  data: { id: this.papers[index].id,},
+                  responseType: 'blob',
+                })
+                  .then((resp) => {
+                    if (resp.status === 200) {
+                      const binaryData = [];
+                      binaryData.push(resp.data);
+                      let pdfUrl = window.URL.createObjectURL(new Blob(binaryData, { type: 'application/pdf' }));
+                      window.open(pdfUrl);
+                    }
+                    else
+                      alert('下载文件失败');
+                  }) // 发送请求
+              },
           nowPaper(paper){
             this.$store.commit('nowpaper',paper);
             this.$router.replace({path:'/submitReview'})
           },
           downLoad(index){
-            this.$axios.post('/download',{
-              id:this.papers[index].id
-              },
-            )
-              .then(res => res.blob())
-              .then(data => {
-                let blobUrl = window.URL.createObjectURL(data.file);
-                const a = document.createElement('a');
-                a.style.display = 'none';
-                a.download = '稿件的pdf';
-                a.href = blobUrl;
-                a.click();
-                document.body.removeChild(a);
-              });
-          }},
+                      this.$axios({
+                        headers: {
+                          'Content-Type': 'application/json',
+                        },
+                        url: '/download',
+                        method: 'post',
+                        data: { id: this.papers[index].id,},
+                        responseType: 'blob',
+                      })
+
+                        .then((resp) => {
+                        if (resp.status === 200) {
+                          let blob = new Blob([resp.data],{type: 'application/pdf'});
+                          const elink = document.createElement('a');
+                           elink.download = this.papers[index].title+".pdf";
+                          elink.style.display = 'none';
+                          elink.href = URL.createObjectURL(blob);
+                          document.body.appendChild(elink);
+                          elink.click();
+                          URL.revokeObjectURL(elink.href); // 释放URL 对象
+                          document.body.removeChild(elink);
+                        }
+                        else
+                          alert('下载文件失败');
+                      }) // 发送请求
+                    }
+          },
 
       created(){
           this.$axios.post('/myDistribution',{

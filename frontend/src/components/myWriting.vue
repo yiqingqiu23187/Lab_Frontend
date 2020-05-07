@@ -116,7 +116,7 @@
                   修改pdf
                   <input type="file" :id="index" accept="application/pdf"  @change="reName(index)">
                 </p>
-                <span id="name" style="color:skyblue;size:40px">请选择pdf文件</span>
+                <span :id="'name' + index" style="position:absolute;left:100px;top:0;font-size:12px;color:powderblue;">请选择pdf文件</span>
               </div>
             </el-form-item>
            <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="nowconference.openOrNot === true" v-on:click="turn(),handInFile(item,index),handIn(item)">handin</el-button>
@@ -194,7 +194,7 @@
     methods:{
       reName(index){
         let upload=document.getElementById(index).value;
-        let nameContainer=document.getElementById('name');
+        let nameContainer=document.getElementById("name"+index);
         nameContainer.innerHTML=upload;
       },
       handleCheckChange(val) {
@@ -373,7 +373,7 @@
     top:0;
     opacity:0;
   }
-  .file-input #name{
+  .file-input #name1 {
     position:absolute;
     left:100px;
     top:0;
