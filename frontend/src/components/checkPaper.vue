@@ -83,12 +83,12 @@
           },
           downLoad(index){
             this.$axios.post('/download',{
-              username:this.$store.state.userDetail.username,
+              id:this.papers[index].id
               },
             )
               .then(res => res.blob())
               .then(data => {
-                let blobUrl = window.URL.createObjectURL(data.files[index]);
+                let blobUrl = window.URL.createObjectURL(data.file);
                 const a = document.createElement('a');
                 a.style.display = 'none';
                 a.download = '稿件的pdf';
