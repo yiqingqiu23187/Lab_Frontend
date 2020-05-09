@@ -94,15 +94,18 @@
                     // 根据后端的返回数据修改
                     if(resp.status === 200 ) {
                       // 跳转到login
-                      alert('successful submitReview');
+                      this.$message({
+                        message: '提交成功',
+                        type: 'success'
+                      });
                       this.$router.replace('/home')
                     }else
-                      alert('failed submit');
+                    this.$message.error('提交失败');
 
                   })
                   .catch(error => {
                     console.log(error);
-                    alert('submit error(about submit review)')
+                    this.$message.error('捕捉错误');
                   })
               } else {
                 return false;

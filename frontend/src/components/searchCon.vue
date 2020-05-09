@@ -32,6 +32,7 @@
         name: "search-con",
       data() {
         return {
+          conferences2:[],
           searchFullname:'',
           loginForm: {
             username: '',
@@ -46,7 +47,36 @@
       methods: {
         jump2() {
           this.$store.commit('searchFullname', this.loginForm.username);
-          this.$router.replace({path: '/secondResults'})
+
+
+          this.$axios.get('/allConference')
+            .then(resp => {
+                if (resp.status === 200) {
+                  this.conferences = resp.data.allConference;
+                  var a =this.loginForm.username;
+                  var b =this.conferences2;
+                  this.conferences.forEach(function (value, key, arr) {
+                    if (value.fullName.trim() == a.trim()){
+                      b.push(value)
+                    }
+                  })
+                  this.conferences2=b;
+                  if(b.length == 0){
+                    this.$message({
+                      message: '会议不存在！',
+                      type: 'warning'
+                    });
+                  }else{
+                    this.$router.replace({path: '/secondResults'});
+                  }
+                }
+                else
+                  this.$message.error('发现错误！');
+              }
+            )
+            .catch(error => {
+              console.log(error);
+            })
         }
       }
 

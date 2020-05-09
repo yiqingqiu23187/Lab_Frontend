@@ -209,7 +209,6 @@
         }
       },
       handIn(item){
-        alert(item.id);
         this.$axios.post('/sendPaper',{
             id:item.id,
             title:item.title,
@@ -227,7 +226,7 @@
             if (resp.status === 200) {
               this.$router.replace({path:'/myWriting'});}
             else
-              alert('提交失败')
+            this.$message.error('提交失败');
           })
           .catch(error=>{
             console.log(error);
@@ -292,14 +291,20 @@
           that.writers.splice(index - 1, 1);
           that.writers.splice(index,0, upDate);
         } else {
-          alert('已经是第一条，不可上移');
+          this.$message({
+            message: '已经是第一条，不可上移',
+            type: 'warning'
+          });
         }
       },
       moveDown(index,row){
         var that = this;
         console.log('下移',index,row);
         if ((index + 1) === that.writers.length){
-          alert('已经是最后一条，不可下移');
+          this.$message({
+            message: '已经是最后一条，不可下移',
+            type: 'warning'
+          });
         } else {
           console.log(index);
           let downDate = that.writers[index + 1];
@@ -342,11 +347,12 @@
               this.number =c;
               }
             else
-              alert('show error')
+              this.$message.error('未知错误');
           }
         )
         .catch(error => {
           console.log(error);
+          this.$message.error('捕捉错误');
         });
     }
   }

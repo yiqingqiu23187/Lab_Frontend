@@ -16,10 +16,7 @@
         </el-form-item>
         <el-form-item style="width: 100%">
 
-          <el-button type="primary"
-                     style="width: 40%;background: #afb4db;border: none"
-                     v-on:click="jump2()">查找
-          </el-button>
+          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="jump2()">查找</el-button>
         </el-form-item>
       </el-form>
     </el-tab-pane>
@@ -58,13 +55,16 @@
                  })
                  this.users2=b;
                  if(b.length == 0){
-                   alert("用户不存在！");
+                   this.$message({
+                     message: '用户不存在！',
+                     type: 'warning'
+                   });
                  }else{
                    this.$router.replace({path: '/results'});
                  }
                }
                else
-                 alert('show error')
+                 this.$message.error('发现错误！');
              }
            )
            .catch(error => {

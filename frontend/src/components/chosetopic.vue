@@ -73,12 +73,20 @@
             checkedtopic:this.checkboxGroup,
           })
             .then(resp=>{
-              alert("已回复")
-              this.$router.replace({path:'/conference'})
+              this.$message({
+                showClose: true,
+                message: '已回复',
+                type: 'success'
+              });
+              // this.$router.replace({path:'/conference'})
             })
             .catch(error => {
               console.log(error)
-              alert('register error')
+              this.$message({
+                showClose: true,
+                message: '捕捉错误',
+                type: 'success'
+              });
             })
         }
       },

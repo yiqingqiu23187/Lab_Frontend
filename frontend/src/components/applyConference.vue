@@ -2,62 +2,49 @@
     <el-tabs type="border-card">
       <el-tab-pane label="申请会议">
         <div id="base_register">
-        <el-form :model="meetingForm" :rules="rules" class="register_container" label-position="left"
-                 label-width="0px" v-loading="loading" :ref="meetingForm">
+        <el-form :model="meetingForm" :rules="rules" class="demo-dynamic" label-position="left" v-loading="loading" :ref="meetingForm" label-width="180px">
           <h3 class="register_title">Meeting Application</h3>
-          <el-form-item prop="abbr">
-            <el-input id ="1" type="text"  v-model="meetingForm.abbr" auto-complete="off" placeholder="会议简称"></el-input>
+          <el-form-item prop="abbr" label="会议简称 ：">
+            <el-input id ="1" type="text"  v-model="meetingForm.abbr" auto-complete="off" class="input"></el-input>
           </el-form-item>
-          <el-form-item prop="fullName" >
-            <el-input id ="2" type="text" v-model="meetingForm.fullName" auto-complete="off" placeholder="会议全称"></el-input>
+          <el-form-item prop="fullName" label="会议全称 ：">
+            <el-input id ="2" type="text" v-model="meetingForm.fullName" auto-complete="off" class="input"></el-input>
           </el-form-item>
-          <el-form-item prop="holdPlace" >
-            <el-input id ="4" type="text" v-model="meetingForm.holdPlace" auto-complete="off" placeholder="会议开设地点"></el-input>
+          <el-form-item prop="holdPlace" label="会议开设地点 ：">
+            <el-input id ="3" type="text" v-model="meetingForm.holdPlace" auto-complete="off" class="input"></el-input>
           </el-form-item>
 
-          <el-form-item prop="holdDate" >
-            <el-time-select v-model="meetingForm.holdDate"  id ="3" :picker-options="{ start: '08:30', step: '00:15', end: '18:30'}"
-                            placeholder="会议开设时间">
+          <el-form-item prop="holdDate" label="会议开设时间 ：">
+            <el-time-select v-model="meetingForm.holdDate"  id ="4" :picker-options="{ start: '08:30', step: '00:15', end: '18:30'}" class="input">
             </el-time-select>
           </el-form-item>
 
 
-          <el-form-item prop="submissionDeadline" >
-            <el-date-picker
-              id="5"
-              v-model="meetingForm.submissionDeadline"
-              :picker-options="pickerOptionsStart"
-              type="date"
-              placeholder="投稿截止日期">
+          <el-form-item prop="submissionDeadline" label="投稿截止日期 ：">
+            <el-date-picker id="5" v-model="meetingForm.submissionDeadline"
+              :picker-options="pickerOptionsStart" type="date" class="input">
             </el-date-picker>
           </el-form-item>
 
-          <el-form-item prop="releaseDate" >
-            <el-date-picker
-              id="6"
-              v-model="meetingForm.releaseDate"
-              :picker-options="pickerOptionsEnd"
-              type="date"
-              placeholder="评审结果发布日期">
+          <el-form-item prop="releaseDate"  label="评审结果发布日期 ：">
+            <el-date-picker id="6" v-model="meetingForm.releaseDate"
+              :picker-options="pickerOptionsEnd" type="date" class="input">
             </el-date-picker>
           </el-form-item>
 
-          <div :model="meetingForm" ref="meetingForm" label-width="100px" class="demo-dynamic">
-            <el-form-item prop="topic" label="主题" :rules="[ { required: true, message: '请输入会议主题', trigger: 'blur' },
+            <el-form-item prop="topic" label="主题 ：" :rules="[ { required: true, message: '请输入会议主题', trigger: 'blur' },
             { type: '', message: '请输入正确的主题', trigger: ['blur', 'change'] } ]">
-              <el-input v-model="meetingForm.topic"></el-input>
+              <el-input v-model="meetingForm.topic" class="input"></el-input>
             </el-form-item>
 
-            <el-form-item v-for="(domain, index) in meetingForm.topics" :label="'主题' + (index+2)" :key="domain.key"
+            <el-form-item v-for="(domain, index) in meetingForm.topics" :label="'主题' + (index+2) +' :'" :key="domain.key "
                           :prop="'topics.' + index + '.value'" :rules="{ required: true, message: '主题不能为空', trigger: 'blur'}">
-              <el-input v-model="domain.value"></el-input>
-              <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+              <el-input v-model="domain.value" class="input"></el-input>
+              <el-button @click.prevent="removeDomain(domain)" class="deleatebutton">删除</el-button>
+            </el-form-item >
+            <el-form-item class="topicbutton">
+              <el-button @click="addDomain" >新增主题</el-button>
             </el-form-item>
-            <el-form-item>
-              <el-button @click="addDomain">新增主题</el-button>
-              <el-button @click="resetForm('meetingForm')">重置</el-button>
-            </el-form-item>
-          </div>
 
           <el-form-item style="width: 100%">
             <el-button type="primary" icon="el-icon-thumb" v-on:click="submit(meetingForm)">apply</el-button>
@@ -100,7 +87,6 @@
           }],
 
         },
-        value1:'',
         pickerOptionsStart: {
           disabledDate: time => {
             let endDateVal = this.meetingForm.releaseDate;
@@ -141,21 +127,9 @@
       }
     },
     methods: {
-      nihao(){
-        alert("nihao");
-        alert(this.meetingForm.topics);
-      },
 
       submit(formName){
-        alert("mihaoaoaoa");
-        alert(this.meetingForm.fullName);
-        console.log(this.meetingForm.topics)
-        this.meetingForm.topics.push({
-          value: this.meetingForm.topic,
-          key: Date.now()
-        });
 
-        // alert(this.meetingForm.topics);
         if(document.getElementById("1").value==''||document.getElementById("1").value==undefined||document.getElementById("1").value==null||
            document.getElementById("2").value==''||document.getElementById("2").value==undefined||document.getElementById("2").value==null||
            document.getElementById("3").value==''||document.getElementById("3").value==undefined||document.getElementById("3").value==null||
@@ -163,10 +137,12 @@
            document.getElementById("5").value==''||document.getElementById("5").value==undefined||document.getElementById("5").value==null||
            document.getElementById("6").value==''||document.getElementById("6").value==undefined||document.getElementById("6").value==null
         )
-          alert("请输入完整的信息");
+          this.$message({
+            message: '请输入完整信息',
+            type: 'warning'
+          });
         this.$refs[formName].validate(valid => {
           if(valid){
-            // alert("mihaoaoaoa");
             this.$axios.post('/applyConference',{
                 username:this.username,
                 abbr: this.meetingForm.abbr,
@@ -175,6 +151,7 @@
                 holdPlace: this.meetingForm. holdPlace,
                 submissionDeadline: this.meetingForm.submissionDeadline,
                 releaseDate: this.meetingForm.releaseDate,
+                topic:this.meetingForm.topic,
                 topics:this.meetingForm.topics,
               }
             )
@@ -182,26 +159,28 @@
                 // 根据后端的返回数据修改
                 if(resp.status === 200 ) {
                   // 跳转到login
-                  alert('successful submission');
+                  this.$message({
+                    message: '申请提交成功',
+                    type: 'success'
+                  });
                   this.$router.replace('/allConference')
-                 // this.$router.replace('/login')
                 }else
-                  alert('failed');
+                  this.$message.error('提交失败');
 
               })
               .catch(error => {
                 console.log(error);
-                alert('submit error111')
+                this.$message.error('捕捉到错误');
               })
           } else {
-            alert('请输入完整的信息')
+            this.$message({
+              message: '请输入完整信息！',
+              type: 'warning'
+            });
           }
         })
       },
 
-      resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
       removeDomain(item) {
         var index = this.meetingForm.topics.indexOf(item)
         if (index !== -1) {
@@ -233,19 +212,21 @@
     position: relative;
     padding:100px auto;
   }
-  .register_container{
-    background-image: url("../assets/background/1.jpg");
-    border-radius: 15px;
-    background-clip: padding-box;
-    margin: 0px 20% 10% 30%;
-    width: 350px;
-    padding: 35px 35px 15px 35px;
-    border: 1px solid #eaeaea;
-    box-shadow: 0 0 25px gainsboro;
-  }
+
   .register_title{
     margin: 0px auto 40px auto;
     text-align: center;
     color: #505458;
+  }
+
+  .input{
+    width:60%;
+    float: left;
+  }
+  .deleatebutton{
+    float: left;
+    margin-left: 30px;
+  }
+  .topicbutton{
   }
 </style>

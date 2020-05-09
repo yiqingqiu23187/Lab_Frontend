@@ -96,7 +96,7 @@
                       window.open(pdfUrl);
                     }
                     else
-                      alert('下载文件失败');
+                      this.$message.error('下载文件失败');
                   }) // 发送请求
               },
           nowPaper(paper){
@@ -127,7 +127,7 @@
                           document.body.removeChild(elink);
                         }
                         else
-                          alert('下载文件失败');
+                          this.$message.error('下载文件失败');
                       }) // 发送请求
                     }
           },
@@ -143,7 +143,7 @@
                 this.finishs=resp.data.finishs;
               }
               else
-                alert('show error')
+                this.$message.error('分配稿件错误！');
             }
           )
           .catch(error => {

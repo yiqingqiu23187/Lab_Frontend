@@ -26,6 +26,7 @@
       </el-form-item>
       <el-form-item style="width: 100%">
         <el-button type="primary"
+                   :plain="true"
                    style="width: 40%;background: #afb4db;border: none"
                    v-on:click="login">login
         </el-button>
@@ -78,15 +79,19 @@
                 this.$router.replace({path:'/admin'})
               }
 
-              alert('login successfully')
+
+              this.$message({
+                message: '登陆成功，欢迎回来！',
+                type: 'success'
+              });
             } else {
-              alert('login error1')
+              this.$message.error('用户不存在或密码错误');
             }
           })
           .catch(error => {
             console.log(error)
             console.log(error.message)
-            alert('login error2')
+            this.$message.error('登陆失败');
           })
       }
     },

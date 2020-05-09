@@ -24,6 +24,7 @@
           <el-menu-item index="5">
             <i class="el-icon-menu"></i>
             <router-link to="allConference">所有会议</router-link>
+            <!--<el-link :underline="false">所有会议</el-link>-->
           </el-menu-item>
           <el-menu-item index="6">
             <i class="el-icon-search"></i>
@@ -33,18 +34,6 @@
             <i class="el-icon-message"></i>
             <router-link to="News">消息中心</router-link>
           </el-menu-item>
-          <el-menu-item index="8">
-            <i class="el-icon-message"></i>
-            <router-link to="submitReview">审批会议</router-link>
-          </el-menu-item>
-          <el-menu-item index="11">
-            <i class="el-icon-message"></i>
-            <router-link to="assessmentResults">评审结果</router-link>
-          </el-menu-item>
-          <!--<el-menu-item index="12">-->
-          <!--<i class="el-icon-message"></i>-->
-          <!--<router-link to="assessmentDetail">评审详情</router-link>-->
-        <!--</el-menu-item>-->
           <el-menu-item index="13">
             <i class="el-icon-message"></i>
             <router-link to="checkPaper">分配稿件</router-link>

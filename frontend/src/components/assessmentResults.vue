@@ -104,12 +104,12 @@
               if (resp.status === 200) {
                 this.assessments = resp.data.marks;
               } else {
-                alert('Get All Assessments error')
+                this.$message.error('获取评审结果失败');
               }
             })
             .catch(error => {
               console.log(error);
-              alert('Get All Assessments error2')
+              this.$message.error('捕捉到错误');
             })
       }
     }

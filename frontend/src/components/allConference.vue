@@ -113,12 +113,12 @@
             if (resp.status === 200) {
               this.conferences = resp.data.allConference;
             } else {
-              alert('show error')
+              this.$message.error('获取会议列表失败');
             }
           })
           .catch(error => {
             console.log(error);
-            alert('show error2')
+            this.$message.error('获取会议列表失败');
           })
     },
 

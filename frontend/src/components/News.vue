@@ -141,7 +141,7 @@
         })
         .catch(error=>{
           console.log(error)
-          alert('querynews error')
+          this.$message.error('捕捉错误');
         })
     },
     methods:{

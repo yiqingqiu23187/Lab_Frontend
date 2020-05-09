@@ -87,10 +87,9 @@ created(){
             }
           })
          this.singleConference=b;
-          alert(this.singleConference.fullName)
         }
         else
-          alert('show error')
+          this.$message.error('发现错误！');
       }
     )
     .catch(error => {

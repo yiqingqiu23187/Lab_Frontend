@@ -297,7 +297,11 @@
           })
           .catch(error=>{
             console.log(error)
-            alert('queryconference error')
+            this.$message({
+              showClose: true,
+              message: '捕捉到错误',
+              type: 'success'
+            });
           })
 
       },

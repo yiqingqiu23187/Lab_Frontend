@@ -157,21 +157,25 @@
                 // 根据后端的返回数据修改
                 if(resp.status === 200 && resp.data.hasOwnProperty("id")) {
                   // 跳转到login
-                  alert('successful registration')
+                  this.$message({
+                    message: '注册成功',
+                    type: 'success'
+                  });
                   this.$router.replace('/login')
-                }// else if(resp.status === 200 && resp.data().value == 404){
-                 // alert('用户名已存在！')
-                //  }
+                }
                 else{
-                  alert('用户名已存在！')
+                  this.$message({
+                    message: '用户名已存在',
+                    type: 'warning'
+                  });
                 }
               })
               .catch(error => {
                 console.log(error)
-                alert('register error')
+                this.$message.error('捕捉到注册错误');
               })
           } else {
-            alert('wrong submit')
+            this.$message.error('提交失败');
           }
         })
       }

@@ -11,8 +11,8 @@
               <div class="title">举办日期：{{item.holdDate}}</div>
               <div class="title">举办地点：{{item.holdPlace}}</div>
               <el-form-item style="width: 100%">
-                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="attitude(!ifagree,item.fullName)">Agree</el-button>
-                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="attitude(ifagree,item.fullName)">Reject</el-button>
+                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" :plain="true" v-on:click="attitude(!ifagree,item.fullName)">Agree</el-button>
+                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" :plain="true"  v-on:click="attitude(ifagree,item.fullName)">Reject</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -117,7 +117,7 @@
           })
           .catch(error=>{
             console.log(error);
-            alert('admin error')
+            this.$message.error('获取管理员信息失败');
           })
 
 
@@ -134,12 +134,20 @@
             conferenceFullname:conferenceName,
           })
             .then(resp=>{
-              alert("已回复");
+              this.$message({
+                showClose: true,
+                message: '消息已回复',
+                type: 'success'
+              });
               this.$router.go(0);
             })
             .catch(error => {
               console.log(error);
-              alert('register error')
+              this.$message({
+                showClose: true,
+                message: '回复失败！',
+                type: 'error'
+              });
             })
         }
       }

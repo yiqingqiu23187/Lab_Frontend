@@ -16,7 +16,10 @@
         logout() {
 
           this.$store.commit('logout')
-          alert("注销成功！")
+          this.$message({
+            message: '注销成功！',
+            type: 'success'
+          });
           if(this.$route.path !== '/login') {
             this.$router.replace('/login')
           }

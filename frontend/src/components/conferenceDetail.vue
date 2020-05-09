@@ -27,16 +27,14 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="会议功能">
-        <el-button v-if="this.role.chair != ''" @click="openwriting">开启投稿</el-button>
+        <el-button v-if="this.role.chair != ''&&this.nowconference.openOrNot == false&&this.nowconference.markable == false" @click="openwriting">开启投稿</el-button>
         <el-button v-if="this.role.chair != ''" @click="jump">邀请成员</el-button>
         <el-button v-if="this.role.author != ''" @click="jumpwrite()">查看投稿</el-button>
         <el-button v-if="this.role.chair == ''&& this.role.author == ''&&this.role.member!=='chairmember'&&this.$store.state.nowconference.markable == false&&this.$store.state.nowconference.openOrNot == true" @click="beauthor">我要投稿</el-button>
-        <!--&&this.nowconference.opemmark==false-->
-        <el-button @click="nihao">测试</el-button>
         <h3 v-if="(this.nowconference.openOrNot == true&& this.role.chair != '')">审稿策略选择：</h3>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
-        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="openauthor">开启审稿</el-button>
+        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''&&this.nowconference.markable == false" @click="openauthor">开启审稿</el-button>
         <el-button v-if="this.nowconference.finish == true&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布评审结果</el-button>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
@@ -101,20 +99,20 @@
           })
             .then(resp => {
                 if (resp.status === 200) {
-                  alert("发布成功");
+                  this.$message({
+                    message: '发布成功！',
+                    type: 'success'
+                  });
                   this.$store.state.nowconference.released = true;
                   this.$router.replace({path:'/assessmentResults'});
                 }
                 else
-                  alert("发布失败")
+                  this.$message.error('发布失败');
               }
             )
             .catch(error => {
               console.log(error);
             })
-        },
-        nihao(){
-          alert(this.nowconference.markable)
         },
 
         jumpwrite(){
@@ -122,21 +120,20 @@
         },
         chosestra(stra){
           if(stra == '1'){
-            alert("您采用了topic相关度策略！");
+            this.$message('您采用了topic相关度策略！');
             this.stra='1'
           }else{
-            alert("您采用了人均负担相关度策略！");
+            this.$message('您采用了人均负担相关度策略！');
             this.stra='0'
           }
         },
 
         openauthor(){
-          // alert("nihao");
-          // console.log(this.$store.state.nowconference);
-          // console.log(this.$store.state.nowconference.pcmembers);
-            alert(this.$store.state.nowconference.pcmembers.length);
           if(this.$store.state.nowconference.pcmembers.length < 3){
-            alert("会议成员不足三个，无法开启投稿！")
+            this.$message({
+              message: '会议成员不足三个，无法开启投稿！',
+              type: 'warning'
+            });
           }else{
             this.$axios.post('/openMark', {
               conferenceFullname:this.$store.state.nowconference.fullName,
@@ -145,13 +142,17 @@
             })
               .then(resp => {
                   if (resp.status === 200) {
-                    alert("开启审稿成功，进入全部会议界面！");
-                    this.$store.state.nowconference.markable = true;
-                    //应该加一个判断审稿是否开启
-                    this.$router.replace({path:'/allConference'})
+                    this.nowconference.openOrNot=false;
+                    this.$store.state.nowconference.openOrNot=false;
+                    this.nowconference.markable=true;
+                    this.$store.state.nowconference.markable=true;
+                    this.$message({
+                      message: '开启审稿成功，进入全部会议界面！',
+                      type: 'success'
+                    });
                   }
                   else
-                    alert("开启审稿失败")
+                     this.$message.error('开启审稿失败');
                 }
               )
               .catch(error => {
@@ -169,10 +170,16 @@
           })
             .then(resp => {
                 if (resp.status === 200) {
-                  alert('会议已开启')
+                  this.$message({
+                    showClose: true,
+                    message: '会议开启成功！',
+                    type: 'success'
+                  });
+                  this.nowconference.openOrNot=true;
+                this.$store.state.nowconference.openOrNot=true;
                 }
                 else
-                  alert('会议开启失败')
+                   this.$message.error('会议开启失败');
               }
             )
             .catch(error => {

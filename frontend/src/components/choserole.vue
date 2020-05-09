@@ -61,7 +61,6 @@
               this.temprole.member='';
               this.temprole.author='author';
             }else{
-              alert("nihao")
               this.temprole.chair='';
               this.temprole.member='';
               this.temprole.author='';

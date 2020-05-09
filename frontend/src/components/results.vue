@@ -64,7 +64,8 @@
                   this.users2=b;
                 }
                 else
-                  alert('show error')
+
+                this.$message.error('发现错误');
               }
             )
             .catch(error => {
@@ -76,14 +77,19 @@
 
             if(a.length ==0){
               a.push(username);
-              alert("添加成功");
+              this.$message({
+                message: '添加成功！',
+                type: 'success'
+              });
               this.users3=a;
             }else{
               var temp=false;
               a.forEach(function (value, key, arr) {
-                alert("循环被调用！")
                 if (value.trim() == username.trim()){
-                  alert("用户已在添加名单当中!");
+                  this.$message({
+                    message: '用户已在添加名单当中!',
+                    type: 'warning'
+                  });
                   temp=true;
                 }
               })
@@ -97,7 +103,6 @@
           },
 
         send(){
-         alert(this.users3.length);
           this.$axios.post('/invite',{
             usernames:this.users3,
             conferenceFullname: this.$store.state.nowconference.fullName,
@@ -105,10 +110,22 @@
           })
             .then(resp => {
                 if (resp.status === 200) {
-                  alert('邀请成功')
+
+                  if(resp.data.invitedOrNot == true){
+                    this.$message({
+                      message: '已发出过邀请',
+                      type: 'warning'
+                    });
+                  }else{
+                    this.$message({
+                      message: '邀请成功！',
+                      type: 'success'
+                    });
+                  }
+
                 }
                 else
-                  alert('邀请失败')
+              this.$message.error('邀请失败');
               }
             )
             .catch(error => {
