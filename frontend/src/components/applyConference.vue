@@ -4,41 +4,41 @@
         <div id="base_register">
         <el-form :model="meetingForm" :rules="rules" class="demo-dynamic" label-position="left" v-loading="loading" :ref="meetingForm" label-width="180px">
           <h3 class="register_title">Meeting Application</h3>
-          <el-form-item prop="abbr" label="会议简称 ：">
+          <el-form-item prop="abbr" label="会议简称 ：" class="left">
             <el-input id ="1" type="text"  v-model="meetingForm.abbr" auto-complete="off" class="input"></el-input>
           </el-form-item>
-          <el-form-item prop="fullName" label="会议全称 ：">
+          <el-form-item prop="fullName" label="会议全称 ：" class="left">
             <el-input id ="2" type="text" v-model="meetingForm.fullName" auto-complete="off" class="input"></el-input>
           </el-form-item>
-          <el-form-item prop="holdPlace" label="会议开设地点 ：">
+          <el-form-item prop="holdPlace" label="会议开设地点 ：" class="left">
             <el-input id ="3" type="text" v-model="meetingForm.holdPlace" auto-complete="off" class="input"></el-input>
           </el-form-item>
 
-          <el-form-item prop="holdDate" label="会议开设时间 ：">
+          <el-form-item prop="holdDate" label="会议开设时间 ：" class="left">
             <el-time-select v-model="meetingForm.holdDate"  id ="4" :picker-options="{ start: '08:30', step: '00:15', end: '18:30'}" class="input">
             </el-time-select>
           </el-form-item>
 
 
-          <el-form-item prop="submissionDeadline" label="投稿截止日期 ：">
+          <el-form-item prop="submissionDeadline" label="投稿截止日期 ：" class="left">
             <el-date-picker id="5" v-model="meetingForm.submissionDeadline"
               :picker-options="pickerOptionsStart" type="date" class="input">
             </el-date-picker>
           </el-form-item>
 
-          <el-form-item prop="releaseDate"  label="评审结果发布日期 ：">
+          <el-form-item prop="releaseDate"  label="评审结果发布日期 ：" class="left">
             <el-date-picker id="6" v-model="meetingForm.releaseDate"
               :picker-options="pickerOptionsEnd" type="date" class="input">
             </el-date-picker>
           </el-form-item>
 
             <el-form-item prop="topic" label="主题 ：" :rules="[ { required: true, message: '请输入会议主题', trigger: 'blur' },
-            { type: '', message: '请输入正确的主题', trigger: ['blur', 'change'] } ]">
+            { type: '', message: '请输入正确的主题', trigger: ['blur', 'change'] } ]" class="left">
               <el-input v-model="meetingForm.topic" class="input"></el-input>
             </el-form-item>
 
             <el-form-item v-for="(domain, index) in meetingForm.topics" :label="'主题' + (index+2) +' :'" :key="domain.key "
-                          :prop="'topics.' + index + '.value'" :rules="{ required: true, message: '主题不能为空', trigger: 'blur'}">
+                          :prop="'topics.' + index + '.value'" :rules="{ required: true, message: '主题不能为空', trigger: 'blur'}" class="left">
               <el-input v-model="domain.value" class="input"></el-input>
               <el-button @click.prevent="removeDomain(domain)" class="deleatebutton">删除</el-button>
             </el-form-item >
@@ -231,5 +231,9 @@
     margin-left: 30px;
   }
   .topicbutton{
+  }
+
+  .left{
+    margin-left: 50px;
   }
 </style>

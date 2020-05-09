@@ -26,10 +26,43 @@
           </el-table>
         </div>
       </el-tab-pane>
+      <el-tab-pane label="会议主题及成员">
+        <div>
+          <el-table :data="nowconference.topics" style="width: 100%" class="table">
+            <el-table-column label="所有主题" width="180">
+              <el-table-column label="topic" width="180">
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">topic</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="主题" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row }}</span>
+                </template>
+              </el-table-column>
+            </el-table-column>
+          </el-table>
+          <el-table :data="nowconference.pcmembers" style="width: 100%" class="table">
+            <el-table-column label="所有成员" width="180">
+              <el-table-column label="member" width="180">
+                <template slot-scope="scope">
+                  <i class="el-icon-time"></i>
+                  <span style="margin-left: 10px">member</span>
+                </template>
+              </el-table-column>
+              <el-table-column label="姓名" width="180">
+                <template slot-scope="scope">
+                  <span style="margin-left: 10px">{{ scope.row }}</span>
+                </template>
+              </el-table-column>
+            </el-table-column>
+          </el-table>
+        </div>
+      </el-tab-pane>
       <el-tab-pane label="会议功能">
         <el-button v-if="this.role.chair != ''&&this.nowconference.openOrNot == false&&this.nowconference.markable == false" @click="openwriting">开启投稿</el-button>
-        <el-button v-if="this.role.chair != ''" @click="jump">邀请成员</el-button>
-        <!--<el-button v-if="this.role.chair != ''&&this.nowconference.openOrNot == false" @click="jump" disabled="">投稿结束或未开启 无法邀请</el-button>-->
+        <el-button v-if="this.role.chair != ''&&this.nowconference.openOrNot==true" @click="jump">邀请成员</el-button>
         <el-button v-if="this.role.author != ''" @click="jumpwrite()">查看投稿</el-button>
         <el-button v-if="this.role.chair == ''
         &&this.role.member !=='chairmember'&&this.$store.state.nowconference.markable == false
@@ -38,9 +71,8 @@
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''&&this.nowconference.markable == false" @click="openauthor">开启审稿</el-button>
-        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''
-          &&this.nowconference.markable == true&&this.nowconference.finish == false" @click="openauthor" disabled>会议正在评审</el-button>
         <el-button v-if="this.nowconference.finish == true&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布评审结果</el-button>
+
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
     </el-tabs>
@@ -210,5 +242,9 @@
 </script>
 
 <style scoped>
+  .table{
+    margin-left: 10px;
+    margin-top: 10px;
+  }
 
 </style>

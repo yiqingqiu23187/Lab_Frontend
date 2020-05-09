@@ -19,12 +19,12 @@
 
             <el-checkbox-group
               :min="1"
-              :max="item.topics.length"
-              v-model="item.topics"
+              :max="nowconference.topics.length"
+              v-model="topic"
               @change="handleCheckChange"
              >
               <el-checkbox
-                v-for="(item1,index1) in item.topics"
+                v-for="(item1,index1) in nowconference.topics"
                 :key="index1"
                 :label="item1"
               >
@@ -79,7 +79,7 @@
                     <span v-show="!scope.row.showEdit">{{scope.row.email}}</span>
                   </template>
                 </el-table-column>
-                <el-table-column label="操作" width="250px">
+                <el-table-column label="操作" width="310px">
                   <template slot-scope="scope">
                     <el-button
                       size="small"
@@ -101,14 +101,17 @@
                                icon="el-icon-plus"
                                @click="handleAdd(scope.$index, scope.row)">
                     </el-button>
+                    <el-button
+                      v-model="handleDelete"
+                      type="danger"
+                      v-if="writers.length > 1"
+                      @click="handleDelete(scope.$index)"
+                      size="mini"
+                    >删除</el-button>
                   </template>
                 </el-table-column>
               </el-table>
             </el-dialog>
-
-            <!--<el-form-item>-->
-                <!--<input type="file" accept="application/pdf" :id="index">-->
-            <!--</el-form-item>-->
 
             <el-form-item>
               <div class="file-input">
@@ -119,7 +122,7 @@
                 <span :id="'name' + index" style="position:absolute;left:100px;top:0;font-size:12px;color:powderblue;">请选择pdf文件</span>
               </div>
             </el-form-item>
-           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="nowconference.openOrNot === true" v-on:click="turn(),handInFile(item,index),handIn(item)">handin</el-button>
+           <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="nowconference.openOrNot === true" v-on:click="turn(),handIn(item,index),handInFile(item,index)">handin</el-button>
           </el-form>
         </div>
       </el-tab-pane>
@@ -192,6 +195,9 @@
       }
     },
     methods:{
+      handleDelete(index) {
+        this.writers.splice(index, 1);
+      },
       reName(index){
         let upload=document.getElementById(index).value;
         let nameContainer=document.getElementById("name"+index);
@@ -208,8 +214,9 @@
           console.log(row);
         }
       },
-      handIn(item){
-
+      handIn(item,index){
+        if(this.topic.length>0&&this.writerName.length>0&&document.getElementById(index).files[0]!==null
+          &&this.writerName.length===this.writers.length){
         this.$axios.post('/sendPaper',{
             id:item.id,
             title:item.title,
@@ -225,7 +232,7 @@
         )
           .then(resp=>{
             if (resp.status === 200) {
-              this.$router.replace({path:'/myWriting'});}
+              }
             else
               this.$message({
                 showClose: true,
@@ -235,12 +242,35 @@
           })
           .catch(error=>{
             console.log(error);
-          })},
+          })}
+          else if(this.topic.length>0&&this.writerName.length>0&&(document.getElementById(index).files[0]==null||
+          document.getElementById(index).files[0]===undefined||document.getElementById(index).files[0]==='')){
+          this.$message({
+            message: '文章至少包含一份文件',
+            type: 'warning'
+          });
+        }else if(this.topic.length===0&&this.writerName.length>0){
+          this.$message({
+            message: '文章至少包含一个topic',
+            type: 'warning'
+          });
+      }else {
+          this.$message({
+            message: '信息需完整',
+            type: 'warning'
+          });
+        }
+
+
+
+      },
       handInFile(item,index){
+        if(this.topic.length>0&&this.writerName.length>0
+         &&this.writerName.length===this.writers.length&&document.getElementById(index).files[0]!=null
+        ){
         let formData = new FormData();
-       // formData.append('id',item.id);
-       formData.append('file', document.getElementById(index).files[0]);
-       formData.append('username',this.$store.state.userDetail.username);
+        formData.append('file',document.getElementById(index).files[0]);
+        formData.append('username',this.$store.state.userDetail.username);
         formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
         formData.append('title',item.title);
             this.$axios({
@@ -254,9 +284,10 @@
               if (resp.status === 200) {
                 this.$message({
                   showClose: true,
-                  message: '提交成功',
+                  message: '修改成功',
                   type: 'success'
                 });
+                this.$router.replace({path:'/conferenceDetail'});
               }
               else
                 this.$message({
@@ -265,7 +296,8 @@
                   type: 'error'
                 });
             }) // 发送请求
-          },
+          }
+           },
       userTypeChange() {
       },
       handleAdd() {
@@ -331,16 +363,33 @@
         }
       },
       turn(){
+        this.writerEmail=[];
+        this.writerName=[];
+        this.writerJob=[];
+        this.writerAddress=[];
         let a = this.writerEmail;
         let b1 = this.writerName;
         let c = this.writerJob;
         let d = this.writerAddress;
+        let that =this;
         this.writers.forEach(function (value, key, arr) {
+          if(value.name!==null&&value.name!==undefined&&value.name!==''&&
+            value.email!==null&&value.email!==undefined&&value.email!==''&&
+            value.job!==null&&value.job!==undefined&&value.job!==''&&
+            value.address!==null&&value.address!==undefined&&value.address!==''){
           b1.push(value.name);
           a.push(value.email);
           c.push(value.job);
           d.push(value.address);
-        });
+        }
+        else{
+          that.$message({
+            message: '每个作者信息须填写完整',
+            type: 'warning'
+          });}
+
+        })
+        ;
         this.writerEmail=a;
         this.writerName=b1;
         this.writerJob=c;

@@ -1,27 +1,20 @@
 <template>
-  <el-tabs type="border-card">
-    <el-tab-pane label="具体详情">
-      <!--//这里是列表-->
-      <el-card class="box-card">
-        <div class="text item">
-          <p>稿件名：  {{nowmark.paperTitle }}</p>
-          <p>评分一：  {{nowmark.scores[0] }}</p>
-          <p>评分二：  {{nowmark.scores[1] }}</p>
-          <p>评分三：  {{nowmark.scores[2] }}</p>
-          <p>confidence1：  {{nowmark.confidences[0] }}</p>
-          <p>confidence2：  {{nowmark.confidences[1] }}</p>
-          <p>confidence3：  {{nowmark.confidences[2] }}</p>
-          <p>评语一：  {{nowmark.discribes[0] }}</p>
-          <p>评语二：  {{nowmark.discribes[1]}}</p>
-          <p>评语三：  {{nowmark.discribes[2] }}</p>
+  <div>
+    <el-tabs type="border-card">
+      <el-tab-pane label="具体详情">
+        <el-table :data="tableData" stripe style="width: 100%" class="position">
+          <el-table-column prop="name" label="名称" width="380">
+          </el-table-column>
+          <el-table-column prop="value" label="信息" width="180">
+          </el-table-column>
 
+        </el-table>
+      </el-tab-pane>
+      <el-tab-pane label="更多功能">敬请期待</el-tab-pane>
 
-        </div>
-      </el-card>
-    </el-tab-pane>
-    <el-tab-pane label="更多功能">敬请期待</el-tab-pane>
+    </el-tabs>
+  </div>
 
-  </el-tabs>
 </template>
 
 <script>
@@ -29,6 +22,38 @@
         name: "assessment-detail",
       data(){
           return{
+            tableData:[{
+              name:'稿件名 ：',
+              value:this.$store.state.nowmark.paperTitle
+            },{
+              name:'得分一 ：',
+              value:this.$store.state.nowmark.scores[0]
+            },{
+              name:'得分二 ：',
+              value:this.$store.state.nowmark.scores[1]
+            },{
+              name:'得分三 ：',
+              value:this.$store.state.nowmark.scores[2]
+            },{
+              name:'confidence1 :',
+              value:this.$store.state.nowmark.confidences[0]
+            },{
+              name:'confidence2 :',
+              value:this.$store.state.nowmark.confidences[1]
+            },{
+              name:'confidence3 :',
+              value:this.$store.state.nowmark.confidences[2]
+            },{
+              name:'评语一 ：',
+              value:this.$store.state.nowmark.discribes[0]
+            },{
+              name:'评语二 ：',
+              value:this.$store.state.nowmark.discribes[1]
+            },{
+              name:'评语三 ：',
+              value:this.$store.state.nowmark.discribes[2]
+            },],
+
             nowmark:{
               paperTitle:'',
               conferenceFullname:'',
@@ -59,5 +84,8 @@
 
   .box-card {
     width: 480px;
+  }
+  .position{
+    margin-left: 5%;
   }
 </style>

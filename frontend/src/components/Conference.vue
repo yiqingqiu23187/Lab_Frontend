@@ -256,7 +256,7 @@
             this.$router.replace({path: '/choserole'});
           }else if(str == 'member'&&this.nowconference.chair == this.$store.state.userDetail.username){
             this.role.member='member';
-            this.role.chair='chair';
+            this.role.chair
             this.a=[this.nowconference.authors];
             this.a.forEach(function (value, key, arr) {
               if(value==f) {

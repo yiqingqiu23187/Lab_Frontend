@@ -62,7 +62,7 @@
                 <span>查找会议</span>
                 <div class="bottom clearfix">
                   <time class="time">{{ currentDate }}</time><br>
-                  <el-button type="text" class="button"><router-link to="Information">点此查看</router-link></el-button>
+                  <el-button type="text" class="button"><router-link to="searchCon">点此查看</router-link></el-button>
                 </div>
               </div>
             </el-card>
@@ -81,7 +81,10 @@
           </el-col>
         </el-row>
       </el-tab-pane>
-      <el-tab-pane label="更多功能">敬请期待</el-tab-pane>
+      <el-tab-pane label="管理员">
+        <p> 管理员账号：admin</p>
+        <p> 管理员密码：password</p>
+      </el-tab-pane>
 
     </el-tabs>
   </div>

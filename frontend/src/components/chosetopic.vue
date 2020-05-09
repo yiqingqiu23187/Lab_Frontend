@@ -27,7 +27,7 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="主题选择">
-        <el-checkbox-group v-model="checkboxGroup" >
+        <el-checkbox-group v-model="checkboxGroup" :min="1">
           <el-checkbox v-for="(topic,index) in topics" :label="'topic'+index +':'+topic" :key="topic.key" border></el-checkbox>
         </el-checkbox-group>
         <el-button @click="attitude(!ifagree,conferenceName,username)">接受</el-button>

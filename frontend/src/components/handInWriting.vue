@@ -76,7 +76,7 @@
                 </template>
               </el-table-column>
 
-              <el-table-column label="操作" width="250px">
+              <el-table-column label="操作" width="310px">
                 <template slot-scope="scope">
                   <el-button
                     size="small"
@@ -98,14 +98,17 @@
                              icon="el-icon-plus"
                              @click="handleAdd(scope.$index, scope.row)">
                   </el-button>
+                  <el-button
+                    v-model="handleDelete"
+                  type="danger"
+                  v-if="writers.length > 1"
+                  @click="handleDelete(scope.$index, scope.row)"
+                  size="mini"
+                 >删除</el-button>
                 </template>
               </el-table-column>
             </el-table>
           </el-dialog>
-
-          <!--<el-form-item>-->
-            <!--<input type="file" accept="application/pdf" :id="index">-->
-          <!--</el-form-item>-->
            <el-form-item>
           <div class="file-input">
             <p class="input-container">
@@ -196,10 +199,7 @@
         let nameContainer=document.getElementById('name');
         nameContainer.innerHTML=upload;
       },
-
-
-
-      handleCheckChange(val) {
+     handleCheckChange(val) {
         console.log(val)
       },
       handleEdit(index, row) {
@@ -237,6 +237,9 @@
           });
         }
       },
+      handleDelete(index) {
+        this.writers.splice(index, 1);
+        },
       moveDown(index,row){
         var that = this;
         console.log('下移',index,row);
@@ -252,9 +255,8 @@
           that.writers.splice(index,0, downDate);
         }
       },
-
       handIn(){
-        if(this.topic.length>0&&this.writerName.length>0&&document.querySelector('input[type=file]').files[0]!=null) {
+        if(this.topic.length>0&&this.writerName.length>0&&this.writerName.length===this.writers.length&&document.querySelector('input[type=file]').files[0]!=null) {
           this.$axios.post('/sendPaper',{
               title: this.registerForm.username,
               summary: this.registerForm.password,
@@ -264,7 +266,7 @@
               writerJob: this.writerJob,
               writerName: this.writerName,
               writerAddress: this.writerAddress,
-              topics: this.topics,
+              topics: this.topic,
             },
           )
             .then(resp => {
@@ -280,17 +282,32 @@
               console.log(error);
             })
         }
-        else{
+        else if(this.topic.length>0&&this.writerName.length>0&&(document.querySelector('input[type=file]').files[0]==null||
+            document.querySelector('input[type=file]').files[0]===undefined||document.querySelector('input[type=file]').files[0]==='')){
           this.$message({
-            message: '文章至少包含一个topic、一个作者',
+            message: '文章至少包含一份文件',
+            type: 'warning'
+          })
+        }else if(this.topic.length===0&&this.writerName.length>0&&document.querySelector('input[type=file]').files[0]!==null&&
+            document.querySelector('input[type=file]').files[0]!==undefined&&
+            document.querySelector('input[type=file]').files[0]!==''){
+          this.$message({
+            message: '文章至少包含一个topic',
+            type: 'warning'
+          })}
+          else if(this.writerName.length!==this.writers.length){
+          this.$message({
+            message: '每个作者信息bi须填写完整',
             type: 'warning'
           });
-        }
+          }
 
-
-      },
+        },
       handInFile(formname){
-        if(this.topic.length>0&&this.writerName.length>0&&document.querySelector('input[type=file]').files[0]!=null){
+        if(this.topic.length>0&&this.writerName.length>0&&this.writerName.length===this.writers.length&&
+          document.querySelector('input[type=file]').files[0]!==null&&
+            document.querySelector('input[type=file]').files[0]!==undefined&&
+            document.querySelector('input[type=file]').files[0]!==''){
           let formData = new FormData();
           formData.append('file',document.querySelector('input[type=file]').files[0]);
           formData.append('username',this.$store.state.userDetail.username);
@@ -312,25 +329,42 @@
                 else
                   this.$message.error('提交文件失败');
               }) // 发送请求
-        }})
+            }})
         }
-       },
+      },
       turn(writers){
-         let a = this.writerEmail;
-         let b1 = this.writerName;
-         let c = this.writerJob;
-         let d = this.writerAddress;
-          writers.forEach(function (value, key, arr) {
-          b1.push(value.name);
-           a.push(value.email);
-           c.push(value.job);
-           d.push(value.address);
-         });
-         this.writerEmail=a;
-         this.writerName=b1;
-         this.writerJob=c;
-         this.writerAddress=d;
-       }},
+        this.writerEmail=[];
+        this.writerName=[];
+        this.writerJob=[];
+        this.writerAddress=[];
+        let a = this.writerEmail;
+        let b1 = this.writerName;
+        let c = this.writerJob;
+        let d = this.writerAddress;
+        let that =this;
+        writers.forEach(function (value, key, arr) {
+          if(value.name!==null&&value.name!==undefined&&value.name!==''&&
+            value.email!==null&&value.email!==undefined&&value.email!==''&&
+            value.job!==null&&value.job!==undefined&&value.job!==''&&
+            value.address!==null&&value.address!==undefined&&value.address!==''){
+            b1.push(value.name);
+            a.push(value.email);
+            c.push(value.job);
+            d.push(value.address);
+          }
+          else{
+            that.$message({
+              message: '每个作者信息须填写完整',
+              type: 'warning'
+            });
+          }
+        });
+        this.writerEmail=a;
+        this.writerName=b1;
+        this.writerJob=c;
+        this.writerAddress=d;
+      }},
+
       created(){
       this.topics=this.$store.state.nowconference.topics;
       }}

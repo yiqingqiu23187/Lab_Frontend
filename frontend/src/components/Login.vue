@@ -35,6 +35,11 @@
                      style="width: 40%;background: #afb4db;border: none">register
           </el-button>
         </router-link>
+
+      </el-form-item>
+      <el-form-item>
+        <p>管理员账号：admin</p>
+        <p>管理员密码：password</p>
       </el-form-item>
     </el-form>
 
@@ -43,7 +48,10 @@
 </template>
 
 <script>
+  import ElFormItem from "element-ui/packages/form/src/form-item";
+
   export default {
+    components: {ElFormItem},
     name: 'Login',
     data() {
       return {

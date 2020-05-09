@@ -8,9 +8,9 @@
            label-width="0px"
            v-loading="loading">
     <h3 class="login_title">查找会议</h3>
-    <el-form-item prop="username">
+    <el-form-item prop="conferenceFullname">
       <el-input type="text"
-                v-model="loginForm.username"
+                v-model="loginForm.conferenceFullname"
                 auto-complete="off"
                 placeholder="请输入会议全称" required></el-input>
     </el-form-item>
@@ -35,25 +35,25 @@
           conferences2:[],
           searchFullname:'',
           loginForm: {
-            username: '',
+            conferenceFullname: '',
           },
 
           rules: {
-            username: [{required: true, message: '', trigger: 'blur'}]
+            conferenceFullname: [{required: true, message: '', trigger: 'blur'}]
           },
           loading: false
         }
       },
       methods: {
         jump2() {
-          this.$store.commit('searchFullname', this.loginForm.username);
+          this.$store.commit('searchFullname', this.loginForm.conferenceFullname);
 
 
           this.$axios.get('/allConference')
             .then(resp => {
                 if (resp.status === 200) {
                   this.conferences = resp.data.allConference;
-                  var a =this.loginForm.username;
+                  var a =this.loginForm.conferenceFullname;
                   var b =this.conferences2;
                   this.conferences.forEach(function (value, key, arr) {
                     if (value.fullName.trim() == a.trim()){

@@ -46,8 +46,18 @@
            .then(resp => {
                if (resp.status === 200) {
                  this.users = resp.data.users;
+                 this.nowmember=this.$store.state.nowconference.pcmembers;
                  var a =this.loginForm.username;
                  var b =this.users2;
+                 var belong=false;
+
+                this.nowmember.forEach(function (value, key, arr) {
+                   if (value.trim() == a.trim()){
+                    belong=true;
+                   }
+                 })
+
+
                  this.users.forEach(function (value, key, arr) {
                    if (value.fullname.trim() == a.trim()){
                      b.push(value)
@@ -57,6 +67,11 @@
                  if(b.length == 0){
                    this.$message({
                      message: '用户不存在！',
+                     type: 'warning'
+                   });
+                 }else if(belong){
+                   this.$message({
+                     message: '该用户已是会议成员！',
                      type: 'warning'
                    });
                  }else{

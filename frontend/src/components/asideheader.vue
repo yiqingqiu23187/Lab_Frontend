@@ -4,7 +4,7 @@
         <!--<h5>用户导航</h5>-->
         <div class="block"><el-avatar :size="80" :src="circleUrl"></el-avatar></div>
         <span>{{username}}</span>
-        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose">
+        <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"  >
           <el-menu-item index="1">
             <i class="el-icon-s-home"></i>
             <router-link to="Home">首页</router-link>
@@ -24,7 +24,6 @@
           <el-menu-item index="5">
             <i class="el-icon-menu"></i>
             <router-link to="allConference">所有会议</router-link>
-            <!--<el-link :underline="false">所有会议</el-link>-->
           </el-menu-item>
           <el-menu-item index="6">
             <i class="el-icon-search"></i>
@@ -34,8 +33,12 @@
             <i class="el-icon-message"></i>
             <router-link to="News">消息中心</router-link>
           </el-menu-item>
+          <el-menu-item index="12">
+            <i class="el-icon-finished"></i>
+            <router-link to="assessmentResults">评审结果</router-link>
+          </el-menu-item>
           <el-menu-item index="13">
-            <i class="el-icon-message"></i>
+            <i class="el-icon-s-unfold"></i>
             <router-link to="checkPaper">分配稿件</router-link>
           </el-menu-item>
           <el-menu-item index="9">
@@ -44,7 +47,7 @@
           </el-menu-item>
           <el-menu-item index="10">
             <i class="el-icon-more"></i>
-            <router-link to="News">更多功能</router-link>
+            更多功能
           </el-menu-item>
 
         </el-menu>
@@ -87,13 +90,14 @@
     padding-top: 50px;
   }
 
-  .el-submenu{
-    width:60%;
-    padding-left: 20%;
-  }
+  /*.el-submenu{*/
+    /*width:60%;*/
+    /*padding-left: 20%;*/
+  /*}*/
 
   .el-menu-item{
     width:60%;
-    padding-left: 20%;
+    /*padding-left: 20%;*/
+    margin-left: 20%;
   }
 </style>
