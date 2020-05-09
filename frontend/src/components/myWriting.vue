@@ -209,6 +209,7 @@
         }
       },
       handIn(item){
+
         this.$axios.post('/sendPaper',{
             id:item.id,
             title:item.title,
@@ -226,16 +227,22 @@
             if (resp.status === 200) {
               this.$router.replace({path:'/myWriting'});}
             else
-            this.$message.error('提交失败');
+              this.$message({
+                showClose: true,
+                message: '提交失败',
+                type: 'error'
+              });
           })
           .catch(error=>{
             console.log(error);
           })},
       handInFile(item,index){
         let formData = new FormData();
-       formData.append('id',item.id);
+       // formData.append('id',item.id);
        formData.append('file', document.getElementById(index).files[0]);
        formData.append('username',this.$store.state.userDetail.username);
+        formData.append('conferenceFullname',this.$store.state.nowconference.fullName);
+        formData.append('title',item.title);
             this.$axios({
               url: '/sendFile',   //****: 你的ip地址
               data: formData,
@@ -245,10 +252,18 @@
               }
             }).then((resp) => {
               if (resp.status === 200) {
-                alert('提交文件成功');
+                this.$message({
+                  showClose: true,
+                  message: '提交成功',
+                  type: 'success'
+                });
               }
               else
-                alert('提交文件失败');
+                this.$message({
+                  showClose: true,
+                  message: '提交失败',
+                  type: 'error'
+                });
             }) // 发送请求
           },
       userTypeChange() {
@@ -291,7 +306,9 @@
           that.writers.splice(index - 1, 1);
           that.writers.splice(index,0, upDate);
         } else {
+
           this.$message({
+            showClose: true,
             message: '已经是第一条，不可上移',
             type: 'warning'
           });
@@ -302,6 +319,7 @@
         console.log('下移',index,row);
         if ((index + 1) === that.writers.length){
           this.$message({
+            showClose: true,
             message: '已经是最后一条，不可下移',
             type: 'warning'
           });
@@ -347,12 +365,15 @@
               this.number =c;
               }
             else
-              this.$message.error('未知错误');
+              this.$message({
+                showClose: true,
+                message: '发现错误',
+                type: 'error'
+              });
           }
         )
         .catch(error => {
           console.log(error);
-          this.$message.error('捕捉错误');
         });
     }
   }
