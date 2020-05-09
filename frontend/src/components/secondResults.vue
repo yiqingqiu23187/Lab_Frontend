@@ -28,6 +28,7 @@
               </el-table-column>
             </el-table-column>
           </el-table>
+          <br/><router-link to="searchCon"><el-button>返回会议查找</el-button></router-link>
         </div>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>

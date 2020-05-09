@@ -56,8 +56,8 @@
               review3:'',
             },
             ruleForm: {
-              score:0,
-              confidence:0,
+              score:-2,
+              confidence:-2,
               desc: ''
             },
             rules: {

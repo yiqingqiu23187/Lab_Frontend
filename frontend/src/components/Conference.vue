@@ -254,7 +254,19 @@
             this.role.chair='chair';
             this.$store.commit('myrole',this.role);
             this.$router.replace({path: '/choserole'});
-          }else if(str == 'member'){
+          }else if(str == 'member'&&this.nowconference.chair == this.$store.state.userDetail.username){
+            this.role.member='member';
+            this.role.chair='chair';
+            this.a=[this.nowconference.authors];
+            this.a.forEach(function (value, key, arr) {
+              if(value==f) {
+                role.author=f;
+              }
+            });
+            this.role=role;
+            this.$store.commit('myrole',this.role);
+            this.$router.replace({path:'/choserole'})
+          }else if(str == 'member'&&this.nowconference.chair !== this.$store.state.userDetail.username){
             this.role.member='member';
             this.a=[this.nowconference.authors];
             this.a.forEach(function (value, key, arr) {

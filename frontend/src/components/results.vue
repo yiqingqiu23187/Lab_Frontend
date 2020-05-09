@@ -10,13 +10,12 @@
               <h3 class="title"> 他的真实姓名{{item.fullname}}</h3>
               <div class="title">他的邮箱：{{item.email}}</div>
               <div class="title">他的地址：{{item.area}}</div>
-              <el-button
-                         v-on:click="confirm(item.username)">加入邀请名单</el-button>
+              <el-button v-on:click="confirm(item.username)">加入邀请名单</el-button><br/>
             </el-form>
           </div>
         </div>
-        <el-button type="primary" style="width: 50%;background: #afb4db;border: none"
-                   v-on:click="send">发出邀请</el-button>
+        <el-button  v-on:click="send">发出邀请</el-button>
+        <router-link to="search"><el-button>返回邀请</el-button></router-link>
       </el-collapse-item>
 
     </el-collapse>
@@ -84,15 +83,18 @@
               this.users3=a;
             }else{
               var temp=false;
+              var that =this;
               a.forEach(function (value, key, arr) {
                 if (value.trim() == username.trim()){
-                  this.$message({
+                  that.$message({
                     message: '用户已在添加名单当中!',
                     type: 'warning'
                   });
                   temp=true;
                 }
               })
+
+
               if(!temp){
                 a.push(username)
               }

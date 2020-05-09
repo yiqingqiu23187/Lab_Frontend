@@ -38,7 +38,6 @@ export default new Vuex.Store({
     searchname(state,data){
       localStorage.setItem('searchname',data);
       state.searchname=data;
-      alert(state.searchname)
     },
 
     meetingDetail(state, data){

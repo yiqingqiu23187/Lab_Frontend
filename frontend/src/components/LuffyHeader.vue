@@ -9,10 +9,10 @@
       <el-submenu index="2" class="userhead" v-if="this.$store.state.token !== null">
         <template slot="title">
           <el-avatar icon="el-icon-user-solid"></el-avatar>
-          {{username}}
+          <!--{{username}}-->
         </template>
-        <el-menu-item index="2-1"><router-link to="Information">进入空间</router-link></el-menu-item>
-        <el-menu-item index="2-2"><router-link to="logout">退出登录</router-link></el-menu-item>
+        <el-menu-item index="2-1" ><router-link to="Information" >进入空间</router-link></el-menu-item>
+        <el-menu-item index="2-2" ><router-link to="logout" >退出登录</router-link></el-menu-item>
         </el-submenu>
 
     </el-menu>
@@ -61,6 +61,9 @@
     right:50px;
     color: white
   }
-
+/*.childmenu{*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+/*}*/
 </style>
 

@@ -29,12 +29,17 @@
       <el-tab-pane label="会议功能">
         <el-button v-if="this.role.chair != ''&&this.nowconference.openOrNot == false&&this.nowconference.markable == false" @click="openwriting">开启投稿</el-button>
         <el-button v-if="this.role.chair != ''" @click="jump">邀请成员</el-button>
+        <!--<el-button v-if="this.role.chair != ''&&this.nowconference.openOrNot == false" @click="jump" disabled="">投稿结束或未开启 无法邀请</el-button>-->
         <el-button v-if="this.role.author != ''" @click="jumpwrite()">查看投稿</el-button>
-        <el-button v-if="this.role.chair == ''&& this.role.author == ''&&this.role.member!=='chairmember'&&this.$store.state.nowconference.markable == false&&this.$store.state.nowconference.openOrNot == true" @click="beauthor">我要投稿</el-button>
+        <el-button v-if="this.role.chair == ''
+        &&this.role.member !=='chairmember'&&this.$store.state.nowconference.markable == false
+        &&this.$store.state.nowconference.openOrNot == true" @click="beauthor">我要投稿</el-button>
         <h3 v-if="(this.nowconference.openOrNot == true&& this.role.chair != '')">审稿策略选择：</h3>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''&&this.nowconference.markable == false" @click="openauthor">开启审稿</el-button>
+        <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''
+          &&this.nowconference.markable == true&&this.nowconference.finish == false" @click="openauthor" disabled>会议正在评审</el-button>
         <el-button v-if="this.nowconference.finish == true&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布评审结果</el-button>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
@@ -147,7 +152,7 @@
                     this.nowconference.markable=true;
                     this.$store.state.nowconference.markable=true;
                     this.$message({
-                      message: '开启审稿成功，进入全部会议界面！',
+                      message: '开启审稿成功！',
                       type: 'success'
                     });
                   }
@@ -197,11 +202,9 @@
 
       created:
       function () {
-        this.role.chair=this.$store.state.myrole.chair;
-        this.role.member=this.$store.state.myrole.member;
-        this.role.author=this.$store.state.myrole.author;
-        this.role.tourist=this.$store.state.myrole.tourist;
+        this.role=this.$store.state.myrole;
         this.nowconference=this.$store.state.nowconference;
+
       }
     }
 </script>

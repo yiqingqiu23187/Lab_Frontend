@@ -91,7 +91,7 @@
           disabledDate: time => {
             let endDateVal = this.meetingForm.releaseDate;
             if (endDateVal) {
-              return time.getTime() > new Date(endDateVal).getTime();
+              return time.getTime() > new Date(endDateVal).getTime() || time.getTime() < Date.now();
             }else{
               return time.getTime() < Date.now();
             }
@@ -106,10 +106,13 @@
               return (
                 time.getTime() < new Date(beginDateVal).getTime()
               );
+            }else{
+              return time.getTime() < Date.now();
             }
+
+
           }
         },
-
 
 
 

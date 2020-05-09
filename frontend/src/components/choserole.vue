@@ -43,24 +43,28 @@
           selectpart:function (val) {
             if(val==='1'){
 
+              this.$message('您选择了主席身份！');
               this.temprole.chair='chair';
               this.temprole.member='';
               this.temprole.author='';
             }else if(val==='2'){
 
               if(this.role.chair !== ''){
+                this.$message('你选择了成员（主席）身份！');
                 this.temprole.member='chairmember';
               }else{
+                this.$message('您选择了成员身份！');
                 this.temprole.member='member';
               }
               this.temprole.chair='';
               this.temprole.author='';
             }else if(val==='3'){
-
+              this.$message('您选择了投稿人身份！');
               this.temprole.chair='';
               this.temprole.member='';
               this.temprole.author='author';
             }else{
+              this.$message('您选择了游客身份！');
               this.temprole.chair='';
               this.temprole.member='';
               this.temprole.author='';
@@ -68,8 +72,7 @@
           },
 
           enter:function () {
-            this.$store.commit('myrole',this.temprole)   ;
-            console.log(this.temprole);
+            this.$store.commit('myrole',this.temprole);
             this.$router.replace({path:'/conferenceDetail'})
           },
       },
@@ -77,7 +80,7 @@
       created:
       function () {
         this.role=this.$store.state.myrole;
-        if(this.role.chair != ''){
+        if(this.role.chair !== ''){
           this.temprole.chair='chair';
         }else if(this.role.member != ''){
           this.temprole.member='member';

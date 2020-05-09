@@ -78,7 +78,7 @@
                 message: '已回复',
                 type: 'success'
               });
-              // this.$router.replace({path:'/conference'})
+              this.$router.replace({path:'/conference'})
             })
             .catch(error => {
               console.log(error)

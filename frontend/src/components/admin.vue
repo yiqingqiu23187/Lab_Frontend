@@ -11,16 +11,16 @@
               <div class="title">举办日期：{{item.holdDate}}</div>
               <div class="title">举办地点：{{item.holdPlace}}</div>
               <el-form-item style="width: 100%">
-                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" :plain="true" v-on:click="attitude(!ifagree,item.fullName)">Agree</el-button>
-                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" :plain="true"  v-on:click="attitude(ifagree,item.fullName)">Reject</el-button>
+                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="attitude(!ifagree,item.fullName)">Agree</el-button>
+                <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="attitude(ifagree,item.fullName)">Reject</el-button>
               </el-form-item>
             </el-form>
           </div>
         </div>
       </el-collapse-item>
-      <el-collapse-item  name="1">
+      <el-collapse-item  name="2">
         <span class="main-font2"  slot="title" >已过审会议</span>
-        <div v-for="(item,index) in agConference" :key="index">
+        <div v-for="(item,index) in agreeConference" :key="index">
           <div class="childpane">
             <el-form class="container" label-position="left" label-width="0px">
               <h3 class="title"> 会议名称：{{item.fullName}}</h3>
@@ -34,9 +34,9 @@
           </div>
         </div>
       </el-collapse-item>
-      <el-collapse-item  name="1">
+      <el-collapse-item  name="3">
         <span class="main-font2"  slot="title" >已拒绝会议</span>
-        <div v-for="(item,index) in reConference" :key="index">
+        <div v-for="(item,index) in refuseConference" :key="index">
           <div class="childpane">
             <el-form class="container" label-position="left" label-width="0px">
               <h3 class="title"> 会议名称：{{item.fullName}}</h3>
@@ -80,7 +80,7 @@
               releaseDate: '',
             },
           ],
-          agConference:[
+          agreeConference:[
             {
               chair: '',
               abbr: '',
@@ -91,7 +91,7 @@
               releaseDate: '',
             },
           ],
-          reConference:[
+          refuseConference:[
             {
               chair: '',
               abbr: '',
@@ -117,7 +117,11 @@
           })
           .catch(error=>{
             console.log(error);
-            this.$message.error('获取管理员信息失败');
+            this.$message({
+              showClose: true,
+              message: '管理员信息错误',
+              type: 'error'
+            });
           })
 
 
@@ -136,7 +140,7 @@
             .then(resp=>{
               this.$message({
                 showClose: true,
-                message: '消息已回复',
+                message: '已回复',
                 type: 'success'
               });
               this.$router.go(0);
@@ -145,7 +149,7 @@
               console.log(error);
               this.$message({
                 showClose: true,
-                message: '回复失败！',
+                message: '管理员信息错误',
                 type: 'error'
               });
             })
