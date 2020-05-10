@@ -27,11 +27,13 @@
         </div>
       </el-tab-pane>
       <el-tab-pane label="主题选择">
+        <el-form>
         <el-checkbox-group v-model="checkboxGroup" :min="1">
           <el-checkbox v-for="(topic,index) in topics" :label="'topic'+index +':'+topic" :key="topic.key" border></el-checkbox>
         </el-checkbox-group>
         <el-button @click="attitude(!ifagree,conferenceName,username)">接受</el-button>
         <el-button @click="attitude(ifagree,conferenceName,username)">拒绝</el-button>
+        </el-form>
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
     </el-tabs>
@@ -73,12 +75,21 @@
             checkedtopic:this.checkboxGroup,
           })
             .then(resp=>{
-              this.$message({
-                showClose: true,
-                message: '已回复',
-                type: 'success'
-              });
-              this.$router.replace({path:'/conference'})
+              if(this.checkboxGroup.length == 0){
+                this.$message({
+                  showClose: true,
+                  message: '请先选择主题！',
+                  type: 'warning'
+                });
+              }else{
+                this.$message({
+                  showClose: true,
+                  message: '已回复',
+                  type: 'success'
+                });
+                this.$router.replace({path:'/conference'})
+              }
+
             })
             .catch(error => {
               console.log(error)

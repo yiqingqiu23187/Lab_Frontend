@@ -2,6 +2,7 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="身份选择">
+
         <el-radio-group v-model="radioTreaty" @change="selectpart">
           <el-radio v-model="radio1" label="1" border v-if="this.role.chair != ''" >chair</el-radio>
           <el-radio v-model="radio1" label="2" border v-if="this.role.member!= ''" >PC member</el-radio>
@@ -17,8 +18,11 @@
 </template>
 
 <script>
+    import ElForm from "element-ui/packages/form/src/form";
+
     export default {
-        name: "choserole",
+      components: {ElForm},
+      name: "choserole",
       data(){
           return{
             username:this.$store.state.userDetail.username,
