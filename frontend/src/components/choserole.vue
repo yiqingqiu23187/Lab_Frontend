@@ -6,7 +6,7 @@
           <el-radio v-model="radio1" label="1" border v-if="this.role.chair != ''" >chair</el-radio>
           <el-radio v-model="radio1" label="2" border v-if="this.role.member!= ''" >PC member</el-radio>
           <el-radio v-model="radio1" label="3" border v-if="this.role.author != ''">author</el-radio>
-          <el-radio v-model="radio1" label="4" border  v-if="this.role.chair == ''">tourist</el-radio>
+          <el-radio v-model="radio1" label="4" border  v-if="this.role.chair == ''&&username !== chair">tourist</el-radio>
         </el-radio-group>
         <el-button @click="enter()">进入会议</el-button>
       </el-tab-pane>
@@ -21,6 +21,8 @@
         name: "choserole",
       data(){
           return{
+            username:this.$store.state.userDetail.username,
+            chair:this.$store.state.nowconference.chair,
             radioTreaty: '1',
             role:{
               chair:'',

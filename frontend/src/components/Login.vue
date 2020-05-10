@@ -55,7 +55,6 @@
     name: 'Login',
     data() {
       return {
-
         loginForm: {
           username: '',
           password: ''
@@ -70,25 +69,20 @@
 
 
     methods: {
-
-
-      login() {
+     login() {
         this.$axios.post('/login', {
-          username: this.loginForm.username,
+           username: this.loginForm.username,
           password: this.loginForm.password
         })
           .then(resp => {
             if (resp.status === 200 && resp.data.hasOwnProperty("token")) {
-              this.$store.commit('login', resp.data)
-
+              this.$store.commit('login', resp.data);
               if(resp.data.userDetail.username !== "admin"){
                 this.$router.replace({path: '/home'})
               }else{
                 this.$router.replace({path:'/admin'})
               }
-
-
-              this.$message({
+       this.$message({
                 message: '登陆成功，欢迎回来！',
                 type: 'success'
               });
@@ -106,9 +100,10 @@
 
     created:
     function () {
-      if(this.$store.state.userDetail.username!==null){
+      if(this.$store.state.userDetail.username!==null&&this.$store.state.userDetail.username!=='admin'){
         this.$router.replace({path:'/home'})
-      }
+      }else if(this.$store.state.userDetail.username=='admin')
+        this.$router.replace({path:'/admin'})
     },
 
   }

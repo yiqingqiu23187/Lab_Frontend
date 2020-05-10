@@ -256,7 +256,10 @@
         }
       },
       handIn(){
-        if(this.topic.length>0&&this.writerName.length>0&&this.writerName.length===this.writers.length&&document.querySelector('input[type=file]').files[0]!=null) {
+        if(this.topic.length>0&&this.writerName.length>0&&
+          this.writerName.length===this.writers.length&&document.querySelector('input[type=file]').files[0]!=null
+          && document.querySelector('input[type=file]').files[0]!==undefined&& document.querySelector('input[type=file]').files[0]!==''
+        ) {
           this.$axios.post('/sendPaper',{
               title: this.registerForm.username,
               summary: this.registerForm.password,
@@ -297,11 +300,15 @@
           })}
           else if(this.writerName.length!==this.writers.length){
           this.$message({
-            message: '每个作者信息bi须填写完整',
+            message: '每个作者信息必须填写完整',
             type: 'warning'
           });
-          }
-
+          }else{
+          this.$message({
+            message: '缺乏信息过多',
+            type: 'warning'
+          });
+        }
         },
       handInFile(formname){
         if(this.topic.length>0&&this.writerName.length>0&&this.writerName.length===this.writers.length&&

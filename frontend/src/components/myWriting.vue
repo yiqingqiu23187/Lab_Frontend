@@ -216,6 +216,7 @@
       },
       handIn(item,index){
         if(this.topic.length>0&&this.writerName.length>0&&document.getElementById(index).files[0]!==null
+          &&document.getElementById(index).files[0]!==undefined&&document.getElementById(index).files[0]!==''
           &&this.writerName.length===this.writers.length){
         this.$axios.post('/sendPaper',{
             id:item.id,
@@ -249,7 +250,8 @@
             message: '文章至少包含一份文件',
             type: 'warning'
           });
-        }else if(this.topic.length===0&&this.writerName.length>0){
+        }else if(this.topic.length===0&&this.writerName.length>0&&document.getElementById(index).files[0]!==null
+          &&document.getElementById(index).files[0]!==undefined&&document.getElementById(index).files[0]!==''){
           this.$message({
             message: '文章至少包含一个topic',
             type: 'warning'
@@ -260,12 +262,10 @@
             type: 'warning'
           });
         }
-
-
-
       },
       handInFile(item,index){
-        if(this.topic.length>0&&this.writerName.length>0
+        if(this.topic.length>0&&this.writerName.length>0 &&
+          document.getElementById(index).files[0]!==undefined&&document.getElementById(index).files[0]!==''
          &&this.writerName.length===this.writers.length&&document.getElementById(index).files[0]!=null
         ){
         let formData = new FormData();

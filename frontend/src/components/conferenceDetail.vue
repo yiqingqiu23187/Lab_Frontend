@@ -66,7 +66,7 @@
         <el-button v-if="this.role.author != ''" @click="jumpwrite()">查看投稿</el-button>
         <el-button v-if="this.role.chair == ''
         &&this.role.member !=='chairmember'&&this.$store.state.nowconference.markable == false
-        &&this.$store.state.nowconference.openOrNot == true" @click="beauthor">我要投稿</el-button>
+        &&this.$store.state.nowconference.openOrNot == true&&username !== nowconference.chair" @click="beauthor">我要投稿</el-button>
         <h3 v-if="(this.nowconference.openOrNot == true&& this.role.chair != '')">审稿策略选择：</h3>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
@@ -87,6 +87,7 @@
       name: "conference-detail",
       data(){
           return{
+            username:this.$store.state.userDetail.username,
             stra:'1',
             nowconference:
               {

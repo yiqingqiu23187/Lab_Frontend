@@ -122,14 +122,7 @@
               message: '管理员信息错误',
               type: 'error'
             });
-          })
-
-
-
-
-
-
-      },
+          })},
 
       methods:{
         attitude(ifagree,conferenceName){
