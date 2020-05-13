@@ -133,7 +133,7 @@
             this.role.chair=f;
           };
 
-          this.b=this.$store.state.nowconference.pcmembers;//成员集合
+          this.b=this.nowconference.pcmembers;//成员集合
           this.b.forEach(function (value, key, arr) {
             if(value.trim()==f.trim()) {
                  mm.member=f;
