@@ -11,6 +11,7 @@ export default new Vuex.Store({
     searchFullname:localStorage.getItem('searchFullname') || null,
     nowpaper:JSON.parse(localStorage.getItem('nowpaper'))||null,
     nowmark:JSON.parse(localStorage.getItem('nowmark'))||null,
+    nownumber:JSON.parse(localStorage.getItem('nownumber'))||null,
   },
 
 
@@ -62,6 +63,10 @@ export default new Vuex.Store({
       localStorage.setItem('nowmark',JSON.stringify(data));
       state.nowmark=data;
     },
+    nownumber(state,data){
+      localStorage.setItem('nownumber',JSON.stringify(data));
+      state.nownumber=data;
+    }
     //end
   },
 

@@ -29,18 +29,15 @@
               <el-table-column label="操作">
                 <template slot-scope="scope">
 
-                  <el-button size="mini"
-                                      v-on:click="preview(scope.$index)">
-                                      在线预览</el-button>
+                  <el-button size="mini" v-on:click="preview(scope.$index)">在线预览</el-button>
 
-                  <el-button size="mini"
-                    v-on:click="downLoad(scope.$index)"
-                  > 下载pdf</el-button>
+                  <el-button size="mini" v-on:click="downLoad(scope.$index)"> 下载pdf</el-button>
 
-                  <el-button type="primary"
-                             style="width: 40%;background: #afb4db;border: none"
-                             v-if="!finishs[scope.$index]"
-                             v-on:click="nowPaper(scope.row)">去审稿
+                  <el-button size="mini" v-on:click="nowpaper=scope.row,gotalk()"
+                             v-if="scope.row.finish=true">查看讨论</el-button>
+                  <!--this.number=this.numbers[scope.$index],-->
+
+                  <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="!finishs[scope.$index]" v-on:click="nowPaper(scope.row)">去审稿
                   </el-button>
                 </template>
 
@@ -72,12 +69,33 @@
           topics:[],
           id:0,
         }],
+        number:0,
+        numbers:[],
+
+        nowpaper:{
+          username:'',
+          conferenceFullname:'',
+          title:'',
+          summary:'',
+          writerEmail:[],
+          writerName:[],
+          writerJob:[],
+          writerAddress:[],
+          topics:[],
+          id:0,
+        },
         finishs:[],
       }
 
 
         },
       methods:{
+          gotalk(){
+            this.$store.commit('nowpaper',this.nowpaper)
+            // this.$store.commit('nownumber',this.number)
+            this.$router.replace({path:'/talking'});
+          },
+
        preview(index){
                 this.$axios({
                   headers: {
@@ -138,8 +156,8 @@
         })
           .then(resp => {
               if (resp.status === 200) {
-                console.log(resp.data);
                 this.papers = resp.data.papers;
+                // this.numbers=resp.data.numbers;
                 this.finishs=resp.data.finishs;
               }
               else

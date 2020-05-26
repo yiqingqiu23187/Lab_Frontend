@@ -24,6 +24,7 @@ import submitReview from '@/components/submitReview'
 import assessmentResults from '@/components/assessmentResults'
 import assessmentDetail from '@/components/assessmentDetail'
 import checkPaper from '@/components/checkPaper'
+import talking from '@/components/talking'
 
 Vue.use(Router)
 
@@ -285,6 +286,17 @@ export const router = new Router({
       path: '/assessmentDetail',
       name: 'assessmentDetail',
       component: assessmentDetail,
+      meta:{
+        requireAuth: true,
+        keepalive:true,
+        keepaside:true,
+        keepinitial:true,
+      }
+    },
+    {
+      path: '/talking',
+      name: 'talking',
+      component: talking,
       meta:{
         requireAuth: true,
         keepalive:true,
