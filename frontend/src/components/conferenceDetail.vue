@@ -71,7 +71,9 @@
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('1')">基于topic相关度</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''" @click="chosestra('0')">基于审稿平均负担</el-button>
         <el-button v-if="this.nowconference.openOrNot == true&& this.role.chair != ''&&this.nowconference.markable == false" @click="openauthor">开启审稿</el-button>
-        <el-button v-if="this.nowconference.finish == true&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布评审结果</el-button>
+        <el-button v-if="this.nowconference.finish == 2&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布初次评审结果</el-button>
+        <el-button v-if="this.nowconference.finish == 3&& this.role.chair != ''&&this.nowconference.released == false" @click="fabu">发布最终评审结果</el-button>
+
 
       </el-tab-pane>
       <el-tab-pane label="更多设置">敬请期待</el-tab-pane>
@@ -102,7 +104,7 @@
                 releaseDate: '',
                 topics:[],
                 openOrNot:'',
-                finish:false,
+                finish:0,
                 released:false,
               },
             role:{

@@ -33,12 +33,10 @@
 
                   <el-button size="mini" v-on:click="downLoad(scope.$index)"> 下载pdf</el-button>
 
-                  <el-button size="mini" v-on:click="nowpaper=scope.row,gotalk()"
+                  <el-button size="mini" v-on:click="nowpaper=scope.row, number=numbers[scope.$index],gotalk()"
                              v-if="scope.row.finish=true">查看讨论</el-button>
-                  <!--this.number=this.numbers[scope.$index],-->
 
-                  <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="!finishs[scope.$index]" v-on:click="nowPaper(scope.row)">去审稿
-                  </el-button>
+                  <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-if="!finishs[scope.$index]" v-on:click="nowPaper(scope.row)">去审稿</el-button>
                 </template>
 
               </el-table-column>
@@ -92,9 +90,13 @@
       methods:{
           gotalk(){
             this.$store.commit('nowpaper',this.nowpaper)
-            // this.$store.commit('nownumber',this.number)
+            this.$store.commit('nownumber',this.number)
             this.$router.replace({path:'/talking'});
           },
+
+        retalk(){
+
+        },
 
        preview(index){
                 this.$axios({
@@ -157,7 +159,9 @@
           .then(resp => {
               if (resp.status === 200) {
                 this.papers = resp.data.papers;
-                // this.numbers=resp.data.numbers;
+                this.numbers=resp.data.numbers;
+                console.log(resp.data.numbers);
+                console.log(this.numbers);
                 this.finishs=resp.data.finishs;
               }
               else

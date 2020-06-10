@@ -10,7 +10,18 @@
 
         </el-table>
       </el-tab-pane>
-      <el-tab-pane label="更多功能">敬请期待</el-tab-pane>
+      <el-tab-pane label="我要反驳" v-if="(this.$store.state.nowmark.scores[0]<0||
+      this.$store.state.nowmark.scores[1]<0||this.$store.state.nowmark.scores[2]<0)">
+        <el-form :model="registerForm" :rules="rules" class="register_container" label-position="left"
+                 label-width="0px" v-loading="loading" :ref="registerForm">
+          <el-form-item prop="password">
+            <el-input  type="textarea"
+                       :rows="3" v-model="registerForm.password"
+                       auto-complete="off" placeholder="请输入您的反驳信息" required></el-input>
+          </el-form-item>
+          <el-button type="primary" style="width: 40%;background: #afb4db;border: none" v-on:click="handIn">handin</el-button>
+        </el-form>
+      </el-tab-pane>
 
     </el-tabs>
   </div>
@@ -21,7 +32,17 @@
     export default {
         name: "assessment-detail",
       data(){
-          return{
+        const checkpassword=(rule,password,callback)=>{
+          if(!password || password ===''){
+            return callback(new Error('Can\'t be empty'))
+          }
+          else if(password.length>800){
+            return callback(new Error('800 characters in length'))
+          }
+          else
+            return callback();
+        };
+        return{
             tableData:[{
               name:'稿件名 ：',
               value:this.$store.state.nowmark.paperTitle
@@ -63,6 +84,49 @@
               confidences:[],
               discribes:[],
             },
+            registerForm: {
+              password: '',
+            },
+            rules: {
+              // blur 失去鼠标焦点时触发验证
+            password: [{required: true, message: '请填写此文段', trigger: 'blur'}, {validator: checkpassword, trigger: 'blur'}],
+            },
+
+          }
+      },
+      methods:{
+          handIn(){
+            if(this.registerForm.password!=null && this.registerForm.password!==undefined
+              && this.registerForm.password!=='') {
+
+              console.log(this.registerForm.password)
+              console.log(this.$store.state.nowmark.paperTitle)
+              console.log(this.$store.state.nowmark.conferenceFullname)
+              console.log(this.$store.state.userDetail.username)
+
+
+              this.$axios.post('/rebuttal',{
+                 rebuttal: this.registerForm.password,
+                 paperTitle:this.$store.state.nowmark.paperTitle,
+                 conferenceFullname:this.$store.state.nowmark.conferenceFullname,
+                 username:this.$store.state.userDetail.username,
+                },
+              )
+                .then(resp => {
+                  if (resp.status === 200) {
+                    this.$message({
+                      message: '已提交反驳信息！',
+                      type: 'success'
+                    });
+                    this.$router.replace({path:'/home'});
+                  }
+                  else
+                    this.$message.error('提交失败');
+                })
+                .catch(error => {
+                  console.log(error);
+                })
+            }
           }
       },
       created:

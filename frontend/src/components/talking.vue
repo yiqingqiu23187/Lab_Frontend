@@ -14,7 +14,8 @@
             </el-table-column>
             <el-table-column label="用户名" width="180">
               <template slot-scope="scope">
-                <span style="margin-left: 10px">{{ scope.row.username }}</span>
+                <span style="margin-left: 10px" >{{ scope.row.username }}</span>
+                <span style="margin-left: 10px" v-if="paperuser == scope.row.username ">作者的rebuttal：</span>
               </template>
             </el-table-column>
             <el-table-column label="内容" width="180">
@@ -26,7 +27,10 @@
         </el-table>
 
 
-        <!--<el-button  v-if="this.number != 0">修改评审结果</el-button>-->
+        <el-button  v-if="number==1 " @click="modify()">修改评审结果</el-button>
+        <el-button  v-if="number==1" @click="nomodify()">确认不修改</el-button>
+        <el-button  v-if="number ==2&&rebuttal==true" @click="modify()">再次修改</el-button>
+        <el-button  v-if="number ==2&&rebuttal==true" @click="nomodify()">确认不修改</el-button>
 
 
         <el-form :inline="true" :model="formInline" class="demo-form-inline">
@@ -54,15 +58,57 @@
 
       data(){
           return{
+            username:this.$store.state.userDetail.username,
+            nownumber:this.$store.state.nownumber,
+            paperuser:this.$store.state.nowpaper.username,
+
             formInline: {
              information:'',
             },
 
             comments:[{username:'',comment:'',conferenceFullname:'',paperTitle:''}],
             number:this.$store.state.nownumber,
+            rebuttal:this.$store.state.nowpaper.rebuttal
+
           }
       },
       methods:{
+        modify(){
+          this.$router.replace({path:'/submitReview'});
+
+        },
+        nomodify(){
+
+          this.number=this.number+1,
+
+          this.$axios.post('/noModify ',{
+
+            id:this.$store.state.nowpaper.id,
+            username:this.$store.state.userDetail.username
+
+          })
+            .then(resp => {
+              if (resp.status === 200) {
+                if(resp.data.comments == null){
+                  this.$message({
+                    message: '已确认不修改！',
+                    type: 'success'
+                  });
+                }else{
+                  this.comments = resp.data.comments;
+                }
+
+              } else {
+                this.$message.error('确认不修改失败');
+              }
+            })
+            .catch(error => {
+              console.log(error);
+              this.$message.error('确认不修改失败');
+            })
+        },
+
+
         addComment(){
           this.comments.push({username:this.$store.state.userDetail.username,comment:this.formInline.information,
             conferenceFullname:this.$store.state.nowpaper.conferenceFullname,
@@ -102,7 +148,7 @@
               if (resp.status === 200) {
                 if(resp.data.comments == null){
                   this.$message({
-                    message: '获取成功！',
+                    message: '讨论为空！',
                     type: 'success'
                   });
                 }else{
